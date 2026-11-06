@@ -1,4 +1,53 @@
-US	Inc.|LLC|Corp.|Ltd.|LP|LLP|PLLC
-GB	Ltd|PLC|LLP|LP
-DE	GmbH|AG|KG|UG|OHG|GbR|e.V.
-FR	SARL|SAS|SA|SNC|EURL
+AR	eirl
+AT	gmbh|ag|kg|og
+AU	pty|ltd|limited|llc
+BE	bv|nv|sa|srl|scsp
+BR	ltda|sa|me|epp|eireli
+CA	inc|ltd|corp|corporation|limited|llc|ulc
+CH	ag|gmbh|sa|sarl
+CL	spa|ltda|sa
+CN	co|ltd|limited|company|corporation
+CO	sas|ltda|sa
+CZ	sro|as|vbr
+DE	gmbh|ag|kg|ug|ohg|gbr|ev|kgja|se|ohg
+DK	aps|as|ivs|k
+EE	ou|as
+ES	sl|sa|slu|sau|cb|sc
+FI	oy|oyj|ky|tmi
+FR	sarl|sas|sa|snc|eurl|sci|scp|gmbh|eurl
+GB	ltd|plc|llp|lp|limited|company|co|incorporated|inc|pty|cic|cio
+GR	ae|ee|oe|ipe
+HU	kft|bt|zrt|nyrt
+ID	pt|cv|tbk|persero
+IE	ltd|plc|dac|clg|llp
+IL	ltd|bm
+IN	pvt|ltd|limited|llp|opc|private
+IT	spa|srl|snc|sas|scarl|scrl|sapa
+JP	kk|yk|gk|gk|co|ltd
+KR	co|ltd|inc
+LT	uab|ab|mb
+LU	sa|sarl|sàrl|sca|scs|se
+LV	sia|as
+MX	s de rl de cv|sapi de cv|sa de cv|cv|srl de cv|sc
+MY	sdn bhd|bhd|berhad|plc
+NL	bv|nv|vof|cv|maatschap
+NO	as|asa|ans|da|enk
+NZ	ltd|limited|inc
+PE	sac|sa|eirl|srl
+PH	inc|corp|corporation|co
+PL	sp z oo|spzoo|sa|spj|sjk|spk|scomandytowa|w likwidacji
+PT	lda|sa|unipessoal|crl|sociedade
+RO	srl|sa|scs|snc
+RU	ooo|oao|zao|ip|pk
+SE	ab|hb|kb|ek
+SG	pte|ltd|pte ltd|llp
+SK	sro|as|vos
+TH	co|ltd|plc|limited
+TR	as|ltd|sti|kol
+TW	co|ltd|inc
+UA	tov|pp|pat|fop
+US	llc|lc|inc|incorporated|corp|corporation|co|company|ltd|limited|lp|llp|pllc|lllp|pc|pa|plc|ll|stock|fund|trust|institute|partner|duplicate|ccr|llc the|inc the
+UY	sa|srl|sas
+VE	ca|sa|sc
+VN	co|ltd|jsc|tnhh
+ZA	pty|ltd|cc|inc|rf
