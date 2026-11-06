@@ -1,0 +1,35 @@
+[project]
+name = "legalsuffix"
+version = "0.0.1 "
+description = "Detect, normalize, and strip legal entity suffixes."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = ["pre-commit>=4.2.0", "ruff>=0.12.4", "pyright>=1.1.403"]
+
+
+[tool.pyright]
+exclude = [
+    "**/__pycache__",
+    "**/.venv",
+    "**/htmlcov",
+    "**/.pytest_cache"
+]
+pythonVersion = "3.12"
+typeCheckingMode = "basic"
+
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+]
