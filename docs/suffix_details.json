@@ -1742,5 +1742,685 @@
     "countries": [
       "HU"
     ]
+  },
+  {
+    "suffix": "pty ltd",
+    "full_name": "Proprietary Limited",
+    "variants": [
+      "pty. ltd."
+    ],
+    "countries": [
+      "AU",
+      "ZA"
+    ]
+  },
+  {
+    "suffix": "pvt ltd",
+    "full_name": "Private Limited",
+    "variants": [
+      "pvt. ltd.",
+      "private limited"
+    ],
+    "countries": [
+      "IN"
+    ]
+  },
+  {
+    "suffix": "unipessoal lda",
+    "full_name": "Sociedade Unipessoal por Quotas",
+    "variants": [
+      "unipessoal, lda."
+    ],
+    "countries": [
+      "PT"
+    ]
+  },
+  {
+    "suffix": "sasu",
+    "full_name": "Soci\u00e9t\u00e9 par Actions Simplifi\u00e9e Unipersonnelle",
+    "variants": [
+      "s.a.s.u."
+    ],
+    "countries": [
+      "FR"
+    ]
+  },
+  {
+    "suffix": "srls",
+    "full_name": "Societ\u00e0 a Responsabilit\u00e0 Limitata Semplificata",
+    "variants": [
+      "s.r.l.s."
+    ],
+    "countries": [
+      "IT"
+    ]
+  },
+  {
+    "suffix": "sagl",
+    "full_name": "Societ\u00e0 a Garanzia Limitata",
+    "variants": [],
+    "countries": [
+      "CH"
+    ]
+  },
+  {
+    "suffix": "s\u00e0rl",
+    "full_name": "Soci\u00e9t\u00e9 \u00e0 Responsabilit\u00e9 Limit\u00e9e",
+    "variants": [],
+    "countries": [
+      "CH",
+      "LU"
+    ]
+  },
+  {
+    "suffix": "sau",
+    "full_name": "Sociedad An\u00f3nima Unipersonal",
+    "variants": [
+      "s.a.u."
+    ],
+    "countries": [
+      "AR"
+    ]
+  },
+  {
+    "suffix": "sas",
+    "full_name": "Sociedad por Acciones Simplificada",
+    "variants": [
+      "s.a.s."
+    ],
+    "countries": [
+      "AR",
+      "UY"
+    ]
+  },
+  {
+    "suffix": "srl",
+    "full_name": "Sociedad de Responsabilidad Limitada",
+    "variants": [
+      "s.r.l."
+    ],
+    "countries": [
+      "UY"
+    ]
+  },
+  {
+    "suffix": "eirl",
+    "full_name": "Empresa Individual de Responsabilidad Limitada",
+    "variants": [
+      "e.i.r.l."
+    ],
+    "countries": [
+      "CL"
+    ]
+  },
+  {
+    "suffix": "saa",
+    "full_name": "Sociedad An\u00f3nima Abierta",
+    "variants": [
+      "s.a.a."
+    ],
+    "countries": [
+      "PE"
+    ]
+  },
+  {
+    "suffix": "sa",
+    "full_name": "Sp\u00f3\u0142ka Akcyjna",
+    "variants": [
+      "s.a."
+    ],
+    "countries": [
+      "PL"
+    ]
+  },
+  {
+    "suffix": "as",
+    "full_name": "Akciju Sabiedr\u012bba",
+    "variants": [
+      "a.s."
+    ],
+    "countries": [
+      "LV"
+    ]
+  },
+  {
+    "suffix": "sp p",
+    "full_name": "Sp\u00f3\u0142ka Partnerska",
+    "variants": [
+      "sp. p."
+    ],
+    "countries": [
+      "PL"
+    ]
+  },
+  {
+    "suffix": "ska",
+    "full_name": "Sp\u00f3\u0142ka Komandytowo-Akcyjna",
+    "variants": [
+      "s.k.a."
+    ],
+    "countries": [
+      "PL"
+    ]
+  },
+  {
+    "suffix": "vos",
+    "full_name": "Ve\u0159ejn\u00e1 Obchodn\u00ed Spole\u010dnost",
+    "variants": [
+      "v.o.s."
+    ],
+    "countries": [
+      "CZ"
+    ]
+  },
+  {
+    "suffix": "ks",
+    "full_name": "Komanditn\u00ed Spole\u010dnost / Komanditn\u00e1 Spolo\u010dnos\u0165",
+    "variants": [
+      "k.s."
+    ],
+    "countries": [
+      "CZ",
+      "SK"
+    ]
+  },
+  {
+    "suffix": "kkt",
+    "full_name": "K\u00f6zkereseti T\u00e1rsas\u00e1g",
+    "variants": [
+      "kkt."
+    ],
+    "countries": [
+      "HU"
+    ]
+  },
+  {
+    "suffix": "rt",
+    "full_name": "R\u00e9szv\u00e9nyt\u00e1rsas\u00e1g",
+    "variants": [
+      "rt."
+    ],
+    "countries": [
+      "HU"
+    ]
+  },
+  {
+    "suffix": "ab",
+    "full_name": "Aktiebolag",
+    "variants": [],
+    "countries": [
+      "FI"
+    ]
+  },
+  {
+    "suffix": "abp",
+    "full_name": "Publikt Aktiebolag",
+    "variants": [],
+    "countries": [
+      "FI"
+    ]
+  },
+  {
+    "suffix": "ay",
+    "full_name": "Avoin Yhti\u00f6",
+    "variants": [],
+    "countries": [
+      "FI"
+    ]
+  },
+  {
+    "suffix": "oy ab",
+    "full_name": "Osakeyhti\u00f6 Aktiebolag",
+    "variants": [],
+    "countries": [
+      "FI"
+    ]
+  },
+  {
+    "suffix": "epe",
+    "full_name": "\u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1 \u03a0\u03b5\u03c1\u03b9\u03bf\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03b7\u03c2 \u0395\u03c5\u03b8\u03cd\u03bd\u03b7\u03c2",
+    "variants": [
+      "\u03b5\u03c0\u03b5",
+      "\u03b5.\u03c0.\u03b5."
+    ],
+    "countries": [
+      "GR"
+    ]
+  },
+  {
+    "suffix": "ike",
+    "full_name": "\u0399\u03b4\u03b9\u03c9\u03c4\u03b9\u03ba\u03ae \u039a\u03b5\u03c6\u03b1\u03bb\u03b1\u03b9\u03bf\u03c5\u03c7\u03b9\u03ba\u03ae \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
+    "variants": [
+      "\u03b9\u03ba\u03b5",
+      "\u03b9.\u03ba.\u03b5."
+    ],
+    "countries": [
+      "GR"
+    ]
+  },
+  {
+    "suffix": "ae",
+    "full_name": "\u0391\u03bd\u03ce\u03bd\u03c5\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
+    "variants": [
+      "\u03b1\u03b5",
+      "\u03b1.\u03b5."
+    ],
+    "countries": [
+      "GR"
+    ]
+  },
+  {
+    "suffix": "oe",
+    "full_name": "\u039f\u03bc\u03cc\u03c1\u03c1\u03c5\u03b8\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
+    "variants": [
+      "\u03bf\u03b5",
+      "\u03bf.\u03b5."
+    ],
+    "countries": [
+      "GR"
+    ]
+  },
+  {
+    "suffix": "ee",
+    "full_name": "\u0395\u03c4\u03b5\u03c1\u03cc\u03c1\u03c1\u03c5\u03b8\u03bc\u03b7 \u0395\u03c4\u03b1\u03b9\u03c1\u03b5\u03af\u03b1",
+    "variants": [
+      "\u03b5\u03b5",
+      "\u03b5.\u03b5."
+    ],
+    "countries": [
+      "GR"
+    ]
+  },
+  {
+    "suffix": "ao",
+    "full_name": "\u0410\u043a\u0446\u0438\u043e\u043d\u0435\u0440\u043d\u043e\u0435 \u043e\u0431\u0449\u0435\u0441\u0442\u0432\u043e",
+    "variants": [
+      "\u0430\u043e"
+    ],
+    "countries": [
+      "RU"
+    ]
+  },
+  {
+    "suffix": "pao",
+    "full_name": "\u041f\u0443\u0431\u043b\u0438\u0447\u043d\u043e\u0435 \u0430\u043a\u0446\u0438\u043e\u043d\u0435\u0440\u043d\u043e\u0435 \u043e\u0431\u0449\u0435\u0441\u0442\u0432\u043e",
+    "variants": [
+      "\u043f\u0430\u043e"
+    ],
+    "countries": [
+      "RU"
+    ]
+  },
+  {
+    "suffix": "at",
+    "full_name": "\u0410\u043a\u0446\u0456\u043e\u043d\u0435\u0440\u043d\u0435 \u0442\u043e\u0432\u0430\u0440\u0438\u0441\u0442\u0432\u043e",
+    "variants": [
+      "\u0430\u0442"
+    ],
+    "countries": [
+      "UA"
+    ]
+  },
+  {
+    "suffix": "prat",
+    "full_name": "\u041f\u0440\u0438\u0432\u0430\u0442\u043d\u0435 \u0430\u043a\u0446\u0456\u043e\u043d\u0435\u0440\u043d\u0435 \u0442\u043e\u0432\u0430\u0440\u0438\u0441\u0442\u0432\u043e",
+    "variants": [
+      "\u043f\u0440\u0430\u0442"
+    ],
+    "countries": [
+      "UA"
+    ]
+  },
+  {
+    "suffix": "tdv",
+    "full_name": "\u0422\u043e\u0432\u0430\u0440\u0438\u0441\u0442\u0432\u043e \u0437 \u0434\u043e\u0434\u0430\u0442\u043a\u043e\u0432\u043e\u044e \u0432\u0456\u0434\u043f\u043e\u0432\u0456\u0434\u0430\u043b\u044c\u043d\u0456\u0441\u0442\u044e",
+    "variants": [
+      "\u0442\u0434\u0432"
+    ],
+    "countries": [
+      "UA"
+    ]
+  },
+  {
+    "suffix": "\u682a\u5f0f\u4f1a\u793e",
+    "full_name": "\u682a\u5f0f\u4f1a\u793e",
+    "variants": [],
+    "countries": [
+      "JP"
+    ]
+  },
+  {
+    "suffix": "\u6709\u9650\u4f1a\u793e",
+    "full_name": "\u6709\u9650\u4f1a\u793e",
+    "variants": [],
+    "countries": [
+      "JP"
+    ]
+  },
+  {
+    "suffix": "\u5408\u540c\u4f1a\u793e",
+    "full_name": "\u5408\u540c\u4f1a\u793e",
+    "variants": [],
+    "countries": [
+      "JP"
+    ]
+  },
+  {
+    "suffix": "\u5408\u540d\u4f1a\u793e",
+    "full_name": "\u5408\u540d\u4f1a\u793e",
+    "variants": [],
+    "countries": [
+      "JP"
+    ]
+  },
+  {
+    "suffix": "\u5408\u8cc7\u4f1a\u793e",
+    "full_name": "\u5408\u8cc7\u4f1a\u793e",
+    "variants": [],
+    "countries": [
+      "JP"
+    ]
+  },
+  {
+    "suffix": "\u6709\u9650\u516c\u53f8",
+    "full_name": "\u6709\u9650\u516c\u53f8",
+    "variants": [],
+    "countries": [
+      "CN",
+      "HK",
+      "TW"
+    ]
+  },
+  {
+    "suffix": "\u80a1\u4efd\u6709\u9650\u516c\u53f8",
+    "full_name": "\u80a1\u4efd\u6709\u9650\u516c\u53f8",
+    "variants": [],
+    "countries": [
+      "CN",
+      "TW"
+    ]
+  },
+  {
+    "suffix": "\uc8fc\uc2dd\ud68c\uc0ac",
+    "full_name": "\uc8fc\uc2dd\ud68c\uc0ac",
+    "variants": [],
+    "countries": [
+      "KR"
+    ]
+  },
+  {
+    "suffix": "\uc720\ud55c\ud68c\uc0ac",
+    "full_name": "\uc720\ud55c\ud68c\uc0ac",
+    "variants": [],
+    "countries": [
+      "KR"
+    ]
+  },
+  {
+    "suffix": "pte limited",
+    "full_name": "Private Limited",
+    "variants": [],
+    "countries": [
+      "SG"
+    ]
+  },
+  {
+    "suffix": "pte. limited",
+    "full_name": "Private Limited",
+    "variants": [],
+    "countries": [
+      "SG"
+    ]
+  },
+  {
+    "suffix": "limited",
+    "full_name": "Limited",
+    "variants": [],
+    "countries": [
+      "HK",
+      "IE",
+      "SG",
+      "ZA"
+    ]
+  },
+  {
+    "suffix": "ltd",
+    "full_name": "Limited",
+    "variants": [
+      "ltd."
+    ],
+    "countries": [
+      "HK",
+      "ZA"
+    ]
+  },
+  {
+    "suffix": "inc",
+    "full_name": "Incorporated",
+    "variants": [
+      "inc."
+    ],
+    "countries": [
+      "ZA"
+    ]
+  },
+  {
+    "suffix": "co",
+    "full_name": "Company",
+    "variants": [
+      "co.",
+      "company"
+    ],
+    "countries": [
+      "GB",
+      "VN"
+    ]
+  },
+  {
+    "suffix": "ltd",
+    "full_name": "Limited",
+    "variants": [
+      "ltd."
+    ],
+    "countries": [
+      "VN"
+    ]
+  },
+  {
+    "suffix": "sc",
+    "full_name": "Sociedad Civil",
+    "variants": [
+      "s.c."
+    ],
+    "countries": [
+      "VE"
+    ]
+  },
+  {
+    "suffix": "lp",
+    "full_name": "Limited Partnership",
+    "variants": [
+      "l.p."
+    ],
+    "countries": [
+      "CA",
+      "NZ"
+    ]
+  },
+  {
+    "suffix": "llp",
+    "full_name": "Limited Liability Partnership",
+    "variants": [
+      "l.l.p."
+    ],
+    "countries": [
+      "CA"
+    ]
+  },
+  {
+    "suffix": "cyf",
+    "full_name": "Cyfyngedig",
+    "variants": [],
+    "countries": [
+      "GB"
+    ]
+  },
+  {
+    "suffix": "cyfyngedig",
+    "full_name": "Cyfyngedig",
+    "variants": [],
+    "countries": [
+      "GB"
+    ]
+  },
+  {
+    "suffix": "ltd",
+    "full_name": "Limited",
+    "variants": [
+      "ltd."
+    ],
+    "countries": [
+      "BD",
+      "GH",
+      "KE",
+      "NG",
+      "PK",
+      "TZ",
+      "UG"
+    ]
+  },
+  {
+    "suffix": "limited",
+    "full_name": "Limited",
+    "variants": [],
+    "countries": [
+      "BD",
+      "GH",
+      "KE",
+      "NG",
+      "PK",
+      "TZ",
+      "UG"
+    ]
+  },
+  {
+    "suffix": "plc",
+    "full_name": "Public Limited Company",
+    "variants": [
+      "p.l.c."
+    ],
+    "countries": [
+      "GH",
+      "KE",
+      "NG"
+    ]
+  },
+  {
+    "suffix": "pvt ltd",
+    "full_name": "Private Limited",
+    "variants": [
+      "pvt. ltd.",
+      "private limited"
+    ],
+    "countries": [
+      "BD",
+      "PK"
+    ]
+  },
+  {
+    "suffix": "llc",
+    "full_name": "Limited Liability Company",
+    "variants": [
+      "l.l.c."
+    ],
+    "countries": [
+      "AE"
+    ]
+  },
+  {
+    "suffix": "tu",
+    "full_name": "T\u00e4is\u00fching",
+    "variants": [
+      "t\u00fc"
+    ],
+    "countries": [
+      "EE"
+    ]
+  },
+  {
+    "suffix": "uu",
+    "full_name": "Usaldus\u00fching",
+    "variants": [
+      "u\u00fc"
+    ],
+    "countries": [
+      "EE"
+    ]
+  },
+  {
+    "suffix": "mtu",
+    "full_name": "Mittetulundus\u00fching",
+    "variants": [
+      "mt\u00fc"
+    ],
+    "countries": [
+      "EE"
+    ]
+  },
+  {
+    "suffix": "too",
+    "full_name": "\u0422\u043e\u0432\u0430\u0440\u0438\u0449\u0435\u0441\u0442\u0432\u043e \u0441 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u043d\u043e\u0439 \u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c\u044e",
+    "variants": [
+      "\u0442\u043e\u043e"
+    ],
+    "countries": [
+      "KZ"
+    ]
+  },
+  {
+    "suffix": "ao",
+    "full_name": "\u0410\u043a\u0446\u0438\u043e\u043d\u0435\u0440\u043d\u043e\u0435 \u043e\u0431\u0449\u0435\u0441\u0442\u0432\u043e",
+    "variants": [
+      "\u0430\u043e"
+    ],
+    "countries": [
+      "KZ"
+    ]
+  },
+  {
+    "suffix": "mmc",
+    "full_name": "M\u0259hdud M\u0259suliyy\u0259tli C\u0259miyy\u0259t",
+    "variants": [],
+    "countries": [
+      "AZ"
+    ]
+  },
+  {
+    "suffix": "\u10e8\u10de\u10e1",
+    "full_name": "\u10e8\u10d4\u10d6\u10e6\u10e3\u10d3\u10e3\u10da\u10d8 \u10de\u10d0\u10e1\u10e3\u10ee\u10d8\u10e1\u10db\u10d2\u10d4\u10d1\u10da\u10dd\u10d1\u10d8\u10e1 \u10e1\u10d0\u10d6\u10dd\u10d2\u10d0\u10d3\u10dd\u10d4\u10d1\u10d0",
+    "variants": [],
+    "countries": [
+      "GE"
+    ]
+  },
+  {
+    "suffix": "bv",
+    "full_name": "Besloten Vennootschap",
+    "variants": [
+      "b.v."
+    ],
+    "countries": [
+      "CW"
+    ]
+  },
+  {
+    "suffix": "nv",
+    "full_name": "Naamloze Vennootschap",
+    "variants": [
+      "n.v."
+    ],
+    "countries": [
+      "CW"
+    ]
   }
 ]

@@ -1,53 +1,68 @@
-AR	eirl
+# Generated from suffix_details.json by convert.py
+# Format: ISO<TAB>suffix1|suffix2|...  (sorted longest-first)
+AE	llc
+AR	eirl|sas|sau|srl|sa
 AT	gmbh|ag|kg|og
-AU	pty|ltd|limited|llc
-BE	bv|nv|sa|srl|scsp
-BR	ltda|sa|me|epp|eireli
-CA	inc|ltd|corp|corporation|limited|llc|ulc
-CH	ag|gmbh|sa|sarl
-CL	spa|ltda|sa
-CN	co|ltd|limited|company|corporation
-CO	sas|ltda|sa
-CZ	sro|as|vbr
-DE	gmbh|ag|kg|ug|ohg|gbr|ev|kgja|se|ohg
-DK	aps|as|ivs|k
-EE	ou|as
-ES	sl|sa|slu|sau|cb|sc
-FI	oy|oyj|ky|tmi
-FR	sarl|sas|sa|snc|eurl|sci|scp|gmbh|eurl
-GB	ltd|plc|llp|lp|limited|company|co|incorporated|inc|pty|cic|cio
-GR	ae|ee|oe|ipe
-HU	kft|bt|zrt|nyrt
-ID	pt|cv|tbk|persero
-IE	ltd|plc|dac|clg|llp
-IL	ltd|bm
-IN	pvt|ltd|limited|llp|opc|private
-IT	spa|srl|snc|sas|scarl|scrl|sapa
-JP	kk|yk|gk|gk|co|ltd
-KR	co|ltd|inc
-LT	uab|ab|mb
-LU	sa|sarl|sàrl|sca|scs|se
+AU	pty. ltd|limited|pty ltd|llc|ltd|pty
+AZ	mmc
+BD	private limited|pvt. ltd|limited|pvt ltd|ltd
+BE	bvba|scsp|bvb|srl|bv|nv|sa
+BR	eireli-epp|eireli|ltda|epp|me|sa
+CA	incorporation|incorporated|corporation|incorporate|limited|corp|inc|llc|llp|ltd|ulc|lp
+CH	sà rl|gmbh|sagl|sarl|sàrl|ag|sa
+CL	eirl|ltda|spa|sa
+CN	corporation|company|limited|股份有限公司|有限公司|ltd|co
+CO	ltda|sas|sa
+CW	bv|nv
+CZ	a/s|sro|vbr|vos|as|ks
+DE	ug (haftungsbeschränkt|gmbh|gbr|ohg|ag|ev|kg|se|ug
+DK	a/s|aps|ivs|k/s|as|ks|k
+EE	a/s|mtu|mtü|as|ou|oü|tu|tü|uu|uü
+ES	sau|slu|cb|sa|sc|sl
+FI	oy ab|abp|oyj|tmi|ab|ay|ky|oy
+FR	sà rl|eurl|sarl|sasu|sas|sci|scp|snc|sa
+GB	incorporation|incorporated|incorporate|cyfyngedig|company|limited|cic|cio|cyf|inc|llp|ltd|plc|co|lp
+GE	შპს
+GH	limited|ltd|plc
+GR	epe|ike|ipe|επε|ικε|ae|ee|oe|αε|εε|οε
+HK	limited|有限公司|ltd
+HU	nyrt|kft|kkt|zrt|bt|rt
+ID	persero|tbk|cv|pt
+IE	limited|clg|dac|llp|ltd|plc
+IL	ltd|bm|במ
+IN	private limited|pvt. ltd|limited|private|pvt ltd|llp|ltd|opc|pvt
+IT	sca rl|studio|scarl|studi|sapa|scrl|srls|sas|snc|spa|srl
+JP	company|合同会社|合名会社|合資会社|有限会社|株式会社|ltd|co|gk|kk|yk
+KE	limited|ltd|plc
+KR	incorporation|incorporated|incorporate|company|유한회사|주식회사|inc|ltd|co
+KZ	too|тоо|ao|ао
+LT	a/s|ltd|uab|ab|as|mb
+LU	sà rl|sarl|scsp|sàrl|sca|scs|sa|se
 LV	sia|as
-MX	s de rl de cv|sapi de cv|sa de cv|cv|srl de cv|sc
-MY	sdn bhd|bhd|berhad|plc
-NL	bv|nv|vof|cv|maatschap
-NO	as|asa|ans|da|enk
-NZ	ltd|limited|inc
-PE	sac|sa|eirl|srl
-PH	inc|corp|corporation|co
-PL	sp z oo|spzoo|sa|spj|sjk|spk|scomandytowa|w likwidacji
-PT	lda|sa|unipessoal|crl|sociedade
-RO	srl|sa|scs|snc
-RU	ooo|oao|zao|ip|pk
-SE	ab|hb|kb|ek
-SG	pte|ltd|pte ltd|llp
-SK	sro|as|vos
-TH	co|ltd|plc|limited
-TR	as|ltd|sti|kol
-TW	co|ltd|inc
-UA	tov|pp|pat|fop
-US	llc|lc|inc|incorporated|corp|corporation|co|company|ltd|limited|lp|llp|pllc|lllp|pc|pa|plc|ll|stock|fund|trust|institute|partner|duplicate|ccr|llc the|inc the
-UY	sa|srl|sas
+MX	s. de rl. de cv|s de rl de cv|sapi. de cv|sapi de cv|srl. de cv|sa. de cv|srl de cv|sa de cv|decv|cv|sa|sc
+MY	sdn. bhd|sdn bhd|berhad|bhd|ltd|plc
+NG	limited|ltd|plc
+NL	maatschap|bvba|bvb|vof|bv|cv|nv
+NO	a/sa|a/s|ans|asa|enk|as|da
+NZ	incorporation|incorporated|incorporate|limited|inc|ltd|lp
+PE	eirl|saa|sac|srl|sa
+PH	incorporation|incorporated|corporation|incorporate|company|corp|inc|ltd|co
+PK	private limited|pvt. ltd|limited|pvt ltd|ltd
+PL	spółka komandytowa|scomandytowa|w likwidacji|sp. z oo|sp z oo|sp. p|spzoo|sp p|sjk|ska|spj|spk|sa|sj
+PT	unipessoal, lda|unipessoal lda|unipessoal|sociedade|crl|lda|sa
+RO	scs|snc|srl|sa
+RU	oao|ooo|pao|zao|зао|оао|ооо|пао|ao|ip|pk|ао|ип|пк
+SE	ek. för|a/s|ab|as|ek|hb|kb
+SG	pte. limited|pte limited|pte. ltd|limited|pte ltd|llp|ltd|pte
+SK	a/s|sro|vos|as|ks
+TH	company|limited|ltd|plc|co
+TR	kol. şti|a/s|kol|ltd|sti|şti|as
+TW	incorporation|incorporated|incorporate|company|股份有限公司|有限公司|inc|ltd|co
+TZ	limited|ltd
+UA	prat|прат|fop|llc|pat|tdv|tov|пат|тдв|тов|фоп|at|pp|ат|пп
+UG	limited|ltd
+US	limited liability|special limited|incorporation|incorporated|corporation|incorporate|institute|company|inc the|limited|llc the|partner|private|trust|corp|fund|lllp|pllc|inc|llc|llp|ltd|plc|co|lc|ll|lp|pa|pc
+UY	sas|srl|sa
 VE	ca|sa|sc
-VN	co|ltd|jsc|tnhh
-ZA	pty|ltd|cc|inc|rf
+VN	tnhh mtv|company|tnhh|jsc|ltd|co
+ZA	pty. ltd|limited|pty ltd|inc|ltd|pty|cc|rf
