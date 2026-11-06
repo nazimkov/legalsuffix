@@ -1,0 +1,41 @@
+{
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "files.eol": "\n",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/.venv": true,
+    "**/.ruff-cache": true,
+    "**/__pycache__": true,
+    "**/.git": true,
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/.ruff-cache": true,
+    "**/__pycache__": true,
+    "**/.git": true,
+  },
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "text": "Commit format: `<type>(<scope>): <subject>`"
+    },
+    {
+      "text": "Keep the subject short and use an imperative verb. Choose a type and scope that describe the actual change."
+    }
+  ]
+}
