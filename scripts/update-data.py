@@ -4,7 +4,9 @@
 TSV format:  <ISO>\t<suffix1>|<suffix2>|...
 
 - Input JSON is a list of objects:
-    { "suffix": str, "full_name": str, "variants": [str], "countries": [str] }
+    { "suffix": str, "full_name": str, "variants": [str], "countries": [str],
+      "elf_code": str | null, "language_code": str | null }
+- ELF metadata is informational; conversion uses suffix, variants, and countries.
 - Every variant (and the canonical suffix itself) is normalized and
   attributed to every country in "countries".
 - Output is sorted by ISO code, then by suffix (longest first) so that
