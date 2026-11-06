@@ -1,0 +1,1746 @@
+[
+  {
+    "suffix": "eirl",
+    "full_name": "Empresa Individual de Responsabilidad Limitada",
+    "variants": [
+      "e.i.r.l.",
+      "eirl"
+    ],
+    "countries": [
+      "AR",
+      "PE"
+    ]
+  },
+  {
+    "suffix": "sa",
+    "full_name": "Sociedad An\u00f3nima",
+    "variants": [
+      "s.a.",
+      "sa"
+    ],
+    "countries": [
+      "AR",
+      "BE",
+      "BR",
+      "CH",
+      "CL",
+      "CO",
+      "ES",
+      "FR",
+      "LU",
+      "MX",
+      "PE",
+      "PT",
+      "RO",
+      "UY",
+      "VE"
+    ]
+  },
+  {
+    "suffix": "srl",
+    "full_name": "Sociedad de Responsabilidad Limitada",
+    "variants": [
+      "s.r.l.",
+      "srl"
+    ],
+    "countries": [
+      "AR",
+      "BE",
+      "IT",
+      "PE",
+      "RO"
+    ]
+  },
+  {
+    "suffix": "gmbh",
+    "full_name": "Gesellschaft mit beschr\u00e4nkter Haftung",
+    "variants": [
+      "gmbh",
+      "g.m.b.h."
+    ],
+    "countries": [
+      "AT",
+      "CH",
+      "DE"
+    ]
+  },
+  {
+    "suffix": "ag",
+    "full_name": "Aktiengesellschaft",
+    "variants": [
+      "ag"
+    ],
+    "countries": [
+      "AT",
+      "CH",
+      "DE"
+    ]
+  },
+  {
+    "suffix": "kg",
+    "full_name": "Kommanditgesellschaft",
+    "variants": [
+      "kg"
+    ],
+    "countries": [
+      "AT",
+      "DE"
+    ]
+  },
+  {
+    "suffix": "og",
+    "full_name": "Offene Gesellschaft",
+    "variants": [
+      "og"
+    ],
+    "countries": [
+      "AT"
+    ]
+  },
+  {
+    "suffix": "ug",
+    "full_name": "Unternehmergesellschaft",
+    "variants": [
+      "ug",
+      "ug (haftungsbeschr\u00e4nkt)"
+    ],
+    "countries": [
+      "DE"
+    ]
+  },
+  {
+    "suffix": "ohg",
+    "full_name": "Offene Handelsgesellschaft",
+    "variants": [
+      "ohg"
+    ],
+    "countries": [
+      "DE"
+    ]
+  },
+  {
+    "suffix": "gbr",
+    "full_name": "Gesellschaft b\u00fcrgerlichen Rechts",
+    "variants": [
+      "gbr",
+      "g.b.r."
+    ],
+    "countries": [
+      "DE"
+    ]
+  },
+  {
+    "suffix": "ev",
+    "full_name": "Eingetragener Verein",
+    "variants": [
+      "ev",
+      "e.v."
+    ],
+    "countries": [
+      "DE"
+    ]
+  },
+  {
+    "suffix": "se",
+    "full_name": "Societas Europaea",
+    "variants": [
+      "se"
+    ],
+    "countries": [
+      "DE",
+      "LU"
+    ]
+  },
+  {
+    "suffix": "pty",
+    "full_name": "Proprietary",
+    "variants": [
+      "pty",
+      "pty."
+    ],
+    "countries": [
+      "AU",
+      "ZA"
+    ]
+  },
+  {
+    "suffix": "ltd",
+    "full_name": "Limited",
+    "variants": [
+      "ltd",
+      "ltd."
+    ],
+    "countries": [
+      "AU",
+      "CA",
+      "CN",
+      "GB",
+      "IE",
+      "IL",
+      "IN",
+      "JP",
+      "KR",
+      "LT",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "TR",
+      "TW",
+      "US"
+    ]
+  },
+  {
+    "suffix": "limited",
+    "full_name": "Limited",
+    "variants": [
+      "limited"
+    ],
+    "countries": [
+      "AU",
+      "CA",
+      "CN",
+      "GB",
+      "IN",
+      "NZ",
+      "TH",
+      "US"
+    ]
+  },
+  {
+    "suffix": "llc",
+    "full_name": "Limited Liability Company",
+    "variants": [
+      "llc",
+      "l.l.c."
+    ],
+    "countries": [
+      "AU",
+      "CA",
+      "US"
+    ]
+  },
+  {
+    "suffix": "bv",
+    "full_name": "Besloten Vennootschap",
+    "variants": [
+      "bv",
+      "b.v.",
+      "bvb",
+      "bvba"
+    ],
+    "countries": [
+      "BE",
+      "NL"
+    ]
+  },
+  {
+    "suffix": "nv",
+    "full_name": "Naamloze Vennootschap",
+    "variants": [
+      "nv",
+      "n.v."
+    ],
+    "countries": [
+      "BE",
+      "NL"
+    ]
+  },
+  {
+    "suffix": "scsp",
+    "full_name": "Soci\u00e9t\u00e9 en Commandite Sp\u00e9ciale",
+    "variants": [
+      "scsp"
+    ],
+    "countries": [
+      "BE",
+      "LU"
+    ]
+  },
+  {
+    "suffix": "ltda",
+    "full_name": "Limitada",
+    "variants": [
+      "ltda",
+      "ltda."
+    ],
+    "countries": [
+      "BR",
+      "CL",
+      "CO"
+    ]
+  },
+  {
+    "suffix": "me",
+    "full_name": "Microempresa",
+    "variants": [
+      "me",
+      "m.e."
+    ],
+    "countries": [
+      "BR"
+    ]
+  },
+  {
+    "suffix": "epp",
+    "full_name": "Empresa de Pequeno Porte",
+    "variants": [
+      "epp",
+      "e.p.p."
+    ],
+    "countries": [
+      "BR"
+    ]
+  },
+  {
+    "suffix": "eireli",
+    "full_name": "Empresa Individual de Responsabilidade Limitada",
+    "variants": [
+      "eireli",
+      "eireli-epp"
+    ],
+    "countries": [
+      "BR"
+    ]
+  },
+  {
+    "suffix": "inc",
+    "full_name": "Incorporated",
+    "variants": [
+      "inc",
+      "inc.",
+      "incorporated",
+      "incorporate",
+      "incorporation"
+    ],
+    "countries": [
+      "CA",
+      "GB",
+      "KR",
+      "NZ",
+      "PH",
+      "TW",
+      "US"
+    ]
+  },
+  {
+    "suffix": "corp",
+    "full_name": "Corporation",
+    "variants": [
+      "corp",
+      "corp.",
+      "corporation"
+    ],
+    "countries": [
+      "CA",
+      "PH",
+      "US"
+    ]
+  },
+  {
+    "suffix": "ulc",
+    "full_name": "Unlimited Liability Company",
+    "variants": [
+      "ulc"
+    ],
+    "countries": [
+      "CA"
+    ]
+  },
+  {
+    "suffix": "sarl",
+    "full_name": "Soci\u00e9t\u00e9 \u00e0 Responsabilit\u00e9 Limit\u00e9e",
+    "variants": [
+      "sarl",
+      "s.a.r.l.",
+      "s.\u00e0 r.l."
+    ],
+    "countries": [
+      "CH",
+      "FR",
+      "LU"
+    ]
+  },
+  {
+    "suffix": "spa",
+    "full_name": "Sociedad por Acciones",
+    "variants": [
+      "spa",
+      "spa.",
+      "s.p.a."
+    ],
+    "countries": [
+      "CL",
+      "IT"
+    ]
+  },
+  {
+    "suffix": "co",
+    "full_name": "Company",
+    "variants": [
+      "co",
+      "co.",
+      "company"
+    ],
+    "countries": [
+      "CN",
+      "JP",
+      "KR",
+      "PH",
+      "TH",
+      "TW",
+      "US"
+    ]
+  },
+  {
+    "suffix": "company",
+    "full_name": "Company",
+    "variants": [
+      "company"
+    ],
+    "countries": [
+      "CN",
+      "US"
+    ]
+  },
+  {
+    "suffix": "corporation",
+    "full_name": "Corporation",
+    "variants": [
+      "corporation"
+    ],
+    "countries": [
+      "CN",
+      "PH"
+    ]
+  },
+  {
+    "suffix": "sas",
+    "full_name": "Soci\u00e9t\u00e9 par Actions Simplifi\u00e9e",
+    "variants": [
+      "sas",
+      "s.a.s."
+    ],
+    "countries": [
+      "CO",
+      "FR",
+      "IT"
+    ]
+  },
+  {
+    "suffix": "snc",
+    "full_name": "Soci\u00e9t\u00e9 en Nom Collectif",
+    "variants": [
+      "snc",
+      "s.n.c."
+    ],
+    "countries": [
+      "FR",
+      "IT",
+      "RO"
+    ]
+  },
+  {
+    "suffix": "eurl",
+    "full_name": "Entreprise Unipersonnelle \u00e0 Responsabilit\u00e9 Limit\u00e9e",
+    "variants": [
+      "eurl",
+      "e.u.r.l."
+    ],
+    "countries": [
+      "FR"
+    ]
+  },
+  {
+    "suffix": "sci",
+    "full_name": "Soci\u00e9t\u00e9 Civile Immobili\u00e8re",
+    "variants": [
+      "sci",
+      "s.c.i."
+    ],
+    "countries": [
+      "FR"
+    ]
+  },
+  {
+    "suffix": "scp",
+    "full_name": "Soci\u00e9t\u00e9 Civile Professionnelle",
+    "variants": [
+      "scp",
+      "s.c.p."
+    ],
+    "countries": [
+      "FR"
+    ]
+  },
+  {
+    "suffix": "plc",
+    "full_name": "Public Limited Company",
+    "variants": [
+      "plc",
+      "p.l.c."
+    ],
+    "countries": [
+      "GB",
+      "IE",
+      "MY",
+      "TH",
+      "US"
+    ]
+  },
+  {
+    "suffix": "llp",
+    "full_name": "Limited Liability Partnership",
+    "variants": [
+      "llp",
+      "l.l.p."
+    ],
+    "countries": [
+      "GB",
+      "IE",
+      "IN",
+      "SG",
+      "US"
+    ]
+  },
+  {
+    "suffix": "lp",
+    "full_name": "Limited Partnership",
+    "variants": [
+      "lp",
+      "l.p."
+    ],
+    "countries": [
+      "GB",
+      "US"
+    ]
+  },
+  {
+    "suffix": "cic",
+    "full_name": "Community Interest Company",
+    "variants": [
+      "cic",
+      "c.i.c."
+    ],
+    "countries": [
+      "GB"
+    ]
+  },
+  {
+    "suffix": "cio",
+    "full_name": "Charitable Incorporated Organisation",
+    "variants": [
+      "cio",
+      "c.i.o."
+    ],
+    "countries": [
+      "GB"
+    ]
+  },
+  {
+    "suffix": "sro",
+    "full_name": "Spole\u010dnost s ru\u010den\u00edm omezen\u00fdm",
+    "variants": [
+      "sro",
+      "s.r.o."
+    ],
+    "countries": [
+      "CZ",
+      "SK"
+    ]
+  },
+  {
+    "suffix": "as",
+    "full_name": "Akciov\u00e1 spole\u010dnost / Aktsiaselts / Aksjeselskap / Anonim \u015eirket",
+    "variants": [
+      "as",
+      "a.s.",
+      "a/s"
+    ],
+    "countries": [
+      "CZ",
+      "DK",
+      "EE",
+      "LT",
+      "NO",
+      "SE",
+      "SK",
+      "TR"
+    ]
+  },
+  {
+    "suffix": "vbr",
+    "full_name": "Ve\u0159ejn\u00e1 obchodn\u00ed spole\u010dnost",
+    "variants": [
+      "vbr",
+      "v.o.s."
+    ],
+    "countries": [
+      "CZ"
+    ]
+  },
+  {
+    "suffix": "aps",
+    "full_name": "Anpartsselskab",
+    "variants": [
+      "aps",
+      "a/s"
+    ],
+    "countries": [
+      "DK"
+    ]
+  },
+  {
+    "suffix": "ivs",
+    "full_name": "Iv\u00e6rks\u00e6tterselskab",
+    "variants": [
+      "ivs"
+    ],
+    "countries": [
+      "DK"
+    ]
+  },
+  {
+    "suffix": "k",
+    "full_name": "Kommanditselskab",
+    "variants": [
+      "k/s",
+      "ks"
+    ],
+    "countries": [
+      "DK"
+    ]
+  },
+  {
+    "suffix": "ou",
+    "full_name": "Osa\u00fching",
+    "variants": [
+      "ou",
+      "o\u00fc"
+    ],
+    "countries": [
+      "EE"
+    ]
+  },
+  {
+    "suffix": "sl",
+    "full_name": "Sociedad Limitada",
+    "variants": [
+      "sl",
+      "s.l.",
+      "s.l.u.",
+      "slu"
+    ],
+    "countries": [
+      "ES"
+    ]
+  },
+  {
+    "suffix": "slu",
+    "full_name": "Sociedad Limitada Unipersonal",
+    "variants": [
+      "slu",
+      "s.l.u."
+    ],
+    "countries": [
+      "ES"
+    ]
+  },
+  {
+    "suffix": "sau",
+    "full_name": "Sociedad An\u00f3nima Unipersonal",
+    "variants": [
+      "sau",
+      "s.a.u."
+    ],
+    "countries": [
+      "ES"
+    ]
+  },
+  {
+    "suffix": "cb",
+    "full_name": "Comunidad de Bienes",
+    "variants": [
+      "cb",
+      "c.b."
+    ],
+    "countries": [
+      "ES"
+    ]
+  },
+  {
+    "suffix": "sc",
+    "full_name": "Sociedad Cooperativa / Sociedad Civil",
+    "variants": [
+      "sc",
+      "s.c."
+    ],
+    "countries": [
+      "ES",
+      "MX"
+    ]
+  },
+  {
+    "suffix": "oy",
+    "full_name": "Osakeyhti\u00f6",
+    "variants": [
+      "oy",
+      "oy."
+    ],
+    "countries": [
+      "FI"
+    ]
+  },
+  {
+    "suffix": "oyj",
+    "full_name": "Julkinen Osakeyhti\u00f6",
+    "variants": [
+      "oyj",
+      "oyj."
+    ],
+    "countries": [
+      "FI"
+    ]
+  },
+  {
+    "suffix": "ky",
+    "full_name": "Kommandiittiyhti\u00f6",
+    "variants": [
+      "ky",
+      "ky."
+    ],
+    "countries": [
+      "FI"
+    ]
+  },
+  {
+    "suffix": "tmi",
+    "full_name": "Toiminimi",
+    "variants": [
+      "tmi",
+      "tmi."
+    ],
+    "countries": [
+      "FI"
+    ]
+  },
+  {
+    "suffix": "ae",
+    "full_name": "Anonymi Etaireia",
+    "variants": [
+      "ae",
+      "a.e."
+    ],
+    "countries": [
+      "GR"
+    ]
+  },
+  {
+    "suffix": "ee",
+    "full_name": "Eteria Periorismenis Efthynis",
+    "variants": [
+      "ee",
+      "e.p.e."
+    ],
+    "countries": [
+      "GR"
+    ]
+  },
+  {
+    "suffix": "oe",
+    "full_name": "Omorrythmos Eteria",
+    "variants": [
+      "oe",
+      "o.e."
+    ],
+    "countries": [
+      "GR"
+    ]
+  },
+  {
+    "suffix": "ipe",
+    "full_name": "Idiotiki Kefalaiouchiki Etaireia",
+    "variants": [
+      "ipe",
+      "i.k.e."
+    ],
+    "countries": [
+      "GR"
+    ]
+  },
+  {
+    "suffix": "kft",
+    "full_name": "Korl\u00e1tolt Felel\u0151ss\u00e9g\u0171 T\u00e1rsas\u00e1g",
+    "variants": [
+      "kft",
+      "kft."
+    ],
+    "countries": [
+      "HU"
+    ]
+  },
+  {
+    "suffix": "bt",
+    "full_name": "Bet\u00e9ti T\u00e1rsas\u00e1g",
+    "variants": [
+      "bt",
+      "bt."
+    ],
+    "countries": [
+      "HU"
+    ]
+  },
+  {
+    "suffix": "zrt",
+    "full_name": "Z\u00e1rtk\u00f6r\u0171en M\u0171k\u00f6d\u0151 R\u00e9szv\u00e9nyt\u00e1rsas\u00e1g",
+    "variants": [
+      "zrt",
+      "zrt."
+    ],
+    "countries": [
+      "HU"
+    ]
+  },
+  {
+    "suffix": "nyrt",
+    "full_name": "Nyilv\u00e1nosan M\u0171k\u00f6d\u0151 R\u00e9szv\u00e9nyt\u00e1rsas\u00e1g",
+    "variants": [
+      "nyrt",
+      "nyrt."
+    ],
+    "countries": [
+      "HU"
+    ]
+  },
+  {
+    "suffix": "pt",
+    "full_name": "Perseroan Terbatas",
+    "variants": [
+      "pt",
+      "p.t."
+    ],
+    "countries": [
+      "ID"
+    ]
+  },
+  {
+    "suffix": "tbk",
+    "full_name": "Terbuka",
+    "variants": [
+      "tbk",
+      "tbk."
+    ],
+    "countries": [
+      "ID"
+    ]
+  },
+  {
+    "suffix": "persero",
+    "full_name": "Persero",
+    "variants": [
+      "persero"
+    ],
+    "countries": [
+      "ID"
+    ]
+  },
+  {
+    "suffix": "dac",
+    "full_name": "Designated Activity Company",
+    "variants": [
+      "dac",
+      "d.a.c."
+    ],
+    "countries": [
+      "IE"
+    ]
+  },
+  {
+    "suffix": "clg",
+    "full_name": "Company Limited by Guarantee",
+    "variants": [
+      "clg",
+      "c.l.g."
+    ],
+    "countries": [
+      "IE"
+    ]
+  },
+  {
+    "suffix": "bm",
+    "full_name": "Ba'alei Mniyot",
+    "variants": [
+      "bm",
+      "\u05d1.\u05de."
+    ],
+    "countries": [
+      "IL"
+    ]
+  },
+  {
+    "suffix": "pvt",
+    "full_name": "Private",
+    "variants": [
+      "pvt",
+      "pvt.",
+      "private"
+    ],
+    "countries": [
+      "IN"
+    ]
+  },
+  {
+    "suffix": "private",
+    "full_name": "Private",
+    "variants": [
+      "private"
+    ],
+    "countries": [
+      "IN",
+      "US"
+    ]
+  },
+  {
+    "suffix": "opc",
+    "full_name": "One Person Company",
+    "variants": [
+      "opc",
+      "o.p.c."
+    ],
+    "countries": [
+      "IN"
+    ]
+  },
+  {
+    "suffix": "scarl",
+    "full_name": "Societ\u00e0 Cooperativa a Responsabilit\u00e0 Limitata",
+    "variants": [
+      "scarl",
+      "s.c.a r.l."
+    ],
+    "countries": [
+      "IT"
+    ]
+  },
+  {
+    "suffix": "scrl",
+    "full_name": "Societ\u00e0 Cooperativa a Responsabilit\u00e0 Limitata",
+    "variants": [
+      "scrl",
+      "s.c.r.l."
+    ],
+    "countries": [
+      "IT"
+    ]
+  },
+  {
+    "suffix": "sapa",
+    "full_name": "Societ\u00e0 in Accomandita per Azioni",
+    "variants": [
+      "sapa",
+      "s.a.p.a."
+    ],
+    "countries": [
+      "IT"
+    ]
+  },
+  {
+    "suffix": "kk",
+    "full_name": "Kabushiki Kaisha",
+    "variants": [
+      "kk",
+      "k.k."
+    ],
+    "countries": [
+      "JP"
+    ]
+  },
+  {
+    "suffix": "yk",
+    "full_name": "Yugen Kaisha",
+    "variants": [
+      "yk",
+      "y.k."
+    ],
+    "countries": [
+      "JP"
+    ]
+  },
+  {
+    "suffix": "gk",
+    "full_name": "Godo Kaisha",
+    "variants": [
+      "gk",
+      "g.k."
+    ],
+    "countries": [
+      "JP"
+    ]
+  },
+  {
+    "suffix": "uab",
+    "full_name": "U\u017edaroji Akcin\u0117 Bendrov\u0117",
+    "variants": [
+      "uab",
+      "u.a.b."
+    ],
+    "countries": [
+      "LT"
+    ]
+  },
+  {
+    "suffix": "ab",
+    "full_name": "Akcin\u0117 Bendrov\u0117 / Aktiebolag",
+    "variants": [
+      "ab",
+      "a.b."
+    ],
+    "countries": [
+      "LT",
+      "SE"
+    ]
+  },
+  {
+    "suffix": "mb",
+    "full_name": "Ma\u017eoji Bendrija",
+    "variants": [
+      "mb",
+      "m.b."
+    ],
+    "countries": [
+      "LT"
+    ]
+  },
+  {
+    "suffix": "sca",
+    "full_name": "Soci\u00e9t\u00e9 en Commandite par Actions",
+    "variants": [
+      "sca",
+      "s.c.a."
+    ],
+    "countries": [
+      "LU"
+    ]
+  },
+  {
+    "suffix": "scs",
+    "full_name": "Soci\u00e9t\u00e9 en Commandite Simple / Societate \u00een Comandit\u0103 Simpl\u0103",
+    "variants": [
+      "scs",
+      "s.c.s."
+    ],
+    "countries": [
+      "LU",
+      "RO"
+    ]
+  },
+  {
+    "suffix": "sia",
+    "full_name": "Sabiedr\u012bba ar Ierobe\u017eotu Atbild\u012bbu",
+    "variants": [
+      "sia",
+      "s.i.a."
+    ],
+    "countries": [
+      "LV"
+    ]
+  },
+  {
+    "suffix": "s de rl de cv",
+    "full_name": "Sociedad de Responsabilidad Limitada de Capital Variable",
+    "variants": [
+      "s. de r.l. de c.v.",
+      "s de rl de cv"
+    ],
+    "countries": [
+      "MX"
+    ]
+  },
+  {
+    "suffix": "sapi de cv",
+    "full_name": "Sociedad An\u00f3nima Promotora de Inversi\u00f3n de Capital Variable",
+    "variants": [
+      "s.a.p.i. de c.v.",
+      "sapi de cv"
+    ],
+    "countries": [
+      "MX"
+    ]
+  },
+  {
+    "suffix": "sa de cv",
+    "full_name": "Sociedad An\u00f3nima de Capital Variable",
+    "variants": [
+      "s.a. de c.v.",
+      "sa de cv",
+      "decv"
+    ],
+    "countries": [
+      "MX"
+    ]
+  },
+  {
+    "suffix": "srl de cv",
+    "full_name": "Sociedad de Responsabilidad Limitada de Capital Variable",
+    "variants": [
+      "s.r.l. de c.v.",
+      "srl de cv"
+    ],
+    "countries": [
+      "MX"
+    ]
+  },
+  {
+    "suffix": "cv",
+    "full_name": "Capital Variable / Commanditaire Vennootschap",
+    "variants": [
+      "cv",
+      "c.v."
+    ],
+    "countries": [
+      "ID",
+      "MX",
+      "NL"
+    ]
+  },
+  {
+    "suffix": "sdn bhd",
+    "full_name": "Sendirian Berhad",
+    "variants": [
+      "sdn bhd",
+      "sdn. bhd."
+    ],
+    "countries": [
+      "MY"
+    ]
+  },
+  {
+    "suffix": "bhd",
+    "full_name": "Berhad",
+    "variants": [
+      "bhd",
+      "bhd."
+    ],
+    "countries": [
+      "MY"
+    ]
+  },
+  {
+    "suffix": "berhad",
+    "full_name": "Berhad",
+    "variants": [
+      "berhad"
+    ],
+    "countries": [
+      "MY"
+    ]
+  },
+  {
+    "suffix": "vof",
+    "full_name": "Vennootschap onder Firma",
+    "variants": [
+      "vof",
+      "v.o.f."
+    ],
+    "countries": [
+      "NL"
+    ]
+  },
+  {
+    "suffix": "maatschap",
+    "full_name": "Maatschap",
+    "variants": [
+      "maatschap"
+    ],
+    "countries": [
+      "NL"
+    ]
+  },
+  {
+    "suffix": "asa",
+    "full_name": "Allmennaksjeselskap",
+    "variants": [
+      "asa",
+      "a/sa"
+    ],
+    "countries": [
+      "NO"
+    ]
+  },
+  {
+    "suffix": "ans",
+    "full_name": "Ansvarlig Selskap",
+    "variants": [
+      "ans",
+      "a.n.s."
+    ],
+    "countries": [
+      "NO"
+    ]
+  },
+  {
+    "suffix": "da",
+    "full_name": "Delt Ansvar",
+    "variants": [
+      "da",
+      "d.a."
+    ],
+    "countries": [
+      "NO"
+    ]
+  },
+  {
+    "suffix": "enk",
+    "full_name": "Enkeltpersonforetak",
+    "variants": [
+      "enk",
+      "enk."
+    ],
+    "countries": [
+      "NO"
+    ]
+  },
+  {
+    "suffix": "sac",
+    "full_name": "Sociedad An\u00f3nima Cerrada",
+    "variants": [
+      "sac",
+      "s.a.c."
+    ],
+    "countries": [
+      "PE"
+    ]
+  },
+  {
+    "suffix": "sp z oo",
+    "full_name": "Sp\u00f3\u0142ka z ograniczon\u0105 odpowiedzialno\u015bci\u0105",
+    "variants": [
+      "sp. z o.o.",
+      "sp z oo",
+      "spzoo"
+    ],
+    "countries": [
+      "PL"
+    ]
+  },
+  {
+    "suffix": "spj",
+    "full_name": "Sp\u00f3\u0142ka Jawna",
+    "variants": [
+      "spj",
+      "sp.j."
+    ],
+    "countries": [
+      "PL"
+    ]
+  },
+  {
+    "suffix": "sjk",
+    "full_name": "Sp\u00f3\u0142ka Jawna",
+    "variants": [
+      "sjk",
+      "s.j."
+    ],
+    "countries": [
+      "PL"
+    ]
+  },
+  {
+    "suffix": "spk",
+    "full_name": "Sp\u00f3\u0142ka Komandytowa",
+    "variants": [
+      "spk",
+      "sp.k."
+    ],
+    "countries": [
+      "PL"
+    ]
+  },
+  {
+    "suffix": "scomandytowa",
+    "full_name": "Sp\u00f3\u0142ka Komandytowa",
+    "variants": [
+      "sp\u00f3\u0142ka komandytowa",
+      "scomandytowa"
+    ],
+    "countries": [
+      "PL"
+    ]
+  },
+  {
+    "suffix": "w likwidacji",
+    "full_name": "W Likwidacji (in liquidation)",
+    "variants": [
+      "w likwidacji",
+      "w likwidacji."
+    ],
+    "countries": [
+      "PL"
+    ]
+  },
+  {
+    "suffix": "lda",
+    "full_name": "Limitada",
+    "variants": [
+      "lda",
+      "lda.",
+      "l.da"
+    ],
+    "countries": [
+      "PT"
+    ]
+  },
+  {
+    "suffix": "unipessoal",
+    "full_name": "Unipessoal",
+    "variants": [
+      "unipessoal"
+    ],
+    "countries": [
+      "PT"
+    ]
+  },
+  {
+    "suffix": "crl",
+    "full_name": "Cooperativa de Responsabilidade Limitada",
+    "variants": [
+      "crl",
+      "c.r.l."
+    ],
+    "countries": [
+      "PT"
+    ]
+  },
+  {
+    "suffix": "sociedade",
+    "full_name": "Sociedade",
+    "variants": [
+      "sociedade"
+    ],
+    "countries": [
+      "PT"
+    ]
+  },
+  {
+    "suffix": "ooo",
+    "full_name": "\u041e\u0431\u0449\u0435\u0441\u0442\u0432\u043e \u0441 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u043d\u043e\u0439 \u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c\u044e",
+    "variants": [
+      "ooo",
+      "\u043e\u043e\u043e"
+    ],
+    "countries": [
+      "RU"
+    ]
+  },
+  {
+    "suffix": "oao",
+    "full_name": "\u041e\u0442\u043a\u0440\u044b\u0442\u043e\u0435 \u0430\u043a\u0446\u0438\u043e\u043d\u0435\u0440\u043d\u043e\u0435 \u043e\u0431\u0449\u0435\u0441\u0442\u0432\u043e",
+    "variants": [
+      "oao",
+      "\u043e\u0430\u043e"
+    ],
+    "countries": [
+      "RU"
+    ]
+  },
+  {
+    "suffix": "zao",
+    "full_name": "\u0417\u0430\u043a\u0440\u044b\u0442\u043e\u0435 \u0430\u043a\u0446\u0438\u043e\u043d\u0435\u0440\u043d\u043e\u0435 \u043e\u0431\u0449\u0435\u0441\u0442\u0432\u043e",
+    "variants": [
+      "zao",
+      "\u0437\u0430\u043e"
+    ],
+    "countries": [
+      "RU"
+    ]
+  },
+  {
+    "suffix": "ip",
+    "full_name": "\u0418\u043d\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043b\u044c\u043d\u044b\u0439 \u043f\u0440\u0435\u0434\u043f\u0440\u0438\u043d\u0438\u043c\u0430\u0442\u0435\u043b\u044c",
+    "variants": [
+      "ip",
+      "\u0438\u043f"
+    ],
+    "countries": [
+      "RU"
+    ]
+  },
+  {
+    "suffix": "pk",
+    "full_name": "\u041f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439 \u043a\u043e\u043e\u043f\u0435\u0440\u0430\u0442\u0438\u0432",
+    "variants": [
+      "pk",
+      "\u043f\u043a"
+    ],
+    "countries": [
+      "RU"
+    ]
+  },
+  {
+    "suffix": "hb",
+    "full_name": "Handelsbolag",
+    "variants": [
+      "hb",
+      "h.b."
+    ],
+    "countries": [
+      "SE"
+    ]
+  },
+  {
+    "suffix": "kb",
+    "full_name": "Kommanditbolag",
+    "variants": [
+      "kb",
+      "k.b."
+    ],
+    "countries": [
+      "SE"
+    ]
+  },
+  {
+    "suffix": "ek",
+    "full_name": "Ekonomisk f\u00f6rening",
+    "variants": [
+      "ek",
+      "ek. f\u00f6r."
+    ],
+    "countries": [
+      "SE"
+    ]
+  },
+  {
+    "suffix": "pte",
+    "full_name": "Private",
+    "variants": [
+      "pte",
+      "pte."
+    ],
+    "countries": [
+      "SG"
+    ]
+  },
+  {
+    "suffix": "pte ltd",
+    "full_name": "Private Limited",
+    "variants": [
+      "pte ltd",
+      "pte. ltd."
+    ],
+    "countries": [
+      "SG"
+    ]
+  },
+  {
+    "suffix": "vos",
+    "full_name": "Verejn\u00e1 obchodn\u00e1 spolo\u010dnos\u0165",
+    "variants": [
+      "vos",
+      "v.o.s."
+    ],
+    "countries": [
+      "SK"
+    ]
+  },
+  {
+    "suffix": "sti",
+    "full_name": "\u015eirket",
+    "variants": [
+      "\u015fti",
+      "sti"
+    ],
+    "countries": [
+      "TR"
+    ]
+  },
+  {
+    "suffix": "kol",
+    "full_name": "Kollektif \u015eirket",
+    "variants": [
+      "kol",
+      "kol. \u015fti."
+    ],
+    "countries": [
+      "TR"
+    ]
+  },
+  {
+    "suffix": "tov",
+    "full_name": "\u0422\u043e\u0432\u0430\u0440\u0438\u0441\u0442\u0432\u043e \u0437 \u043e\u0431\u043c\u0435\u0436\u0435\u043d\u043e\u044e \u0432\u0456\u0434\u043f\u043e\u0432\u0456\u0434\u0430\u043b\u044c\u043d\u0456\u0441\u0442\u044e",
+    "variants": [
+      "tov",
+      "\u0442\u043e\u0432",
+      "llc"
+    ],
+    "countries": [
+      "UA"
+    ]
+  },
+  {
+    "suffix": "pp",
+    "full_name": "\u041f\u0440\u0438\u0432\u0430\u0442\u043d\u0435 \u043f\u0456\u0434\u043f\u0440\u0438\u0454\u043c\u0441\u0442\u0432\u043e",
+    "variants": [
+      "pp",
+      "\u043f\u043f"
+    ],
+    "countries": [
+      "UA"
+    ]
+  },
+  {
+    "suffix": "pat",
+    "full_name": "\u041f\u0443\u0431\u043b\u0456\u0447\u043d\u0435 \u0430\u043a\u0446\u0456\u043e\u043d\u0435\u0440\u043d\u0435 \u0442\u043e\u0432\u0430\u0440\u0438\u0441\u0442\u0432\u043e",
+    "variants": [
+      "pat",
+      "\u043f\u0430\u0442"
+    ],
+    "countries": [
+      "UA"
+    ]
+  },
+  {
+    "suffix": "fop",
+    "full_name": "\u0424\u0456\u0437\u0438\u0447\u043d\u0430 \u043e\u0441\u043e\u0431\u0430-\u043f\u0456\u0434\u043f\u0440\u0438\u0454\u043c\u0435\u0446\u044c",
+    "variants": [
+      "fop",
+      "\u0444\u043e\u043f"
+    ],
+    "countries": [
+      "UA"
+    ]
+  },
+  {
+    "suffix": "lc",
+    "full_name": "Limited Company",
+    "variants": [
+      "lc",
+      "l.c."
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "pllc",
+    "full_name": "Professional Limited Liability Company",
+    "variants": [
+      "pllc",
+      "p.l.l.c."
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "lllp",
+    "full_name": "Limited Liability Limited Partnership",
+    "variants": [
+      "lllp",
+      "l.l.l.p."
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "pc",
+    "full_name": "Professional Corporation",
+    "variants": [
+      "pc",
+      "p.c."
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "pa",
+    "full_name": "Professional Association",
+    "variants": [
+      "pa",
+      "p.a."
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "ll",
+    "full_name": "Limited Liability",
+    "variants": [
+      "ll",
+      "l.l."
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "limited liability",
+    "full_name": "Limited Liability",
+    "variants": [
+      "limited liability"
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "special limited",
+    "full_name": "Special Limited",
+    "variants": [
+      "special limited"
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "llc the",
+    "full_name": "Limited Liability Company (The)",
+    "variants": [
+      "llc the"
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "inc the",
+    "full_name": "Incorporated (The)",
+    "variants": [
+      "inc the"
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "trust",
+    "full_name": "Trust",
+    "variants": [
+      "trust"
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "fund",
+    "full_name": "Fund",
+    "variants": [
+      "fund"
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "institute",
+    "full_name": "Institute",
+    "variants": [
+      "institute"
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "partner",
+    "full_name": "Partner",
+    "variants": [
+      "partner"
+    ],
+    "countries": [
+      "US"
+    ]
+  },
+  {
+    "suffix": "studi",
+    "full_name": "Studio",
+    "variants": [
+      "studi",
+      "studio"
+    ],
+    "countries": [
+      "IT"
+    ]
+  },
+  {
+    "suffix": "cc",
+    "full_name": "Close Corporation",
+    "variants": [
+      "cc",
+      "c.c."
+    ],
+    "countries": [
+      "ZA"
+    ]
+  },
+  {
+    "suffix": "rf",
+    "full_name": "Registered Fund",
+    "variants": [
+      "rf"
+    ],
+    "countries": [
+      "ZA"
+    ]
+  },
+  {
+    "suffix": "ulc",
+    "full_name": "Unlimited Liability Company",
+    "variants": [
+      "ulc",
+      "u.l.c."
+    ],
+    "countries": [
+      "CA"
+    ]
+  },
+  {
+    "suffix": "ca",
+    "full_name": "Compa\u00f1\u00eda An\u00f3nima",
+    "variants": [
+      "ca",
+      "c.a."
+    ],
+    "countries": [
+      "VE"
+    ]
+  },
+  {
+    "suffix": "jsc",
+    "full_name": "Joint Stock Company",
+    "variants": [
+      "jsc",
+      "j.s.c."
+    ],
+    "countries": [
+      "VN"
+    ]
+  },
+  {
+    "suffix": "tnhh",
+    "full_name": "Tr\u00e1ch Nhi\u1ec7m H\u1eefu H\u1ea1n",
+    "variants": [
+      "tnhh",
+      "tnhh mtv"
+    ],
+    "countries": [
+      "VN"
+    ]
+  },
+  {
+    "suffix": "kft",
+    "full_name": "Korl\u00e1tolt Felel\u0151ss\u00e9g\u0171 T\u00e1rsas\u00e1g",
+    "variants": [
+      "kft",
+      "kft."
+    ],
+    "countries": [
+      "HU"
+    ]
+  }
+]
