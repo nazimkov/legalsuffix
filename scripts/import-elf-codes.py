@@ -52,7 +52,7 @@ def main() -> None:
         "csv",
         nargs="?",
         type=Path,
-        default=ROOT / "docs" / "2026-02-19-elf-code-list-v1.6.csv",
+        default=ROOT / "tmp" / "2026-02-19-elf-code-list-v1.6.csv",
     )
     parser.add_argument(
         "output",

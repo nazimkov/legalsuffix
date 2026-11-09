@@ -1,4 +1,5 @@
 import csv
+from collections.abc import Sequence
 from functools import lru_cache
 
 from .constants import DATA_FILE_PATH
@@ -23,7 +24,7 @@ def load_suffixes(country_code: str | None = None, language_code: str | None = N
     return _load_suffixes(country_code, language_code)
 
 
-def get_suffixes(country_code: str | None = None, language_code: str | None = None) -> list[LegalSuffix]:
+def get_suffixes(country_code: str | None = None, language_code: str | None = None) -> Sequence[LegalSuffix]:
     """Return legal suffix records, optionally filtered by country and language.
 
     Args:
@@ -31,8 +32,7 @@ def get_suffixes(country_code: str | None = None, language_code: str | None = No
         language_code: Optional ISO 639-1 two-letter language code, such as ``"de"``.
 
     Returns:
-        A list of :class:`LegalSuffix` records. The returned list can be modified
-        without changing the loader's cached list.
+        An immutable sequence of :class:`LegalSuffix` records.
 
     Raises:
         ValueError: If either provided code is not in the expected format.
@@ -44,7 +44,7 @@ def get_suffixes(country_code: str | None = None, language_code: str | None = No
     """
     country_code = validate_country_code(country_code)
     language_code = validate_language_code(language_code)
-    return list(load_suffixes(country_code, language_code).records)
+    return tuple(load_suffixes(country_code, language_code).records)
 
 
 @lru_cache(maxsize=1)

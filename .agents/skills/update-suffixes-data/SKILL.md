@@ -5,7 +5,7 @@ description: Maintain the ELF code list and refresh the package suffix data when
 
 # Update Suffixes Data
 
-Use this skill when changing the ELF source list or refreshing its packaged copy. The maintained source is `docs/2026-02-19-elf-code-list-v1.6.csv`; the package data is `src/legalsuffix/data/suffixes.csv`.
+Use this skill when changing the ELF source list or refreshing its packaged copy. The local source is `tmp/2026-02-19-elf-code-list-v1.6.csv`; the package data is `src/legalsuffix/data/suffixes.csv`.
 
 ## Update the source list
 

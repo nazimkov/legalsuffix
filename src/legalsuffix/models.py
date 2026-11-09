@@ -1,3 +1,4 @@
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 
 
@@ -17,12 +18,6 @@ class LegalSuffix:
         entity_legal_form_name_transliterated_name: Transliterated legal form name.
         abbreviations_local_language: Abbreviations in the local language.
         abbreviations_transliterated: Transliterated abbreviations.
-
-    Example:
-        >>> from legalsuffix import get_suffixes
-        >>> records = get_suffixes(country_code="DE", language_code="de")
-        >>> records[0].country_code
-        'DE'
     """
 
     elf_code: str
@@ -34,14 +29,14 @@ class LegalSuffix:
     language: str
     language_code: str
     entity_legal_form_name_transliterated_name: str
-    abbreviations_local_language: list[str]
-    abbreviations_transliterated: list[str]
+    abbreviations_local_language: Sequence[str]
+    abbreviations_transliterated: Sequence[str]
 
 
 @dataclass(frozen=True)
 class LegalSuffixes:
-    by_normalized_suffix: dict[str, list[LegalSuffix]]
-    records: list[LegalSuffix]
+    by_normalized_suffix: Mapping[str, Sequence[LegalSuffix]]
+    records: Sequence[LegalSuffix]
 
     @property
     def all(self) -> frozenset[str]:
@@ -58,21 +53,13 @@ class LegalSuffixMatch:
         start_pos: Inclusive character offset where the suffix begins.
         end_pos: Exclusive character offset where the suffix ends.
         records: Legal suffix records associated with the normalized key.
-
-    Example:
-        >>> from legalsuffix import match_legal_suffix
-        >>> match = match_legal_suffix("Acme GmbH", country_code="DE")
-        >>> match.suffix
-        'GmbH'
-        >>> (match.start_pos, match.end_pos)
-        (5, 9)
     """
 
     suffix: str
     normalized_suffix: str
     start_pos: int
     end_pos: int
-    records: list[LegalSuffix]
+    records: Sequence[LegalSuffix]
 
 
 @dataclass(frozen=True)
@@ -82,12 +69,6 @@ class ParsedCompanyName:
     Attributes:
         name: Company name with the matched trailing suffix removed.
         suffix: Match details, or ``None`` if no suffix was found.
-
-    Example:
-        >>> from legalsuffix import parse_company_name
-        >>> parsed = parse_company_name("Acme GmbH", country_code="DE")
-        >>> (parsed.name, parsed.suffix.suffix)
-        ('Acme', 'GmbH')
     """
 
     name: str

@@ -5,16 +5,17 @@ Detect, normalize, and strip legal entity suffixes (LLC, LTD, GmbH, OOO, and mor
 # Repository structure
 
 - `src/legalsuffix/` - Python package source.
-  - `parser.py` parses and normalizes the suffix TSV data.
+  - `__init__.py` exposes the package API, update README.md if any changes are made.
   - `matching.py` finds and strips legal suffixes from company names.
-  - `loader.py` loads and caches the suffix data.
-  - `models.py` defines the suffix lookup data model.
-  - `countries.py` validates country codes and support.
+  - `loader.py` loads and caches suffix records from the CSV data file.
+  - `models.py` defines suffix records, lookup data, and match results.
+  - `parser.py` parses and normalizes suffix lists.
+  - `validation.py` validates country and language codes.
   - `constants.py` defines paths to package data.
-  - `data/suffixes.tsv` contains country-specific suffixes.
-- `tests/` - unit tests, using the standard-library `unittest` framework.
-- `scripts/` - maintenance and conversion scripts for suffix data.
-- `docs/` - generated or reference documentation about suffixes.
+  - `data/suffixes.csv` contains legal entity form records and abbreviations.
+- `tests/` - unit tests using the standard-library `unittest` framework.
+- `scripts/` - data maintenance scripts.
+- `docs/` - reference data and documentation.
 - `README.md` - project overview.
 - `pyproject.toml` and `uv.lock` - package metadata, development tools, and locked dependencies.
 
