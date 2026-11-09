@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Copy the ELF code list to package data, omitting administrative columns."""
+"""Copy ELF records to package data, omitting administrative columns and reserved codes."""
 
 from __future__ import annotations
 
@@ -16,17 +16,19 @@ REMOVED_COLUMNS = {
     "Modification date YYYY-MM-DD (ISO 8601)",
     "Reason",
 }
+EXCLUDED_ELF_CODES = {"8888", "9999"}
+ELF_CODE_COLUMN = "ELF Code"
 
 
 def import_elf_codes(csv_path: Path, output_path: Path) -> None:
-    """Copy all source rows, omitting the specified administrative columns."""
+    """Copy source rows except reserved codes, omitting administrative columns."""
     with csv_path.open(encoding="utf-8-sig", newline="") as source:
         reader = csv.DictReader(source)
         if reader.fieldnames is None:
             raise ValueError(f"{csv_path}: missing CSV header")
 
         fieldnames = [name for name in reader.fieldnames if name not in REMOVED_COLUMNS]
-        missing = REMOVED_COLUMNS - set(reader.fieldnames)
+        missing = (REMOVED_COLUMNS | {ELF_CODE_COLUMN}) - set(reader.fieldnames)
         if missing:
             raise ValueError(f"{csv_path}: missing CSV columns: {', '.join(sorted(missing))}")
 
@@ -39,7 +41,7 @@ def import_elf_codes(csv_path: Path, output_path: Path) -> None:
                 extrasaction="ignore",
             )
             writer.writeheader()
-            writer.writerows(reader)
+            writer.writerows(row for row in reader if row[ELF_CODE_COLUMN] not in EXCLUDED_ELF_CODES)
 
     print(f"wrote {output_path}", file=sys.stderr)
 
