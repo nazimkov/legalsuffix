@@ -1,6 +1,6 @@
-from .countries import ensure_supported_country, validate_iso
 from .loader import load_suffixes
 from .parser import norm
+from .validation import validate_country_code, validate_language_code
 
 
 def strip_legal_suffix(name: str, country_code: str | None = None, language_code: str | None = None) -> str:
@@ -10,15 +10,10 @@ def strip_legal_suffix(name: str, country_code: str | None = None, language_code
     ``language_code`` uses ISO 639-1 two-letter codes (for example, ``"en"``).
     """
     if country_code is not None:
-        country_code = validate_iso(country_code)
+        country_code = validate_country_code(country_code)
+    if language_code is not None:
+        language_code = validate_language_code(language_code)
     suffixes = load_suffixes(country_code=country_code, language_code=language_code)
-
-    if country_code is not None and not suffixes.by_normalized_suffix:
-        # A valid country can have no records for the requested language.
-        country_suffixes = load_suffixes(country_code=country_code)
-        ensure_supported_country(country_code, country_suffixes.by_normalized_suffix)
-    elif country_code is not None:
-        ensure_supported_country(country_code, suffixes.by_normalized_suffix)
 
     tokens = name.split()
     if not tokens:
