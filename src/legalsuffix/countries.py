@@ -1,3 +1,8 @@
+from collections.abc import Mapping
+
+from .models import LegalSuffix
+
+
 def validate_iso(iso: str) -> str:
     """Validate and normalize an ISO 3166-1 alpha-2 country code."""
     iso = iso.upper()
@@ -6,8 +11,8 @@ def validate_iso(iso: str) -> str:
     return iso
 
 
-def ensure_supported_country(iso: str, suffixes: dict[str, frozenset[str]]) -> None:
+def ensure_supported_country(iso: str, suffixes: Mapping[str, list[LegalSuffix]]) -> None:
     """Raise an error if the given ISO code is not supported."""
     iso = validate_iso(iso)
-    if iso not in suffixes:
+    if not any(row.country_code == iso for rows in suffixes.values() for row in rows):
         raise ValueError(f"Unsupported country code: {iso}")

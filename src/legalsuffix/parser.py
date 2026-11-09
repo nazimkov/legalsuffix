@@ -1,7 +1,13 @@
-from .models import LegalSuffixes
+from dataclasses import dataclass
 
 
-def parse_suffixes(text: str) -> LegalSuffixes:
+@dataclass(frozen=True)
+class ParsedSuffixes:
+    all: frozenset[str]
+    by_country: dict[str, frozenset[str]]
+
+
+def parse_suffixes(text: str) -> ParsedSuffixes:
     """Parse TSV of `ISO<TAB>suffix1|suffix2|...` into a lookup dict.
 
     Suffixes are normalized: lowercased, trailing dots stripped.
@@ -24,7 +30,7 @@ def parse_suffixes(text: str) -> LegalSuffixes:
             raise ValueError(f"line {lineno}: no suffixes for {iso}")
         all_suffixes.update(suffixes)
         by_country[iso] = frozenset(suffixes)
-    return LegalSuffixes(all=frozenset(all_suffixes), by_country=by_country)
+    return ParsedSuffixes(all=frozenset(all_suffixes), by_country=by_country)
 
 
 def norm(s: str) -> str:

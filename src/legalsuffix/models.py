@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
@@ -18,6 +18,8 @@ class LegalSuffix:
 
 @dataclass(frozen=True)
 class LegalSuffixes:
-    all: frozenset[str]
-    by_country: dict[str, frozenset[str]]
-    rows: list[LegalSuffix] = field(default_factory=list)
+    by_normalized_suffix: dict[str, list[LegalSuffix]]
+
+    @property
+    def all(self) -> frozenset[str]:
+        return frozenset(self.by_normalized_suffix)
