@@ -34,5 +34,5 @@ def parse_suffixes(text: str) -> ParsedSuffixes:
 
 
 def norm(s: str) -> str:
-    """Normalize a suffix for matching: lowercase, strip"""
-    return s.strip().lower()
+    """Normalize a suffix for matching: lowercase, trim, and drop final punctuation."""
+    return s.strip().lower().rstrip(".,").strip()

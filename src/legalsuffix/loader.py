@@ -4,6 +4,7 @@ from functools import lru_cache
 from .constants import DATA_FILE_PATH
 from .models import LegalSuffix, LegalSuffixes
 from .parser import norm
+from .validation import validate_country_code, validate_language_code
 
 
 def _split_abbreviations(value: str | None) -> list[str]:
@@ -22,9 +23,36 @@ def load_suffixes(country_code: str | None = None, language_code: str | None = N
     return _load_suffixes(country_code, language_code)
 
 
+def get_suffixes(country_code: str | None = None, language_code: str | None = None) -> list[LegalSuffix]:
+    """Return legal suffix records, optionally filtered by country and language.
+
+    Args:
+        country_code: Optional ISO 3166-1 alpha-2 country code, such as ``"DE"``.
+        language_code: Optional ISO 639-1 two-letter language code, such as ``"de"``.
+
+    Returns:
+        A list of :class:`LegalSuffix` records. The returned list can be modified
+        without changing the loader's cached list.
+
+    Raises:
+        ValueError: If either provided code is not in the expected format.
+
+    Example:
+        >>> records = get_suffixes(country_code="DE", language_code="de")
+        >>> all(record.country_code == "DE" for record in records)
+        True
+    """
+    if country_code is not None:
+        country_code = validate_country_code(country_code)
+    if language_code is not None:
+        language_code = validate_language_code(language_code)
+    return list(load_suffixes(country_code, language_code).records)
+
+
 @lru_cache(maxsize=1)
 def _load_suffixes(country_code: str | None, language_code: str | None) -> LegalSuffixes:
     by_normalized_suffix: dict[str, list[LegalSuffix]] = {}
+    records: list[LegalSuffix] = []
 
     with DATA_FILE_PATH.open(encoding="utf-8-sig", newline="") as file:
         reader = csv.DictReader(file)
@@ -54,6 +82,7 @@ def _load_suffixes(country_code: str | None, language_code: str | None) -> Legal
                 abbreviations_local_language=_split_abbreviations(csv_row["Abbreviations Local language"]),
                 abbreviations_transliterated=_split_abbreviations(csv_row["Abbreviations transliterated"]),
             )
+            records.append(row)
             suffixes = {
                 norm(suffix)
                 for suffix in (
@@ -67,4 +96,4 @@ def _load_suffixes(country_code: str | None, language_code: str | None) -> Legal
             for suffix in suffixes:
                 by_normalized_suffix.setdefault(suffix, []).append(row)
 
-    return LegalSuffixes(by_normalized_suffix=by_normalized_suffix)
+    return LegalSuffixes(by_normalized_suffix=by_normalized_suffix, records=records)

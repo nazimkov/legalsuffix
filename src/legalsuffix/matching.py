@@ -1,29 +1,152 @@
 from .loader import load_suffixes
+from .models import LegalSuffixMatch, ParsedCompanyName
 from .parser import norm
 from .validation import validate_country_code, validate_language_code
 
 
-def strip_legal_suffix(name: str, country_code: str | None = None, language_code: str | None = None) -> str:
-    """Remove a trailing legal suffix, optionally limited by country and language.
-
-    ``country_code`` uses ISO 3166-1 alpha-2 codes (for example, ``"US"``).
-    ``language_code`` uses ISO 639-1 two-letter codes (for example, ``"en"``).
-    """
+def _find_trailing_suffix(
+    name: str,
+    country_code: str | None = None,
+    language_code: str | None = None,
+) -> LegalSuffixMatch | None:
     if country_code is not None:
         country_code = validate_country_code(country_code)
     if language_code is not None:
         language_code = validate_language_code(language_code)
     suffixes = load_suffixes(country_code=country_code, language_code=language_code)
 
-    tokens = name.split()
-    if not tokens:
+    # Ignore whitespace and a trailing comma/semicolon when locating the suffix,
+    # while keeping punctuation attached to the suffix itself in its offsets.
+    end_pos = len(name.rstrip())
+    while end_pos and name[end_pos - 1] in ",;":
+        end_pos -= 1
+    end_pos = len(name[:end_pos].rstrip())
+    if end_pos == 0:
+        return None
+
+    first_start = len(name[:end_pos]) - len(name[:end_pos].lstrip())
+    starts = [first_start] if first_start < end_pos else []
+    index = first_start
+    while index < end_pos:
+        if name[index].isspace() or name[index] in ",;:":
+            while index + 1 < end_pos and (name[index + 1].isspace() or name[index + 1] in ",;:"):
+                index += 1
+            if index + 1 < end_pos:
+                starts.append(index + 1)
+        index += 1
+
+    # Earlier starts represent longer suffix phrases. Check them first.
+    for start_pos in starts:
+        candidate = name[start_pos:end_pos].strip()
+        normalized = norm(candidate)
+        records = suffixes.by_normalized_suffix.get(normalized)
+        if records:
+            return LegalSuffixMatch(
+                suffix=candidate,
+                normalized_suffix=normalized,
+                start_pos=start_pos,
+                end_pos=end_pos,
+                records=list(records),
+            )
+    return None
+
+
+def match_legal_suffix(
+    name: str,
+    country_code: str | None = None,
+    language_code: str | None = None,
+) -> LegalSuffixMatch | None:
+    """Find a legal suffix at the end of a company name.
+
+    Args:
+        name: Company name to inspect.
+        country_code: Optional ISO 3166-1 alpha-2 country code, such as ``"US"``.
+        language_code: Optional ISO 639-1 two-letter language code, such as ``"en"``.
+
+    Returns:
+        A :class:`LegalSuffixMatch`, or ``None`` if no trailing suffix matches.
+        Match offsets refer to the original string; ``end_pos`` is exclusive.
+
+    Raises:
+        ValueError: If either provided code is not in the expected format.
+
+    Example:
+        >>> match = match_legal_suffix("Acme GmbH", country_code="DE")
+        >>> (match.suffix, match.start_pos, match.end_pos)
+        ('GmbH', 5, 9)
+    """
+    return _find_trailing_suffix(name, country_code, language_code)
+
+
+def strip_legal_suffix(name: str, country_code: str | None = None, language_code: str | None = None) -> str:
+    """Remove a recognized trailing legal suffix from a company name.
+
+    Args:
+        name: Company name to strip.
+        country_code: Optional ISO 3166-1 alpha-2 country code, such as ``"US"``.
+        language_code: Optional ISO 639-1 two-letter language code, such as ``"en"``.
+
+    Returns:
+        The company name without the recognized suffix, or the original string
+        when no suffix matches.
+
+    Raises:
+        ValueError: If either provided code is not in the expected format.
+
+    Example:
+        >>> strip_legal_suffix("Acme GmbH", country_code="DE")
+        'Acme'
+    """
+    match = _find_trailing_suffix(name, country_code, language_code)
+    if match is None:
         return name
+    return name[: match.start_pos].rstrip(" ,;:").strip()
 
-    # Try longest match first (2-token suffixes like "e. V." or "S. A.")
-    for n in (2, 1):
-        if len(tokens) >= n:
-            candidate = norm(" ".join(tokens[-n:]))
-            if candidate in suffixes.by_normalized_suffix:
-                return " ".join(tokens[:-n]).rstrip(",").strip()
 
-    return name
+def parse_company_name(
+    name: str,
+    country_code: str | None = None,
+    language_code: str | None = None,
+) -> ParsedCompanyName:
+    """Split a company name into its base name and trailing legal suffix.
+
+    Args:
+        name: Company name to parse.
+        country_code: Optional ISO 3166-1 alpha-2 country code, such as ``"DE"``.
+        language_code: Optional ISO 639-1 two-letter language code, such as ``"de"``.
+
+    Returns:
+        A :class:`ParsedCompanyName`. Its ``name`` contains the base name, and
+        its ``suffix`` is a :class:`LegalSuffixMatch` or ``None``.
+
+    Raises:
+        ValueError: If either provided code is not in the expected format.
+
+    Example:
+        >>> parsed = parse_company_name("Acme GmbH", country_code="DE")
+        >>> (parsed.name, parsed.suffix.suffix)
+        ('Acme', 'GmbH')
+    """
+    match = _find_trailing_suffix(name, country_code, language_code)
+    if match is None:
+        return ParsedCompanyName(name=name, suffix=None)
+    return ParsedCompanyName(name=name[: match.start_pos].rstrip(" ,;:").strip(), suffix=match)
+
+
+def normalize_legal_suffix(suffix: str) -> str:
+    """Normalize suffix text to the key used for matching.
+
+    Normalization trims surrounding whitespace, lowercases the text, and removes
+    trailing periods and commas. It does not look up the suffix in the data.
+
+    Args:
+        suffix: Suffix text to normalize.
+
+    Returns:
+        The normalized suffix key.
+
+    Example:
+        >>> normalize_legal_suffix(" GmbH. ")
+        'gmbh'
+    """
+    return norm(suffix)
