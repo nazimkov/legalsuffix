@@ -9,10 +9,8 @@ def _find_trailing_suffix(
     country_code: str | None = None,
     language_code: str | None = None,
 ) -> LegalSuffixMatch | None:
-    if country_code is not None:
-        country_code = validate_country_code(country_code)
-    if language_code is not None:
-        language_code = validate_language_code(language_code)
+    country_code = validate_country_code(country_code)
+    language_code = validate_language_code(language_code)
     suffixes = load_suffixes(country_code=country_code, language_code=language_code)
 
     # Ignore whitespace and a trailing comma/semicolon when locating the suffix,

@@ -42,10 +42,8 @@ def get_suffixes(country_code: str | None = None, language_code: str | None = No
         >>> all(record.country_code == "DE" for record in records)
         True
     """
-    if country_code is not None:
-        country_code = validate_country_code(country_code)
-    if language_code is not None:
-        language_code = validate_language_code(language_code)
+    country_code = validate_country_code(country_code)
+    language_code = validate_language_code(language_code)
     return list(load_suffixes(country_code, language_code).records)
 
 
