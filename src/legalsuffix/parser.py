@@ -28,5 +28,5 @@ def parse_suffixes(text: str) -> LegalSuffixes:
 
 
 def norm(s: str) -> str:
-    """Normalize a suffix for matching: lowercase, strip trailing dots/commas."""
-    return s.strip().lower().rstrip(".,").strip()
+    """Normalize a suffix for matching: lowercase, strip"""
+    return s.strip().lower()

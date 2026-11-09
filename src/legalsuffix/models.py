@@ -6,8 +6,8 @@ class LegalSuffix:
     elf_code: str
     country_of_formation: str
     country_code: str | None
-    jurisdiction_of_formation: str
-    country_subdivision_code: str
+    jurisdiction_of_formation: str | None
+    country_subdivision_code: str | None
     entity_legal_form_name_local_name: str
     language: str
     language_code: str
