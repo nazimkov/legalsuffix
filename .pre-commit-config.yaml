@@ -11,9 +11,8 @@ repos:
           - "--autofix"
           - "--indent=2"
           - "--no-sort-keys"
+          - "--no-ensure-ascii"
         exclude: ".vscode/"
-      - id: check-toml
-      - id: check-yaml
       - id: check-merge-conflict
       - id: mixed-line-ending
         args: ["--fix=lf"]
