@@ -1,16 +1,12 @@
 [project]
 name = "legalsuffix"
-version = "0.0.1b3"
+version = "0.0.1b4"
 description = "Detect, normalize, and strip legal entity suffixes."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = []
-classifiers = [
-    "License :: OSI Approved :: MIT License",
-]
-
 [build-system]
 requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
