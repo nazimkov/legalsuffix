@@ -1,0 +1,13 @@
+ELF Code,Country of formation,Country Code (ISO 3166-1),Jurisdiction of formation,Country sub-division code (ISO 3166-2),Entity Legal Form name Local name,Language,Language Code (ISO 639-1),Entity Legal Form name Transliterated name (per ISO 01-140-10),Abbreviations Local language,Abbreviations transliterated,Merge Type
+UXEW,Finland,FI,,,Rekisteröity yhdistys,Finnish,fi,Rekisteröity yhdistys,ry,,NEW
+UXEW,Finland,FI,,,Registrerad förening,Swedish,sv,Registrerad förening,rf,,NEW
+YSP9,India,IN,,,Private Limited Company,English,en,Private Limited Company,Private Limited,,EXTRA_SUFFIX
+UDY2,Luxembourg,LU,,,Société d'investissement à capital variable,French,fr,Société d'investissement à capital variable,S.C.A. SICAV-RAIF;SICAV-RAIF,,EXTRA_SUFFIX
+8888,Luxembourg,LU,,,Société en Commandite par Actions,French,fr,Société en Commandite par Actions,S.C.A.;SCA,,NEW
+E9BI,Sweden,SE,,,stiftelse,Swedish,sv,stiftelse,stiftelsen,,EXTRA_SUFFIX
+ECAK,China,CN,,,企业,Chinese,zh,qi ye,有限公司,,EXTRA_SUFFIX
+6NSC,China,CN,,,律师执业机构,Chinese,zh,lv shi zhi ye ji gou,律师事务所,,EXTRA_SUFFIX
+3C7U,Norway,NO,,,Stiftelse,Norwegian,no,Stiftelse,STI,,EXTRA_SUFFIX
+9HLU,Czechia,CZ,,,"Společnost s ručením omezeným",Czech,cs,"Společnost s ručením omezeným",spol. s r.o.,,EXTRA_SUFFIX
+6CQN,Czechia,CZ,,,Akciová společnost,Czech,cs,Akciová společnost,a.s.,,EXTRA_SUFFIX
+SNWJ,Czechia,CZ,,,"Podílový, penzijní fond",Czech,cs,"Podílový, penzijní fond",otevřený podílový fond,,EXTRA_SUFFIX

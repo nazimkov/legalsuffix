@@ -29,8 +29,9 @@ for suffix in suffixes[:5]:
 
 ### Match a suffix
 
-`match_legal_suffix` finds a recognized suffix at the end of the company name.
-It returns `None` if there is no match. The end offset is exclusive.
+`match_legal_suffix` finds a legal form in the company name. Some registry names
+place the legal form before additional descriptive text. It returns `None` if
+there is no match. The end offset is exclusive.
 
 ```python
 company = "Musterfirma GmbH"
@@ -43,8 +44,8 @@ if match is not None:
 
 ### Normalize a suffix
 
-Normalization trims surrounding whitespace, lowercases the suffix, and removes
-trailing periods and commas.
+Normalization trims surrounding whitespace, ignores punctuation and accents,
+and lowercases the suffix.
 
 ```python
 normalize_legal_suffix(" GmbH. ")  # "gmbh"
@@ -52,7 +53,8 @@ normalize_legal_suffix(" GmbH. ")  # "gmbh"
 
 ### Parse a company name
 
-`parse_company_name` returns the base company name and the optional suffix match.
+`parse_company_name` returns the company name with the matched legal form
+removed, along with the optional suffix match. Text after the form is preserved.
 
 ```python
 parsed = parse_company_name("Musterfirma GmbH", country_code="DE")
@@ -62,6 +64,9 @@ if parsed.suffix is not None:
 ```
 
 ### Strip a suffix
+
+`strip_legal_suffix` removes the recognized legal form and preserves any text
+that follows it.
 
 ```python
 strip_legal_suffix("Musterfirma GmbH", country_code="DE")  # "Musterfirma"

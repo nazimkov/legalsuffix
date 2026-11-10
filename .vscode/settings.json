@@ -30,11 +30,14 @@
   "python.testing.unittestArgs": [
     "-v",
     "-s",
-    "../tests",
+    "tests",
     "-p",
-    "test*.py"
+    "test*.py",
+    "-t",
+    "."
   ],
-  "python.testing.cwd": "${workspaceFolder}/src",
+  "python.testing.cwd": "${workspaceFolder}",
+  "python.envFile": "${workspaceFolder}/.vscode/test.env",
   "python.analysis.extraPaths": [
     "${workspaceFolder}/src"
   ],

@@ -64,10 +64,10 @@ class LegalSuffixMatch:
 
 @dataclass(frozen=True)
 class ParsedCompanyName:
-    """A company name split into its base name and optional legal suffix.
+    """A company name split around an optional legal suffix.
 
     Attributes:
-        name: Company name with the matched trailing suffix removed.
+        name: Company name with the matched legal form removed.
         suffix: Match details, or ``None`` if no suffix was found.
     """
 

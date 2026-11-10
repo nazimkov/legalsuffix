@@ -282,8 +282,15 @@
   {
     "country_code": "FI",
     "elf_code": "UXEW",
-    "entity_name": "Pidä Saaristo Siistinä - Håll Skärgården Ren ry;Håll Skärgården Ren - Pidä Saaristo Siistinä rf",
-    "clean_entity": "Pidä Saaristo Siistinä - Håll Skärgården Ren ry;Håll Skärgården Ren - Pidä Saaristo Siistinä",
+    "entity_name": "Pidä Saaristo Siistinä - Håll Skärgården Ren ry",
+    "clean_entity": "Pidä Saaristo Siistinä - Håll Skärgården Ren",
+    "suffix": "ry"
+  },
+  {
+    "country_code": "FI",
+    "elf_code": "UXEW",
+    "entity_name": "Håll Skärgården Ren - Pidä Saaristo Siistinä rf",
+    "clean_entity": "Håll Skärgården Ren - Pidä Saaristo Siistinä",
     "suffix": "rf"
   },
   {
@@ -325,8 +332,8 @@
     "country_code": "AT",
     "elf_code": "ONF1",
     "entity_name": "Alltime Montage GmbH & Co KG",
-    "clean_entity": "Alltime Montage",
-    "suffix": "GmbH & Co KG"
+    "clean_entity": "Alltime Montage GmbH & Co",
+    "suffix": "KG"
   },
   {
     "country_code": "AT",

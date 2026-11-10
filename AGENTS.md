@@ -23,4 +23,4 @@ Detect, normalize, and strip legal entity suffixes (LLC, LTD, GmbH, OOO, and mor
 
 Install dependencies: `uv add <package>`
 
-Run unit tests with: `uv run --directory src python -m unittest discover -s ../tests`
+Run unit tests with: `uv run --directory src python -m unittest discover -s ../tests -t ..`

@@ -4,7 +4,7 @@ from functools import lru_cache
 
 from .constants import DATA_FILE_PATH
 from .models import LegalSuffix, LegalSuffixes
-from .parser import norm
+from .parser import suffix_key
 from .validation import validate_country_code, validate_language_code
 
 
@@ -82,7 +82,7 @@ def _load_suffixes(country_code: str | None, language_code: str | None) -> Legal
             )
             records.append(row)
             suffixes = {
-                norm(suffix)
+                suffix_key(suffix)
                 for suffix in (
                     *row.abbreviations_local_language,
                     *row.abbreviations_transliterated,
