@@ -1,6 +1,6 @@
 [project]
 name = "legalsuffix"
-version = "0.0.1a1"
+version = "0.0.1a2"
 description = "Detect, normalize, and strip legal entity suffixes."
 readme = "README.md"
 requires-python = ">=3.12"

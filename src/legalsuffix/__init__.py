@@ -13,7 +13,7 @@ from .loader import get_suffixes
 from .matching import match_legal_suffix, normalize_legal_suffix, parse_company_name, strip_legal_suffix
 from .models import LegalSuffix, LegalSuffixMatch, ParsedCompanyName
 
-__version__ = "0.0.1a1"
+__version__ = "0.0.1a2"
 
 __all__ = [
     "LegalSuffix",
