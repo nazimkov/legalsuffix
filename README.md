@@ -1,6 +1,10 @@
+![LegalSuffix logo](assets/logo.png)
+
 # legalsuffix
 
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+[![Python](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 Detect, normalize, and strip legal entity suffixes (LLC, LTD, GmbH, OOO, 株式会社…) in 20+ languages. Parse company names safely.
 
