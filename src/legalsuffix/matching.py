@@ -15,11 +15,17 @@ def _find_suffix(
     language_code = validate_language_code(language_code)
     suffixes = load_suffixes(country_code=country_code, language_code=language_code)
 
-    # Ignore whitespace and a trailing comma/semicolon when locating the suffix,
-    # while keeping punctuation attached to the suffix itself in its offsets.
+    # Ignore whitespace and trailing separator punctuation when locating the
+    # suffix. A terminal period can be part of the suffix (for example Inc.),
+    # but a period before a trailing comma or semicolon is punctuation.
     end_pos = len(name.rstrip())
-    while end_pos and name[end_pos - 1] in ",;":
+    had_trailing_separator = False
+    while end_pos and name[end_pos - 1] in ",;:-":
+        had_trailing_separator = True
         end_pos -= 1
+    if had_trailing_separator:
+        while end_pos and name[end_pos - 1] == ".":
+            end_pos -= 1
     end_pos = len(name[:end_pos].rstrip())
     if end_pos == 0:
         return None
@@ -132,7 +138,10 @@ def strip_legal_suffix(name: str, country_code: str | None = None, language_code
     if match is None:
         return name
     prefix = name[: match.start_pos].rstrip(" ,;:-")
-    return (prefix + name[match.end_pos :]).strip()
+    suffix_tail = name[match.end_pos :]
+    if not suffix_tail.strip(" ,;:-."):
+        suffix_tail = ""
+    return (prefix + suffix_tail).strip()
 
 
 def parse_company_name(
@@ -164,7 +173,10 @@ def parse_company_name(
     if match is None:
         return ParsedCompanyName(name=name, suffix=None)
     prefix = name[: match.start_pos].rstrip(" ,;:-")
-    clean_name = (prefix + name[match.end_pos :]).strip()
+    suffix_tail = name[match.end_pos :]
+    if not suffix_tail.strip(" ,;:-."):
+        suffix_tail = ""
+    clean_name = (prefix + suffix_tail).strip()
     return ParsedCompanyName(name=clean_name, suffix=match)
 
 

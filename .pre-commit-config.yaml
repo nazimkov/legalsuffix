@@ -28,3 +28,12 @@ repos:
     rev: v1.1.403
     hooks:
       - id: pyright
+  - repo: local
+    hooks:
+      - id: run-tests-update-coverage
+        name: Run unit tests and update coverage badge
+        entry: uv run python scripts/update_coverage_badge.py
+        language: system
+        pass_filenames: false
+        files: ^src/.*\.py$
+        stages: [pre-commit]

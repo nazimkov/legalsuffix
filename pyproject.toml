@@ -7,10 +7,17 @@ requires-python = ">=3.12"
 dependencies = []
 
 [dependency-groups]
-dev = ["pre-commit>=4.2.0", "ruff>=0.12.4", "pyright>=1.1.403"]
+dev = [
+    "pre-commit>=4.2.0",
+    "ruff>=0.12.4",
+    "pyright>=1.1.403",
+    "coverage>=7.17.2",
+]
 
 
 [tool.pyright]
+venvPath = "."
+venv = ".venv"
 exclude = [
     "**/__pycache__",
     "**/.venv",

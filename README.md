@@ -1,4 +1,7 @@
 # legalsuffix
+
+![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+
 Detect, normalize, and strip legal entity suffixes (LLC, LTD, GmbH, OOO, 株式会社…) in 20+ languages. Parse company names safely.
 
 # Operations
@@ -75,5 +78,18 @@ strip_legal_suffix("Musterfirma GmbH", country_code="DE")  # "Musterfirma"
 Country codes use ISO 3166-1 alpha-2, and language codes use ISO 639-1 two-letter
 codes.
 
+# Development hooks
+
+Install the pre-commit hook to run the unit tests and refresh the coverage
+badge before a commit that changes a Python file under `src/`:
+
+```shell
+uv run pre-commit install
+```
+
+If the badge changes, stage `README.md` and retry the commit so the updated
+coverage is included.
+
 # Data Source
+
 ISO 20275: Entity Legal Forms Code List: [Entity Legal Forms Code List (Version 1.6 )](https://www.gleif.org/lei-data/code-lists/iso-20275-entity-legal-forms-code-list/2026-02-19-elf-code-list-v1.6.xlsx)

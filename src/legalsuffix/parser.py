@@ -27,6 +27,7 @@ def parse_suffixes(text: str) -> ParsedSuffixes:
         if len(iso) != 2:
             raise ValueError(f"line {lineno}: bad ISO code {iso!r}")
         suffixes = {norm(s) for s in raw.split("|")}
+        suffixes.discard("")
         if not suffixes:
             raise ValueError(f"line {lineno}: no suffixes for {iso}")
         all_suffixes.update(suffixes)
