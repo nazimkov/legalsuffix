@@ -151,7 +151,7 @@ wheels = [
 
 [[package]]
 name = "legalsuffix"
-version = "0.0.1b3"
+version = "0.0.1b5"
 source = { editable = "." }
 
 [package.dev-dependencies]
