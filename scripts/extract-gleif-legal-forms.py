@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract entity names and non-empty legal form codes from a GLEIF LEI CSV."""
+"""Extract LEIs, entity names, and non-empty legal form codes from a GLEIF CSV."""
 
 from __future__ import annotations
 
@@ -11,14 +11,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT = ROOT / "tmp" / "20261109-0800-gleif-goldencopy-lei2-golden-copy.csv"
 DEFAULT_OUTPUT = ROOT / "tmp" / "20261109-0800-gleif-legal-forms.csv"
+LEI_COLUMN = "LEI"
 NAME_COLUMN = "Entity.LegalName"
 CODE_COLUMN = "Entity.LegalForm.EntityLegalFormCode"
-OUTPUT_COLUMNS = [NAME_COLUMN, CODE_COLUMN]
+OUTPUT_COLUMNS = [LEI_COLUMN, NAME_COLUMN, CODE_COLUMN]
 BUFFER_SIZE = 1024 * 1024
 
 
 def extract_legal_forms(input_path: Path, output_path: Path) -> int:
-    """Write name/code pairs whose legal form code is present; return row count."""
+    """Write LEI/name/code rows with a legal form code; return row count."""
     if input_path.resolve() == output_path.resolve():
         raise ValueError("input and output paths must be different")
 
@@ -36,9 +37,10 @@ def extract_legal_forms(input_path: Path, output_path: Path) -> int:
         if missing:
             raise ValueError(f"{input_path}: missing CSV columns: {', '.join(missing)}")
 
+        lei_index = header.index(LEI_COLUMN)
         name_index = header.index(NAME_COLUMN)
         code_index = header.index(CODE_COLUMN)
-        last_required_index = max(name_index, code_index)
+        last_required_index = max(lei_index, name_index, code_index)
 
         with output_path.open("w", encoding="utf-8", newline="", buffering=BUFFER_SIZE) as output:
             writer = csv.writer(output, lineterminator="\n")
@@ -53,7 +55,7 @@ def extract_legal_forms(input_path: Path, output_path: Path) -> int:
 
                 legal_form_code = row[code_index]
                 if legal_form_code.strip():
-                    writer.writerow((row[name_index], legal_form_code))
+                    writer.writerow((row[lei_index], row[name_index], legal_form_code))
                     rows_written += 1
 
     return rows_written

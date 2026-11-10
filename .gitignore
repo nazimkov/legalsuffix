@@ -221,3 +221,6 @@ __marimo__/
 
 # Local source files and other temporary inputs
 /tmp/
+
+# codex
+.codex/
