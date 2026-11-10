@@ -1,8 +1,9 @@
-![LegalSuffix logo](assets/logo.png)
+![LegalSuffix logo](https://raw.githubusercontent.com/nazimkov/legalsuffix/main/assets/logo.png)
 
 # legalsuffix
 
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+[![PyPI](https://img.shields.io/pypi/v/legalsuffix)](https://pypi.org/project/legalsuffix/)
 [![Python](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
