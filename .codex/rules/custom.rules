@@ -9,9 +9,16 @@ prefix_rule(
 prefix_rule(
     pattern = ["git", ["status", "diff", "log", "branch", "show", "remote", "add", "tag"]],
     decision = "allow",
-    justification = "Save Git operations are safe in any context",
+    justification = "Git operations are safe in any context",
     match = ["git status", "git diff HEAD~3", "git log --oneline -20"],
     not_match = ["git push", "git reset --hard"]
+)
+
+# Allow git commands with -c
+prefix_rule(
+    pattern = ["git", "-c", "safe.directory=C:/Projects/legalsuffix", ["status", "diff", "log", "branch", "show", "remote", "add", "tag", "commit"]],
+    decision = "allow",
+    justification = "Git operations are safe in any context"
 )
 
 # Require approval for destructive git operations
