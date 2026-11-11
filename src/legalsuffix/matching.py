@@ -41,39 +41,51 @@ def _find_suffix(
     # First try suffixes ending at the end of the name. Some registries include
     # descriptive text after the legal form, so also inspect bounded spans
     # elsewhere in the name when there is no trailing match.
-    candidates: list[LegalSuffixMatch] = []
+    # Starts are in ascending order, so the first trailing match is the
+    # longest one and outranks every match ending earlier in the name.
     for start_pos in starts:
         if not name[start_pos].isalnum() and not _is_wide_character(name[start_pos]):
             continue
-        for candidate_end in range(end_pos, start_pos, -1):
-            if candidate_end < end_pos and not _is_end_boundary(name, candidate_end):
-                continue
+        candidate = name[start_pos:end_pos].strip()
+        normalized = suffix_key(candidate)
+        records = suffixes.by_normalized_suffix.get(normalized)
+        if records:
+            return LegalSuffixMatch(
+                suffix=candidate,
+                normalized_suffix=normalized,
+                start_pos=start_pos,
+                end_pos=end_pos,
+                records=list(records),
+            )
+
+    # Interior candidates cannot start at the first non-whitespace character.
+    # Compute boundaries once, then retain the longest match, breaking ties in
+    # favor of the later start, as for the original candidate ordering.
+    end_boundaries = [position for position in range(first_start + 1, end_pos) if _is_end_boundary(name, position)]
+    best: LegalSuffixMatch | None = None
+    best_length = 0
+    for start_pos in starts:
+        if start_pos == first_start or (not name[start_pos].isalnum() and not _is_wide_character(name[start_pos])):
+            continue
+        for candidate_end in reversed(end_boundaries):
+            candidate_length = candidate_end - start_pos
+            if candidate_length <= 0 or candidate_length < best_length:
+                break
             candidate = name[start_pos:candidate_end].strip()
             normalized = suffix_key(candidate)
             records = suffixes.by_normalized_suffix.get(normalized)
             if records:
-                if start_pos == first_start and candidate_end != end_pos:
-                    continue
-                candidates.append(
-                    LegalSuffixMatch(
-                        suffix=candidate,
-                        normalized_suffix=normalized,
-                        start_pos=start_pos,
-                        end_pos=candidate_end,
-                        records=list(records),
-                    )
+                best = LegalSuffixMatch(
+                    suffix=candidate,
+                    normalized_suffix=normalized,
+                    start_pos=start_pos,
+                    end_pos=candidate_end,
+                    records=list(records),
                 )
+                best_length = candidate_length
+                break
 
-    if not candidates:
-        return None
-    return max(
-        candidates,
-        key=lambda match: (
-            match.end_pos == end_pos,
-            match.end_pos - match.start_pos,
-            match.start_pos,
-        ),
-    )
+    return best
 
 
 def _is_wide_character(character: str) -> bool:
