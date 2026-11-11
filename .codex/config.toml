@@ -1,0 +1,9 @@
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+
+[features]
+apps = false
+goals = false
+remote_plugin = false
+web_search = false
+memories = false

@@ -1,0 +1,22 @@
+# Allow UV commands
+prefix_rule(
+    pattern = ["uv", ["run", "add", "sync"]],
+    decision = "allow",
+    justification = "UV operations"
+)
+
+# Allow git commands
+prefix_rule(
+    pattern = ["git", ["status", "diff", "log", "branch", "show", "remote", "add", "tag"]],
+    decision = "allow",
+    justification = "Save Git operations are safe in any context",
+    match = ["git status", "git diff HEAD~3", "git log --oneline -20"],
+    not_match = ["git push", "git reset --hard"]
+)
+
+# Require approval for destructive git operations
+prefix_rule(
+    pattern = ["git", ["reset", "rebase", "force-push"]],
+    decision = "prompt",
+    justification = "Destructive Git operations need human review"
+)
