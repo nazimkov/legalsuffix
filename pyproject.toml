@@ -1,6 +1,6 @@
 [project]
 name = "legalsuffix"
-version = "0.0.1b5"
+version = "0.0.1b6"
 description = "Detect, normalize, and strip legal entity suffixes."
 keywords = ["legal entities", "company names", "legal suffixes", "name normalization", "elf code"]
 readme = "README.md"
