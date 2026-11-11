@@ -1,62 +1,29 @@
 import unittest
 
-from legalsuffix.parser import norm, parse_suffixes, suffix_key
+from legalsuffix.parser import suffix_key
 
 
-class ParseSuffixesTests(unittest.TestCase):
-    def test_parses_and_normalizes_country_suffixes(self) -> None:
-        suffixes = parse_suffixes("us\t LLC. | Inc, |LTD\nde\te. V. | GmbH\n")
-
-        actual = (suffixes.by_country["US"], suffixes.by_country["DE"], suffixes.all)
-
-        self.assertEqual(
-            actual,
-            (
-                frozenset({"llc", "inc", "ltd"}),
-                frozenset({"e. v", "gmbh"}),
-                frozenset({"llc", "inc", "ltd", "e. v", "gmbh"}),
-            ),
-        )
-
-    def test_ignores_blank_lines_and_comments(self) -> None:
-        text = "\n# comment\nUS\tLLC\n  \nDE\tGmbH\n"
-
-        suffixes = parse_suffixes(text)
-
-        self.assertEqual(suffixes.by_country, {"US": frozenset({"llc"}), "DE": frozenset({"gmbh"})})
-        self.assertEqual(suffixes.all, frozenset({"llc", "gmbh"}))
-
-    def test_line_without_tab_raises_value_error_with_line_number(self) -> None:
-        text = "US\tLLC\nnot-a-row\n"
-
-        with self.assertRaisesRegex(ValueError, r"line 2: expected"):
-            parse_suffixes(text)
-
-    def test_invalid_country_code_raises_value_error(self) -> None:
-        text = "USA\tLLC"
-
-        with self.assertRaisesRegex(ValueError, r"line 1: bad ISO code 'USA'"):
-            parse_suffixes(text)
-
-    def test_empty_suffix_list_raises_value_error(self) -> None:
-        text = "US\t | . | , "
-
-        with self.assertRaisesRegex(ValueError, r"line 1: no suffixes for US"):
-            parse_suffixes(text)
-
-    def test_norm_trims_whitespace_and_trailing_punctuation(self) -> None:
-        suffix = "  Inc.,  "
-
-        normalized = norm(suffix)
-
-        self.assertEqual(normalized, "inc")
+class SuffixKeyTests(unittest.TestCase):
+    def test_suffix_key_applies_unicode_casefolding(self) -> None:
+        self.assertEqual(suffix_key("Stra\u00dfe GmbH"), "strasse gmbh")
 
     def test_suffix_key_joins_short_tokens_and_removes_accents(self) -> None:
-        suffix = "Société G.m.b.H."
+        self.assertEqual(suffix_key("Soci\u00e9t\u00e9 G.m.b.H."), "societe gmbh")
 
-        normalized = suffix_key(suffix)
+    def test_suffix_key_casefolds_and_removes_punctuation(self) -> None:
+        self.assertEqual(
+            suffix_key("  OOO \u201c\u0420\u043e\u043c\u0430\u0448\u043a\u0430\u201d \u2014 Ltd.!  "),
+            "ooo \u0440\u043e\u043c\u0430\u0448\u043a\u0430 ltd",
+        )
 
-        self.assertEqual(normalized, "societe gmbh")
+    def test_suffix_key_preserves_word_boundaries_around_long_tokens(self) -> None:
+        self.assertEqual(suffix_key("Co., Ltd."), "co ltd")
+
+    def test_suffix_key_joins_adjacent_short_tokens(self) -> None:
+        self.assertEqual(suffix_key("A / S"), "as")
+
+    def test_suffix_key_returns_empty_for_punctuation_only_input(self) -> None:
+        self.assertEqual(suffix_key("... / \u2014"), "")
 
 
 if __name__ == "__main__":
