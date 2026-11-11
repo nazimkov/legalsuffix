@@ -9,7 +9,7 @@ Example:
     'GmbH'
 """
 
-from .loader import get_suffixes
+from .loader import list_legal_suffixes
 from .matching import match_legal_suffix, normalize_legal_suffix, parse_company_name, strip_legal_suffix
 from .models import LegalSuffix, LegalSuffixMatch, ParsedCompanyName
 
@@ -19,7 +19,7 @@ __all__ = [
     "LegalSuffix",
     "LegalSuffixMatch",
     "ParsedCompanyName",
-    "get_suffixes",
+    "list_legal_suffixes",
     "match_legal_suffix",
     "normalize_legal_suffix",
     "parse_company_name",

@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Literal
 from unittest.mock import patch
 
-from legalsuffix import get_suffixes, loader
+from legalsuffix import list_legal_suffixes, loader
 
 CSVField = Literal[
     "ELF Code",
@@ -59,8 +59,8 @@ class LoaderTests(unittest.TestCase):
     def tearDown(self) -> None:
         loader._load_suffixes.cache_clear()
 
-    def test_get_suffixes_filters_country_and_language_and_returns_tuple(self) -> None:
-        records = get_suffixes(country_code="de", language_code="DE")
+    def test_list_legal_suffixes_filters_country_and_language_and_returns_tuple(self) -> None:
+        records = list_legal_suffixes(country_code="de", language_code="DE")
 
         self.assertIsInstance(records, tuple)
         self.assertTrue(records)
@@ -104,11 +104,11 @@ class LoaderTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "missing Country Code"):
                     loader.load_suffixes()
 
-    def test_get_suffixes_rejects_invalid_codes(self) -> None:
+    def test_list_legal_suffixes_rejects_invalid_codes(self) -> None:
         with self.assertRaises(ValueError):
-            get_suffixes(country_code="USA")
+            list_legal_suffixes(country_code="USA")
         with self.assertRaises(ValueError):
-            get_suffixes(language_code="eng")
+            list_legal_suffixes(language_code="eng")
 
 
 if __name__ == "__main__":

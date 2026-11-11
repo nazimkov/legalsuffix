@@ -24,7 +24,7 @@ def load_suffixes(country_code: str | None = None, language_code: str | None = N
     return _load_suffixes(country_code, language_code)
 
 
-def get_suffixes(country_code: str | None = None, language_code: str | None = None) -> Sequence[LegalSuffix]:
+def list_legal_suffixes(country_code: str | None = None, language_code: str | None = None) -> Sequence[LegalSuffix]:
     """Return legal suffix records, optionally filtered by country and language.
 
     Args:
@@ -38,7 +38,7 @@ def get_suffixes(country_code: str | None = None, language_code: str | None = No
         ValueError: If either provided code is not in the expected format.
 
     Example:
-        >>> records = get_suffixes(country_code="DE", language_code="de")
+        >>> records = list_legal_suffixes(country_code="DE", language_code="de")
         >>> all(record.country_code == "DE" for record in records)
         True
     """

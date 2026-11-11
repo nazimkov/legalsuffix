@@ -17,7 +17,7 @@ ISO 639-1 two-letter codes.
 
 ```python
 from legalsuffix import (
-    get_suffixes,
+    list_legal_suffixes,
     match_legal_suffix,
     normalize_legal_suffix,
     parse_company_name,
@@ -27,10 +27,10 @@ from legalsuffix import (
 
 ### Get suffix records
 
-`get_suffixes` returns `LegalSuffix` records. Filters are optional.
+`list_legal_suffixes` returns `LegalSuffix` records. Filters are optional.
 
 ```python
-suffixes = get_suffixes(country_code="DE", language_code="de")
+suffixes = list_legal_suffixes(country_code="DE", language_code="de")
 for suffix in suffixes[:5]:
     print(suffix.elf_code, suffix.entity_legal_form_name_local_name)
 ```

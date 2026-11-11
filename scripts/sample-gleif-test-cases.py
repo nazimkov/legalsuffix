@@ -23,7 +23,7 @@ DEFAULT_SEED = 20261109
 # Allow running the script directly from the repository without installing the package.
 sys.path.insert(0, str(ROOT / "src"))
 
-from legalsuffix import get_suffixes  # noqa: E402
+from legalsuffix import list_legal_suffixes  # noqa: E402
 
 
 def _read_counts(input_path: Path) -> Counter[str]:
@@ -46,9 +46,9 @@ def _read_counts(input_path: Path) -> Counter[str]:
 
 def _country_codes_and_elf_codes() -> dict[str, set[str]]:
     """Get country-to-ELF-code mappings through the package's public API."""
-    countries = {record.country_code for record in get_suffixes() if record.country_code}
+    countries = {record.country_code for record in list_legal_suffixes() if record.country_code}
     return {
-        country_code: {record.elf_code for record in get_suffixes(country_code=country_code)}
+        country_code: {record.elf_code for record in list_legal_suffixes(country_code=country_code)}
         for country_code in sorted(countries)
     }
 
