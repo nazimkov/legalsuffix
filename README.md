@@ -83,18 +83,11 @@ strip_legal_suffix("Musterfirma GmbH", country_code="DE")  # "Musterfirma"
 Country codes use ISO 3166-1 alpha-2, and language codes use ISO 639-1 two-letter
 codes.
 
-# Development hooks
+# Data Sources
 
-Install the pre-commit hook to run the unit tests and refresh the coverage
-badge before a commit that changes a Python file under `src/`:
+The library uses the [ISO 20275 Entity Legal Forms Code List (Version 1.6)](https://www.gleif.org/lei-data/code-lists/iso-20275-entity-legal-forms-code-list/2026-02-19-elf-code-list-v1.6.xlsx). It also includes additional legal form codes not listed in ISO 20275, identified from a sample of company records in the [GLEIF Golden Copy](https://www.gleif.org/en/lei-data/gleif-golden-copy/download-the-golden-copy#/), which contains [LEI-CDF v3.1 Level 1 data](https://www.gleif.org/en/lei-data/access-and-use-lei-data/level-1-data-who-is-who).
 
-```shell
-uv run pre-commit install
-```
+# Development
 
-If the badge changes, stage `README.md` and retry the commit so the updated
-coverage is included.
-
-# Data Source
-
-ISO 20275: Entity Legal Forms Code List: [Entity Legal Forms Code List (Version 1.6 )](https://www.gleif.org/lei-data/code-lists/iso-20275-entity-legal-forms-code-list/2026-02-19-elf-code-list-v1.6.xlsx)
+See the [development guide](docs/development.md) for setup, pre-commit hooks,
+and test instructions.
