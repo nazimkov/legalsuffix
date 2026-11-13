@@ -13,6 +13,7 @@ class CompanyNameTestCase:
     clean_entity: str
     suffix: str | None
     lei: str
+    language_code: str | None = None
 
 
 TEST_CASES_PATH = Path(__file__).parent / "data" / "test-cases.csv"
@@ -24,4 +25,5 @@ def load_test_cases[TestCaseT](model: type[TestCaseT], path: Path = TEST_CASES_P
         cases = list(csv.DictReader(cases_file))
     for case in cases:
         case["suffix"] = case["suffix"] or None
+        case["language_code"] = case.get("language_code") or None
     return [model(**case) for case in cases]

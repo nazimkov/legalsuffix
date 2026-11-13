@@ -11,14 +11,22 @@ class MatchingDataTests(unittest.TestCase):
     def test_strips_expected_suffix_for_each_company_name_case(self) -> None:
         for case in self.cases:
             with self.subTest(lei=case.lei, elf_code=case.elf_code, entity_name=case.entity_name):
-                actual = strip_legal_suffix(case.entity_name, country_code=case.country_code)
+                actual = strip_legal_suffix(
+                    case.entity_name,
+                    country_code=case.country_code,
+                    language_code=case.language_code,
+                )
 
                 self.assertEqual(actual, case.clean_entity)
 
     def test_parses_expected_name_and_suffix_for_each_company_name_case(self) -> None:
         for case in self.cases:
             with self.subTest(lei=case.lei, elf_code=case.elf_code, entity_name=case.entity_name):
-                parsed = parse_company_name(case.entity_name, country_code=case.country_code)
+                parsed = parse_company_name(
+                    case.entity_name,
+                    country_code=case.country_code,
+                    language_code=case.language_code,
+                )
 
                 self.assertEqual(parsed.name, case.clean_entity)
                 self.assertEqual(parsed.suffix.suffix if parsed.suffix else None, case.suffix)
