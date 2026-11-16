@@ -46,6 +46,9 @@ dev = [
     "ruff>=0.12.4",
     "pyright>=1.1.403",
     "coverage>=7.17.2",
+    "openai==3.50.0",
+    "python-dotenv>=1.2.4",
+    "typesafe-sdk>=0.7.5",
 ]
 
 

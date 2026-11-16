@@ -1,4 +1,14 @@
 {
     "version": "0.2.0",
-    "configurations": []
+    "configurations": [
+        {
+            "name": "Python: Test JEV",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/gleif/test_jev.py",
+            "cwd": "${workspaceFolder}/scripts/gleif",
+            "envFile": "${workspaceFolder}/scripts/gleif/.env",
+            "console": "integratedTerminal"
+        }
+    ]
 }
