@@ -9,6 +9,25 @@
             "cwd": "${workspaceFolder}/scripts/gleif",
             "envFile": "${workspaceFolder}/scripts/gleif/.env",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: Test LLM",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/gleif/test_llm.py",
+            "cwd": "${workspaceFolder}/scripts/gleif",
+            "envFile": "${workspaceFolder}/scripts/gleif/.env",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: Extract LLM Test Run (20 items)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "scripts.gleif.extract-llm",
+            "args": ["--test-run"],
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/scripts/gleif/.env",
+            "console": "integratedTerminal"
         }
     ]
 }

@@ -10,9 +10,10 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INPUT = ROOT / "tmp" / "20261109-0800-gleif-legal-forms.csv"
-DEFAULT_OUTPUT = ROOT / "tests" / "data" / "test-cases-sample.csv"
+DEFAULT_OUTPUT = ROOT / "tmp" / "test-data" / "sampled-test-cases.csv"
+DEFAULT_USED_CASES = ROOT / "tests" / "data" / "test-cases.csv"
 LEI_COLUMN = "LEI"
 NAME_COLUMN = "Entity.LegalName"
 CODE_COLUMN = "Entity.LegalForm.EntityLegalFormCode"
@@ -37,7 +38,23 @@ sys.path.insert(0, str(ROOT / "src"))
 from legalsuffix import list_legal_suffixes, match_legal_suffix  # noqa: E402
 
 
-def _read_counts(input_path: Path) -> Counter[str]:
+def _read_used_leis(test_cases_path: Path) -> set[str]:
+    """Return LEIs already present in the curated test-case CSV."""
+    if not test_cases_path.exists():
+        return set()
+    with test_cases_path.open(encoding="utf-8-sig", newline="") as source:
+        reader = csv.DictReader(source)
+        if reader.fieldnames is None or "lei" not in reader.fieldnames:
+            raise ValueError(f"{test_cases_path}: missing CSV column: lei")
+        used_leis: set[str] = set()
+        for row in reader:
+            lei = (row.get("lei") or "").strip()
+            if lei:
+                used_leis.add(lei)
+        return used_leis
+
+
+def _read_counts(input_path: Path, excluded_leis: set[str]) -> Counter[str]:
     """Count entity rows per ELF code in the GLEIF extract."""
     counts: Counter[str] = Counter()
     with input_path.open(encoding="utf-8-sig", newline="") as source:
@@ -50,26 +67,31 @@ def _read_counts(input_path: Path) -> Counter[str]:
 
         for row in reader:
             code = (row[CODE_COLUMN] or "").strip()
-            if code and (row[NAME_COLUMN] or "").strip():
+            if code and (row[NAME_COLUMN] or "").strip() and (row[LEI_COLUMN] or "").strip() not in excluded_leis:
                 counts[code] += 1
     return counts
 
 
-def _read_address_country_counts(input_path: Path) -> Counter[tuple[str, str]]:
+def _read_address_country_counts(input_path: Path, excluded_leis: set[str]) -> Counter[tuple[str, str]]:
     """Count special ELF codes by their GLEIF legal address country."""
     counts: Counter[tuple[str, str]] = Counter()
     with input_path.open(encoding="utf-8-sig", newline="") as source:
         reader = csv.DictReader(source)
         if reader.fieldnames is None:
             raise ValueError(f"{input_path}: missing CSV header")
-        missing = {NAME_COLUMN, CODE_COLUMN, COUNTRY_COLUMN} - set(reader.fieldnames)
+        missing = {LEI_COLUMN, NAME_COLUMN, CODE_COLUMN, COUNTRY_COLUMN} - set(reader.fieldnames)
         if missing:
             raise ValueError(f"{input_path}: missing CSV columns: {', '.join(sorted(missing))}")
 
         for row in reader:
             code = (row[CODE_COLUMN] or "").strip()
             country = (row[COUNTRY_COLUMN] or "").strip().upper()
-            if code in ADDRESS_COUNTRY_CODES and country and (row[NAME_COLUMN] or "").strip():
+            if (
+                code in ADDRESS_COUNTRY_CODES
+                and country
+                and (row[NAME_COLUMN] or "").strip()
+                and (row[LEI_COLUMN] or "").strip() not in excluded_leis
+            ):
                 counts[(country, code)] += 1
     return counts
 
@@ -133,6 +155,7 @@ def _sample_entity_names(
     input_path: Path,
     selected_pairs: list[tuple[str, str]],
     seed: int,
+    excluded_leis: set[str],
 ) -> dict[tuple[str, str], tuple[str, str, str]]:
     """Reservoir-sample an entity name and address country for each selected pair."""
     rng = random.Random(seed)
@@ -149,7 +172,7 @@ def _sample_entity_names(
             entity_name = (row[NAME_COLUMN] or "").strip()
             lei = (row[LEI_COLUMN] or "").strip()
             address_country = (row[COUNTRY_COLUMN] or "").strip().upper()
-            if not entity_name or code not in selected_by_code:
+            if not entity_name or code not in selected_by_code or lei in excluded_leis:
                 continue
 
             for country_code, _ in selected_by_code[code]:
@@ -192,6 +215,7 @@ def sample_test_cases(
     country_count: int = DEFAULT_COUNTRY_COUNT,
     codes_per_country: int = DEFAULT_CODES_PER_COUNTRY,
     seed: int = DEFAULT_SEED,
+    used_cases_path: Path = DEFAULT_USED_CASES,
 ) -> list[dict[str, str | None]]:
     """Write reproducible CSV test cases and return the generated records."""
     if country_count < 1:
@@ -199,8 +223,9 @@ def sample_test_cases(
     if codes_per_country < 1:
         raise ValueError("codes_per_country must be at least 1")
 
-    code_counts = _read_counts(input_path)
-    address_country_counts = _read_address_country_counts(input_path)
+    excluded_leis = _read_used_leis(used_cases_path)
+    code_counts = _read_counts(input_path, excluded_leis)
+    address_country_counts = _read_address_country_counts(input_path, excluded_leis)
     selected_pairs = _select_codes(
         code_counts,
         address_country_counts,
@@ -208,27 +233,30 @@ def sample_test_cases(
         country_count,
         codes_per_country,
     )
-    entity_samples = _sample_entity_names(input_path, selected_pairs, seed)
+    entity_samples = _sample_entity_names(input_path, selected_pairs, seed, excluded_leis)
 
     cases: list[dict[str, str | None]] = []
     for country_code, elf_code in selected_pairs:
         sample = entity_samples.get((country_code, elf_code))
         if sample is None:
             continue
-        entity_name, address_country, lei = sample
+        source_entity_name, address_country, lei = sample
         if elf_code in ADDRESS_COUNTRY_CODES:
             country_code = address_country
-        cases.append(
-            {
-                "country_code": country_code,
-                "language_code": _language_code(country_code, elf_code, entity_name),
-                "elf_code": elf_code,
-                "entity_name": entity_name,
-                "clean_entity": None,
-                "suffix": None,
-                "lei": lei,
-            }
-        )
+        for entity_name in (name.strip() for name in source_entity_name.split(";")):
+            if not entity_name:
+                continue
+            cases.append(
+                {
+                    "country_code": country_code,
+                    "language_code": _language_code(country_code, elf_code, entity_name),
+                    "elf_code": elf_code,
+                    "entity_name": entity_name,
+                    "clean_entity": None,
+                    "suffix": None,
+                    "lei": lei,
+                }
+            )
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8", newline="") as output:
@@ -246,12 +274,20 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", nargs="?", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("output", nargs="?", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--used-cases", type=Path, default=DEFAULT_USED_CASES)
     parser.add_argument("--countries", type=int, default=DEFAULT_COUNTRY_COUNT)
     parser.add_argument("--codes-per-country", type=int, default=DEFAULT_CODES_PER_COUNTRY)
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
     args = parser.parse_args()
 
-    cases = sample_test_cases(args.input, args.output, args.countries, args.codes_per_country, args.seed)
+    cases = sample_test_cases(
+        args.input,
+        args.output,
+        args.countries,
+        args.codes_per_country,
+        args.seed,
+        args.used_cases,
+    )
     print(f"wrote {len(cases)} test cases to {args.output}", file=sys.stderr)
 
 

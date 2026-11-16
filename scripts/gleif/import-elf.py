@@ -9,7 +9,7 @@ import sys
 from contextlib import ExitStack
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 REMOVED_COLUMNS = {
     "Date created YYYY-MM-DD (ISO 8601)",
     "ELF Status ACTV/INAC",

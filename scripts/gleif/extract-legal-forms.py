@@ -8,7 +8,7 @@ import csv
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INPUT = ROOT / "tmp" / "20261109-0800-gleif-goldencopy-lei2-golden-copy.csv"
 DEFAULT_OUTPUT = ROOT / "tmp" / "20261109-0800-gleif-legal-forms.csv"
 LEI_COLUMN = "LEI"
