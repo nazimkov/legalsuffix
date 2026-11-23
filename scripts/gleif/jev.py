@@ -33,7 +33,7 @@ class CompanyState:
     id: int
     original_company_name: str
     extracted_company_name: str
-    extracted_suffix: str | None
+    extracted_legal_form: str | None
 
 
 QUESTIONS: Questions = {
@@ -69,8 +69,7 @@ QUESTIONS: Questions = {
     ),
     "legal_form_extracted": Noul(
         instructions=(
-            "Is the legal form extraction complete, "
-            + "with no legal entity suffix remaining in the extracted company name?"
+            "Is the legal form extraction complete, " + "with no legal form remaining in the extracted company name?"
         ),
     ),
 }
@@ -168,7 +167,7 @@ class JevVerifier:
 
             decisions = {q: self.from_answer(ra) for q, ra in response.answers.items()}
             validations[s.id] = JevValidation(
-                decisions=decisions, overall_verdict=self.get_verdict(decisions, s.extracted_suffix)
+                decisions=decisions, overall_verdict=self.get_verdict(decisions, s.extracted_legal_form)
             )
 
         return validations
@@ -221,7 +220,7 @@ class JevVerifier:
         raise ValueError(f"Unsupported answer type: {type(answer).__name__}")
 
     @staticmethod
-    def get_verdict(decisions: dict[str, JevDecisionAnswer], extracted_suffix: str | None) -> JevVerdict:
+    def get_verdict(decisions: dict[str, JevDecisionAnswer], extracted_legal_form: str | None) -> JevVerdict:
         """Return extraction correctness and confidence with form annotations.
 
         A confident failure on a structural check forces an incorrect verdict.
@@ -287,7 +286,7 @@ class JevVerifier:
             correct = correct_weight > incorrect_weight
             confidence = aggregate_confidence
 
-        if legal_form_present and not extracted_suffix:
+        if legal_form_present and not extracted_legal_form:
             correct = False
             confidence = 1.0
 

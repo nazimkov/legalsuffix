@@ -57,7 +57,7 @@ def _validate_batch(
                 id=extraction.id,
                 original_company_name=case["entity_name"],
                 extracted_company_name=extraction.company_name,
-                extracted_suffix=extraction.suffix,
+                extracted_legal_form=extraction.legal_form,
             )
         )
     return dict(verifier.validate(states))
@@ -105,7 +105,7 @@ def _save_batch(
             elf_code=case["elf_code"],
             entity_name=case["entity_name"],
             clean_entity=ext.company_name,
-            suffix=ext.suffix,
+            suffix=ext.legal_form,
             jev_overall_decision="correct" if verdict.correct else "incorrect",
             jev_overall_confidence=verdict.confidence,
             jev_validation=validation,

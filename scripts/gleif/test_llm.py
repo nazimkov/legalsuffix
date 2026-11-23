@@ -21,5 +21,5 @@ with AzureOpenAIExtractor.from_environment() as extractor:
     result = extractor.extract_batch(COMPANY_NAMES)
 
 for cmp in result.companies:
-    print(f"{cmp.id}: {cmp.company_name} | suffix: {cmp.suffix}")
+    print(f"{cmp.id}: {cmp.company_name} | legal form: {cmp.legal_form}")
 print(f"Usage: {result.usage}")

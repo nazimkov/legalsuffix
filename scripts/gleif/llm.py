@@ -10,7 +10,7 @@ from typing import Literal, get_args, get_origin
 from openai import AzureOpenAI
 from openai.types.responses import ResponseUsage
 from openai.types.shared_params import Reasoning, ReasoningEffort
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 logger = getLogger(__name__)
 
@@ -20,7 +20,7 @@ AZURE_API_VERSION = "2025-04-01-preview"
 class CompanyExtraction(BaseModel):
     id: int
     company_name: str
-    suffix: str | None
+    legal_form: str | None = Field(description="Exact legal form from company name.")
 
 
 class ExtractionResponse(BaseModel):
@@ -82,11 +82,11 @@ class AzureOpenAIExtractor:
             model=self._deployment,
             reasoning=self._reasoning,
             instructions=(
-                "Your task is to extract the legal form and clean company name from the following list. "
-                'For example, if the company name is "Company Name 1, Inc.", the suffix is "Inc." and the '
-                'clean company name is "Company Name 1". Strip leading and trailing whitespace from the '
-                "company name and suffix. If there is no legal form, return null as the suffix. Return one "
-                "result for each numbered input, preserving its id."
+                "For each company name, extract the exact legal form as written and return the remaining name "
+                "as the clean company name. Do not translate, expand, or normalize the legal form. "
+                'For example, for "Company Name 1, Inc.", return legal_form "Inc." and company_name '
+                '"Company Name 1". Strip leading and trailing whitespace from both values. If no legal form '
+                "is present, return null for legal_form. Return one result for each numbered input, preserving its id."
             ),
             input=f"<companies>\n{numbered_names}\n</companies>",
             text_format=ExtractionResponse,

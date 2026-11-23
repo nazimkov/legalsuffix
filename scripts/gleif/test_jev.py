@@ -22,7 +22,7 @@ pos_cases = [
         id=1,
         original_company_name="SORIA NATURAL SOCIEDAD ANONIMA",
         extracted_company_name="SORIA NATURAL",
-        extracted_suffix="SOCIEDAD ANONIMA",
+        extracted_legal_form="SOCIEDAD ANONIMA",
     )
 ]
 
@@ -32,7 +32,7 @@ neg_cases = [
         id=2,
         original_company_name="Alltime Montage GmbH & Co KG",
         extracted_company_name="Alltime Montage GmbH & Co KG",
-        extracted_suffix="KG",
+        extracted_legal_form="KG",
     )
 ]
 
