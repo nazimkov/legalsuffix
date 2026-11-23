@@ -13,7 +13,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INPUT = ROOT / "tmp" / "20261109-0800-gleif-legal-forms.csv"
 DEFAULT_OUTPUT = ROOT / "tmp" / "test-data" / "sampled-test-cases.csv"
-DEFAULT_USED_CASES = ROOT / "tests" / "data" / "test-cases.csv"
+DEFAULT_USED_CASES = ROOT / "tests" / "data"
+DEFAULT_UNCERTAIN_CASES = ROOT / "tmp" / "test-data" / "uncertain-cases.csv"
 LEI_COLUMN = "LEI"
 NAME_COLUMN = "Entity.LegalName"
 CODE_COLUMN = "Entity.LegalForm.EntityLegalFormCode"
@@ -39,19 +40,21 @@ from legalsuffix import list_legal_suffixes, match_legal_suffix  # noqa: E402
 
 
 def _read_used_leis(test_cases_path: Path) -> set[str]:
-    """Return LEIs already present in the curated test-case CSV."""
+    """Return LEIs present in a CSV file or all CSVs in a directory."""
     if not test_cases_path.exists():
         return set()
-    with test_cases_path.open(encoding="utf-8-sig", newline="") as source:
-        reader = csv.DictReader(source)
-        if reader.fieldnames is None or "lei" not in reader.fieldnames:
-            raise ValueError(f"{test_cases_path}: missing CSV column: lei")
-        used_leis: set[str] = set()
-        for row in reader:
-            lei = (row.get("lei") or "").strip()
-            if lei:
-                used_leis.add(lei)
-        return used_leis
+    paths = sorted(test_cases_path.glob("*.csv")) if test_cases_path.is_dir() else [test_cases_path]
+    used_leis: set[str] = set()
+    for path in paths:
+        with path.open(encoding="utf-8-sig", newline="") as source:
+            reader = csv.DictReader(source)
+            if reader.fieldnames is None or "lei" not in reader.fieldnames:
+                raise ValueError(f"{path}: missing CSV column: lei")
+            for row in reader:
+                lei = (row.get("lei") or "").strip()
+                if lei:
+                    used_leis.add(lei)
+    return used_leis
 
 
 def _read_counts(input_path: Path, excluded_leis: set[str]) -> Counter[str]:
@@ -216,6 +219,7 @@ def sample_test_cases(
     codes_per_country: int = DEFAULT_CODES_PER_COUNTRY,
     seed: int = DEFAULT_SEED,
     used_cases_path: Path = DEFAULT_USED_CASES,
+    uncertain_cases_path: Path = DEFAULT_UNCERTAIN_CASES,
 ) -> list[dict[str, str | None]]:
     """Write reproducible CSV test cases and return the generated records."""
     if country_count < 1:
@@ -223,7 +227,7 @@ def sample_test_cases(
     if codes_per_country < 1:
         raise ValueError("codes_per_country must be at least 1")
 
-    excluded_leis = _read_used_leis(used_cases_path)
+    excluded_leis = _read_used_leis(used_cases_path) | _read_used_leis(uncertain_cases_path)
     code_counts = _read_counts(input_path, excluded_leis)
     address_country_counts = _read_address_country_counts(input_path, excluded_leis)
     selected_pairs = _select_codes(
@@ -275,6 +279,7 @@ def main() -> None:
     parser.add_argument("input", nargs="?", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("output", nargs="?", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--used-cases", type=Path, default=DEFAULT_USED_CASES)
+    parser.add_argument("--uncertain-cases", type=Path, default=DEFAULT_UNCERTAIN_CASES)
     parser.add_argument("--countries", type=int, default=DEFAULT_COUNTRY_COUNT)
     parser.add_argument("--codes-per-country", type=int, default=DEFAULT_CODES_PER_COUNTRY)
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
@@ -287,6 +292,7 @@ def main() -> None:
         args.codes_per_country,
         args.seed,
         args.used_cases,
+        args.uncertain_cases,
     )
     print(f"wrote {len(cases)} test cases to {args.output}", file=sys.stderr)
 

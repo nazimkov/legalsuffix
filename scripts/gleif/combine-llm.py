@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -18,8 +19,12 @@ sys.path.insert(0, str(ROOT))
 
 DEFAULT_INPUT = ROOT / "tmp" / "test-data" / "sampled-test-cases.csv"
 DEFAULT_OUTPUT_ROOT = ROOT / "tmp" / "test-data" / "extracted-llm"
+DEFAULT_TEST_CASES_ROOT = ROOT / "tests" / "data"
+DEFAULT_UNCERTAIN_CASES = ROOT / "tmp" / "test-data" / "uncertain-cases.csv"
 CASE_COLUMNS = ["country_code", "language_code", "elf_code", "entity_name", "clean_entity", "suffix", "lei"]
 EXTRA_COLUMNS = ["jev_overall_decision", "jev_overall_confidence", "jev_validation"]
+MIN_CONFIDENCE = 0.9
+TEST_CASE_FILENAME = re.compile(r"(?:suffix|prefix|middle|none)-[A-Z]{2}\.csv\Z")
 EXTRACTED_COLUMNS = [
     "id",
     "lei",
@@ -93,7 +98,123 @@ def _csv_value(value: Any) -> str:
     return str(value)
 
 
-def combine(sampled_path: Path, run_dir: Path) -> tuple[Path, Path]:
+def _read_rows(path: Path, columns: list[str]) -> list[dict[str, str]]:
+    if not path.exists():
+        return []
+    with path.open(encoding="utf-8-sig", newline="") as source:
+        reader = csv.DictReader(source)
+        missing = set(columns) - set(reader.fieldnames or ())
+        if missing:
+            raise ValueError(f"{path}: missing CSV columns: {', '.join(sorted(missing))}")
+        return [{column: row.get(column) or "" for column in columns} for row in reader]
+
+
+def _write_rows(path: Path, columns: list[str], rows: list[dict[str, str]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as output:
+        writer = csv.DictWriter(output, fieldnames=columns, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def _upsert_by_lei(path: Path, columns: list[str], rows: list[dict[str, str]]) -> None:
+    """Append or replace CSV rows by LEI while preserving existing row order."""
+    existing = _read_rows(path, columns)
+    positions = {row["lei"]: index for index, row in enumerate(existing) if row["lei"]}
+    for row in rows:
+        lei = row["lei"]
+        if lei and lei in positions:
+            existing[positions[lei]] = row
+        else:
+            if lei:
+                positions[lei] = len(existing)
+            existing.append(row)
+    _write_rows(path, columns, existing)
+
+
+def _persist_cases(
+    records: list[ExtractedRecord],
+    test_cases_root: Path,
+    uncertain_cases_path: Path,
+) -> None:
+    uncertain_rows: list[dict[str, str]] = []
+    accepted_by_lei: dict[str, tuple[Path, dict[str, str]]] = {}
+    processed_leis: set[str] = set()
+
+    for record in records:
+        processed_leis.add(record.lei)
+        confidence = record.jev_overall_confidence
+        decision = (record.jev_overall_decision or "").strip().casefold()
+        is_uncertain = decision == "incorrect" or (
+            decision == "correct" and (confidence is None or confidence < MIN_CONFIDENCE)
+        )
+        if decision not in {"correct", "incorrect"}:
+            raise ValueError(f"Record {record.lei} has unsupported Jev decision: {decision!r}")
+
+        case = {
+            "country_code": record.country_code,
+            "language_code": record.language_code,
+            "elf_code": record.elf_code,
+            "entity_name": record.entity_name,
+            "clean_entity": record.clean_entity,
+            "suffix": record.suffix or "",
+            "lei": record.lei,
+        }
+        if is_uncertain:
+            uncertain_rows.append(
+                {
+                    **case,
+                    "jev_overall_decision": decision,
+                    "jev_overall_confidence": _csv_value(confidence),
+                    "jev_validation": _csv_value(record.jev_validation.model_dump()),
+                }
+            )
+            continue
+
+        place = record.jev_validation.overall_verdict.place.value
+        country_code = record.country_code.upper()
+        filename = f"{place}-{country_code}.csv"
+        if not TEST_CASE_FILENAME.fullmatch(filename):
+            raise ValueError(f"Record {record.lei} has invalid test-case category: {filename!r}")
+        accepted_by_lei[record.lei] = (test_cases_root / filename, case)
+
+    # A LEI can occur more than once when the source has multiple legal-name
+    # aliases. Keep one row per LEI and treat any uncertain alias as uncertain.
+    uncertain_by_lei = {row["lei"]: row for row in uncertain_rows}
+    uncertain_rows = list(uncertain_by_lei.values())
+    uncertain_leis = set(uncertain_by_lei)
+    accepted_by_path: dict[Path, list[dict[str, str]]] = {}
+    for lei, (path, case) in accepted_by_lei.items():
+        if lei not in uncertain_leis:
+            accepted_by_path.setdefault(path, []).append(case)
+
+    if uncertain_rows:
+        _upsert_by_lei(uncertain_cases_path, [*CASE_COLUMNS, *EXTRA_COLUMNS], uncertain_rows)
+    if uncertain_cases_path.exists():
+        retained_uncertain = [
+            row
+            for row in _read_rows(uncertain_cases_path, [*CASE_COLUMNS, *EXTRA_COLUMNS])
+            if row["lei"] not in processed_leis or row["lei"] in uncertain_leis
+        ]
+        _write_rows(uncertain_cases_path, [*CASE_COLUMNS, *EXTRA_COLUMNS], retained_uncertain)
+
+    # LEIs may be reclassified to a different category or country, so remove
+    # replacements from every existing generated file before writing them.
+    generated_files = {path for path in test_cases_root.glob("*.csv") if TEST_CASE_FILENAME.fullmatch(path.name)}
+    for path in generated_files | set(accepted_by_path):
+        retained = [row for row in _read_rows(path, CASE_COLUMNS) if row["lei"] not in processed_leis]
+        retained.extend(accepted_by_path.get(path, []))
+        if retained or path in accepted_by_path:
+            _write_rows(path, CASE_COLUMNS, retained)
+
+
+def combine(
+    sampled_path: Path,
+    run_dir: Path,
+    *,
+    test_cases_root: Path = DEFAULT_TEST_CASES_ROOT,
+    uncertain_cases_path: Path = DEFAULT_UNCERTAIN_CASES,
+) -> tuple[Path, Path]:
     cases = _read_sampled(sampled_path)
     records = _read_batches(run_dir, cases)
     extracted_path = run_dir / "extracted-llm.csv"
@@ -120,6 +241,8 @@ def combine(sampled_path: Path, run_dir: Path) -> tuple[Path, Path]:
             }
             writer.writerow({column: _csv_value(merged.get(column)) for column in [*CASE_COLUMNS, *EXTRA_COLUMNS]})
 
+    _persist_cases(records, test_cases_root, uncertain_cases_path)
+
     return extracted_path, final_path
 
 
@@ -128,9 +251,16 @@ def main() -> None:
     parser.add_argument("run_dir", nargs="?", type=Path, help="Timestamped extraction directory (defaults to newest)")
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT, help="Sampled input CSV")
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
+    parser.add_argument("--test-cases-root", type=Path, default=DEFAULT_TEST_CASES_ROOT)
+    parser.add_argument("--uncertain-cases", type=Path, default=DEFAULT_UNCERTAIN_CASES)
     args = parser.parse_args()
     run_dir = args.run_dir or _latest_run(args.output_root)
-    extracted_path, final_path = combine(args.input, run_dir)
+    extracted_path, final_path = combine(
+        args.input,
+        run_dir,
+        test_cases_root=args.test_cases_root,
+        uncertain_cases_path=args.uncertain_cases,
+    )
     print(f"wrote {extracted_path}")
     print(f"wrote {final_path}")
 

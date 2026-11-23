@@ -16,14 +16,18 @@ class CompanyNameTestCase:
     language_code: str | None = None
 
 
-TEST_CASES_PATH = Path(__file__).parent / "data" / "test-cases.csv"
+TEST_CASES_PATH = Path(__file__).parent / "data"
 
 
 def load_test_cases[TestCaseT](model: type[TestCaseT], path: Path = TEST_CASES_PATH) -> list[TestCaseT]:
-    """Load CSV test-case rows and instantiate ``model`` for each row."""
-    with path.open(encoding="utf-8-sig", newline="") as cases_file:
-        cases = list(csv.DictReader(cases_file))
-    for case in cases:
-        case["suffix"] = case["suffix"] or None
-        case["language_code"] = case.get("language_code") or None
-    return [model(**case) for case in cases]
+    """Load one test-case CSV or all CSVs in a test-case directory."""
+    paths = sorted(path.glob("*.csv")) if path.is_dir() else [path]
+    loaded: list[TestCaseT] = []
+    for case_path in paths:
+        with case_path.open(encoding="utf-8-sig", newline="") as cases_file:
+            cases = list(csv.DictReader(cases_file))
+        for case in cases:
+            case["suffix"] = case["suffix"] or None
+            case["language_code"] = case.get("language_code") or None
+        loaded.extend(model(**case) for case in cases)
+    return loaded
