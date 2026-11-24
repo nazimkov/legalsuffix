@@ -114,7 +114,7 @@ def import_elf_codes(
                 extrasaction="ignore",
             )
             writer.writeheader()
-            writer.writerows(row for row in (*source_rows, *new_rows) if row[ELF_CODE_COLUMN] not in EXCLUDED_ELF_CODES)
+            writer.writerows([row for row in source_rows if row[ELF_CODE_COLUMN] not in EXCLUDED_ELF_CODES] + new_rows)
 
     print(f"wrote {output_path}", file=sys.stderr)
 

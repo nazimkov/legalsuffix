@@ -1,4 +1,4 @@
-ELF Code,Country of formation,Country Code (ISO 3166-1),Jurisdiction of formation,Country sub-division code (ISO 3166-2),Entity Legal Form name Local name,Language,Language Code (ISO 639-1),Entity Legal Form name Transliterated name (per ISO 01-140-10),Abbreviations Local language,Abbreviations transliterated,Merge Type
+﻿ELF Code,Country of formation,Country Code (ISO 3166-1),Jurisdiction of formation,Country sub-division code (ISO 3166-2),Entity Legal Form name Local name,Language,Language Code (ISO 639-1),Entity Legal Form name Transliterated name (per ISO 01-140-10),Abbreviations Local language,Abbreviations transliterated,Merge Type
 UXEW,Finland,FI,,,Rekisteröity yhdistys,Finnish,fi,Rekisteröity yhdistys,ry,,NEW
 UXEW,Finland,FI,,,Registrerad förening,Swedish,sv,Registrerad förening,rf,,NEW
 YSP9,India,IN,,,Private Limited Company,English,en,Private Limited Company,Private Limited,,EXTRA_SUFFIX
@@ -8,6 +8,22 @@ E9BI,Sweden,SE,,,stiftelse,Swedish,sv,stiftelse,stiftelsen,,EXTRA_SUFFIX
 ECAK,China,CN,,,企业,Chinese,zh,qi ye,有限公司,,EXTRA_SUFFIX
 6NSC,China,CN,,,律师执业机构,Chinese,zh,lv shi zhi ye ji gou,律师事务所,,EXTRA_SUFFIX
 3C7U,Norway,NO,,,Stiftelse,Norwegian,no,Stiftelse,STI,,EXTRA_SUFFIX
-9HLU,Czechia,CZ,,,"Společnost s ručením omezeným",Czech,cs,"Společnost s ručením omezeným",spol. s r.o.,,EXTRA_SUFFIX
+8S9H,Norway,NO,,,Gjensidig forsikringsselskap,Norwegian,no,Gjensidig forsikringsselskap,GJENSIDIG,,EXTRA_SUFFIX
+9HLU,Czechia,CZ,,,Společnost s ručením omezeným,Czech,cs,Společnost s ručením omezeným,spol. s r.o.,,EXTRA_SUFFIX
 6CQN,Czechia,CZ,,,Akciová společnost,Czech,cs,Akciová společnost,a.s.,,EXTRA_SUFFIX
 SNWJ,Czechia,CZ,,,"Podílový, penzijní fond",Czech,cs,"Podílový, penzijní fond",otevřený podílový fond,,EXTRA_SUFFIX
+NIJH,Austria,AT,,,registrierte Genossenschaft mit beschränkter Haftung,German,de,registrierte Genossenschaft mit beschränkter Haftung,registrierte Genossenschaft mit beschränkter Haftung,,EXTRA_SUFFIX
+J7SF,China,CN,,,有限合伙企业,Chinese,zh,youxian hehuo qiye,有限合伙,,EXTRA_SUFFIX
+BDTI,China,CN,,,编办直接管理机构编制的群众团体,Chinese,zh,bian ban zhi jie guan li ji gou bian zhi de qun zhong tuan ti,Limited,,EXTRA_SUFFIX
+FR3V,Germany,DE,,,Gesellschaft bürgerlichen Rechts,German,de,,b.R.,,EXTRA_SUFFIX
+599X,Denmark,DK,,,Fonde og andre selvejende institutioner,Danish,da,Fonde og andre selvejende institutioner,S/I,,EXTRA_SUFFIX
+DP3Q,Spain,ES,,,Sociedad Limitada,Spanish,es,Sociedad Limitada,Sociedad Limitada,,EXTRA_SUFFIX
+DDKQ,India,IN,,,Public Limited Company,English,en,Public Limited Company,Limited,,EXTRA_SUFFIX
+75WC,Italy,IT,,,Ente del Terzo Settore,Italian,it,Ente del Terzo Settore,ETS,,EXTRA_SUFFIX
+4XP8,Cayman Islands,KY,,,Limited,English,en,Limited,Limited,,NEW
+V5OS,Luxembourg,LU,,,Société en commandite spéciale,French,fr,,SCSp,,EXTRA_SUFFIX
+WZDB,Sweden,SE,,,Bostadsförening,Swedish,sv,Bostadsförening,UPA,,EXTRA_SUFFIX
+V2YH,Germany,DE,,,Stiftung des privaten Rechts,German,de,Stiftung des privaten Rechts,Stiftung,,EXTRA_SUFFIX
+1MWR,Denmark,DK,,,Fond,Danish,da,,Akk. KL,,EXTRA_SUFFIX
+NFFH,Netherlands,NL,,,coöperatie,Dutch,nl,,Coöperatieve U.A.,,EXTRA_SUFFIX
+8888,Cayman Islands,KY,,,S SERIES TRUST,English,en,,S SERIES TRUST,,NEW

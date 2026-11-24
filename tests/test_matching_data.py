@@ -12,7 +12,12 @@ class MatchingDataTests(unittest.TestCase):
 def _strip_test(path):
     def test(self) -> None:
         for case in load_test_cases(CompanyNameTestCase, path):
-            with self.subTest(lei=case.lei, entity_name=case.entity_name):
+            with self.subTest(
+                lei=case.lei,
+                entity_name=case.entity_name,
+                suffix=case.suffix,
+                elf_code=case.elf_code,
+            ):
                 actual = strip_legal_suffix(
                     case.entity_name,
                     country_code=case.country_code,
@@ -27,7 +32,12 @@ def _strip_test(path):
 def _parse_test(path):
     def test(self) -> None:
         for case in load_test_cases(CompanyNameTestCase, path):
-            with self.subTest(lei=case.lei, entity_name=case.entity_name):
+            with self.subTest(
+                lei=case.lei,
+                entity_name=case.entity_name,
+                suffix=case.suffix,
+                elf_code=case.elf_code,
+            ):
                 parsed = parse_company_name(
                     case.entity_name,
                     country_code=case.country_code,

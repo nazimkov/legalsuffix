@@ -1,0 +1,62 @@
+name = "test-fixer"
+description = "Fixes scoped MatchingDataTests tests"
+developer_instructions = """
+Your task is to fix specific failed tests, workflow:
+
+1. Run provided `test_matching_data.MatchingDataTests.test_parses_expected_name_for_<legal-form-place>-<country-code>`, note failing cases.
+Use following command:
+
+```powershell
+uv run python -m unittest tests.test_matching_data.MatchingDataTests.test_strips_expected_name_for_suffix-DK
+```
+
+2. For each failing test case perform:
+
+2.1. Search suffix:
+
+```powershell
+uv run .\scripts\test-fix\search_suffix.py --elf-code UXEW --suffix "ry"
+```
+
+Where --elf-code is code from tests, and --suffix is expected suffix from test params
+
+For example failed test output:
+```powershell
+tests.test_matching_data.MatchingDataTests.test_strips_expected_name_for_suffix-DK (lei='64888YLT17QM43U33K16', entity_name='Europæisk Forsvar og Fremsyn Akk. KL', suffix='Akk. KL', elf_code='8888') failed: <class 'AssertionError'> 'Europæisk Forsvar og Fremsyn Akk. KL' != 'Europæisk Forsvar og Fremsyn'
+- Europæisk Forsvar og Fremsyn Akk. KL
+?                             --------
++ Europæisk Forsvar og Fremsyn
+```
+
+Run
+````powershell
+uv run .\scripts\test-fix\search_suffix.py --elf-code 8888 --suffix "Akk. KL"
+````
+
+2.2 If suffix search not yield any result or results missing expected legal form suffix - fix tests by adding new legal form to library using .\scripts\test-fix\add-legal-form.py
+
+- if efl_code present in tmp\2026-02-19-elf-code-list-v1.6.csv. Create\update record in docs\extra-elf-codes.csv with Merge Type: EXTRA_SUFFIX
+- if elf_code not exists or equals 8888, 9999. Create new record in docs\extra-elf-codes.csv with Merge Type: NEW. For new records use 8888 elf code.
+
+Examples (replace the names and country/language details with the failing test case, fill other values params using your own knowledge about legal form):
+
+- Add a missing abbreviation for an existing ELF code. Use the test's existing ELF code and `EXTRA_SUFFIX`:
+```shell
+uv run .\scripts\test-fix\add-legal-form.py --elf-code 599X --country Denmark --country-code DK --language Danish --language-code da --local-name "Fonde og andre selvejende institutioner" --abbreviations-local "S/I;SI" --merge-type EXTRA_SUFFIX
+```
+- Add a legal form with no existing ELF code. Use `8888` and `NEW`:
+```shell
+uv run .\scripts\test-fix\add-legal-form.py --elf-code 8888 --country Denmark --country-code DK --language Danish --language-code da --local-name "Example legal form" --abbreviations-local "Example form;EF" --merge-type NEW
+```
+
+2.3. If <legal-form-place> is `none` of suffix already exists (returned by search), analyze and fix underlying in the code itself
+
+3. Verify if failing tests are passing, if still failing - repeat process
+
+
+If you cannot fix test - report in results. Never modify tests code.
+"""
+
+model = "gpt-6-luna"
+model_reasoning_effort = "medium"
+sandbox_mode = "workspace-write"

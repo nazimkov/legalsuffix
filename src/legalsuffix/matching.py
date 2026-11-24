@@ -58,6 +58,27 @@ def _find_suffix(
                 records=list(records),
             )
 
+    # A few registries put the legal form before the company name. Keep the
+    # longest matching leading span, just as trailing candidates take the
+    # longest span first.
+    prefix_match: LegalSuffixMatch | None = None
+    for candidate_end in range(first_start + 1, end_pos):
+        if not _is_end_boundary(name, candidate_end):
+            continue
+        candidate = name[first_start:candidate_end].strip()
+        normalized = suffix_key(candidate)
+        records = suffixes.by_normalized_suffix.get(normalized)
+        if records:
+            prefix_match = LegalSuffixMatch(
+                suffix=candidate,
+                normalized_suffix=normalized,
+                start_pos=first_start,
+                end_pos=candidate_end,
+                records=list(records),
+            )
+    if prefix_match is not None:
+        return prefix_match
+
     # Interior candidates cannot start at the first non-whitespace character.
     # Compute boundaries once, then retain the longest match, breaking ties in
     # favor of the later start, as for the original candidate ordering.
