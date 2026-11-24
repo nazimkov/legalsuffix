@@ -4,6 +4,11 @@ prefix_rule(
     decision = "allow",
     justification = "UV operations"
 )
+prefix_rule(
+    pattern=["C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command", "uv", ["run", "add", "sync"]],
+    justification = "UV operations",
+    decision="allow"
+)
 
 # Allow git commands
 prefix_rule(

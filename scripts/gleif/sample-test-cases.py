@@ -57,6 +57,24 @@ def _read_used_leis(test_cases_path: Path) -> set[str]:
     return used_leis
 
 
+def _read_sampled_code_counts(test_cases_path: Path) -> Counter[str]:
+    """Count existing test cases for each ELF code in a CSV file or directory."""
+    if not test_cases_path.exists():
+        return Counter()
+    paths = sorted(test_cases_path.glob("*.csv")) if test_cases_path.is_dir() else [test_cases_path]
+    counts: Counter[str] = Counter()
+    for path in paths:
+        with path.open(encoding="utf-8-sig", newline="") as source:
+            reader = csv.DictReader(source)
+            if reader.fieldnames is None or "elf_code" not in reader.fieldnames:
+                raise ValueError(f"{path}: missing CSV column: elf_code")
+            for row in reader:
+                elf_code = (row.get("elf_code") or "").strip()
+                if elf_code:
+                    counts[elf_code] += 1
+    return counts
+
+
 def _read_counts(input_path: Path, excluded_leis: set[str]) -> Counter[str]:
     """Count entity rows per ELF code in the GLEIF extract."""
     counts: Counter[str] = Counter()
@@ -117,10 +135,11 @@ def _select_codes(
     code_counts: Counter[str],
     address_country_counts: Counter[tuple[str, str]],
     country_codes: dict[str, set[str]],
+    sampled_code_counts: Counter[str],
     country_count: int,
     codes_per_country: int,
 ) -> list[tuple[str, str]]:
-    """Choose the most common countries, then their most common distinct codes."""
+    """Choose common countries, prioritizing ELF codes with less existing coverage."""
     country_counts = {
         country_code: sum(
             address_country_counts[(country_code, elf_code)]
@@ -146,6 +165,7 @@ def _select_codes(
                 )
             ),
             key=lambda code: (
+                sampled_code_counts[code],
                 -(address_country_counts[(country_code, code)] if code in ADDRESS_COUNTRY_CODES else code_counts[code]),
                 code,
             ),
@@ -228,12 +248,15 @@ def sample_test_cases(
         raise ValueError("codes_per_country must be at least 1")
 
     excluded_leis = _read_used_leis(used_cases_path) | _read_used_leis(uncertain_cases_path)
+    sampled_code_counts = _read_sampled_code_counts(used_cases_path)
+    sampled_code_counts.update(_read_sampled_code_counts(uncertain_cases_path))
     code_counts = _read_counts(input_path, excluded_leis)
     address_country_counts = _read_address_country_counts(input_path, excluded_leis)
     selected_pairs = _select_codes(
         code_counts,
         address_country_counts,
         _country_codes_and_elf_codes(address_country_counts),
+        sampled_code_counts,
         country_count,
         codes_per_country,
     )
