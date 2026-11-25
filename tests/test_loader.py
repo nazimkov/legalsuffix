@@ -103,6 +103,34 @@ class LoaderTests(unittest.TestCase):
             self.assertIsNone(suffixes.prefix_trie.find("gmb"))
             self.assertIsNone(suffixes.suffix_trie.find("gmb"))
 
+    def test_load_suffixes_filters_by_any_country_and_language_code(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            data_path = Path(temporary_directory) / "suffixes.csv"
+            with data_path.open("w", encoding="utf-8", newline="") as data_file:
+                writer = csv.DictWriter(data_file, fieldnames=CSV_FIELDS)
+                writer.writeheader()
+                writer.writerow(_row("DE", "de", "GmbH"))
+                writer.writerow(_row("FR", "fr", "SARL"))
+                writer.writerow(_row("AT", "de", "GesmbH"))
+
+            with patch.object(loader, "DATA_FILE_PATH", data_path):
+                suffixes = loader.load_suffixes(country_code=["de", "FR"], language_code=("FR", "DE"))
+
+        self.assertEqual({record.country_code for record in suffixes.records}, {"DE", "FR"})
+        self.assertEqual({record.language_code for record in suffixes.records}, {"de", "fr"})
+
+    def test_empty_code_sequence_matches_no_records(self) -> None:
+        records = list_legal_suffixes(country_code=[])
+
+        self.assertEqual(records, ())
+
+    def test_list_legal_suffixes_accepts_multiple_country_and_language_codes(self) -> None:
+        records = list_legal_suffixes(country_code=["de", "fr"], language_code=["DE", "fr"])
+
+        self.assertTrue(records)
+        self.assertTrue(all(record.country_code in {"DE", "FR"} for record in records))
+        self.assertTrue(all(record.language_code in {"de", "fr"} for record in records))
+
     def test_load_suffixes_rejects_row_without_country_code(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             data_path = Path(temporary_directory) / "suffixes.csv"

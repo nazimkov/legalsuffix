@@ -3,9 +3,14 @@ from collections.abc import Sequence
 from functools import lru_cache
 
 from .constants import DATA_FILE_PATH
-from .models import LegalSuffix, LegalSuffixes, SuffixTrie
+from .models import CountryCodeFilter, LanguageCodeFilter, LegalSuffix, LegalSuffixes, SuffixTrie
 from .parser import suffix_key
-from .validation import validate_country_code, validate_language_code
+from .validation import (
+    NormalizedCountryCodeFilter,
+    NormalizedLanguageCodeFilter,
+    validate_country_code,
+    validate_language_code,
+)
 
 
 def _split_abbreviations(value: str | None) -> list[str]:
@@ -14,22 +19,26 @@ def _split_abbreviations(value: str | None) -> list[str]:
     return [abbreviation for abbreviation in value.split(";") if abbreviation.strip()]
 
 
-def load_suffixes(country_code: str | None = None, language_code: str | None = None) -> LegalSuffixes:
+def load_suffixes(
+    country_code: CountryCodeFilter = None,
+    language_code: LanguageCodeFilter = None,
+) -> LegalSuffixes:
     """Load suffix records, optionally limiting them by country and language."""
-    if country_code is not None:
-        country_code = country_code.upper()
-    if language_code is not None:
-        language_code = language_code.lower()
+    country_code = validate_country_code(country_code)
+    language_code = validate_language_code(language_code)
 
     return _load_suffixes(country_code, language_code)
 
 
-def list_legal_suffixes(country_code: str | None = None, language_code: str | None = None) -> Sequence[LegalSuffix]:
+def list_legal_suffixes(
+    country_code: CountryCodeFilter = None,
+    language_code: LanguageCodeFilter = None,
+) -> Sequence[LegalSuffix]:
     """Return legal suffix records, optionally filtered by country and language.
 
     Args:
-        country_code: Optional ISO 3166-1 alpha-2 country code, such as ``"DE"``.
-        language_code: Optional ISO 639-1 two-letter language code, such as ``"de"``.
+        country_code: Optional ISO 3166-1 alpha-2 code or sequence, such as ``"DE"`` or ``["DE", "FR"]``.
+        language_code: Optional ISO 639-1 two-letter code or sequence, such as ``"de"`` or ``["de", "fr"]``.
 
     Returns:
         An immutable sequence of :class:`LegalSuffix` records.
@@ -48,9 +57,14 @@ def list_legal_suffixes(country_code: str | None = None, language_code: str | No
 
 
 @lru_cache(maxsize=1)
-def _load_suffixes(country_code: str | None, language_code: str | None) -> LegalSuffixes:
+def _load_suffixes(
+    country_code: NormalizedCountryCodeFilter,
+    language_code: NormalizedLanguageCodeFilter,
+) -> LegalSuffixes:
     by_normalized_suffix: dict[str, list[LegalSuffix]] = {}
     records: list[LegalSuffix] = []
+    country_codes = None if country_code is None else set(_filter_codes(country_code))
+    language_codes = None if language_code is None else set(_filter_codes(language_code))
 
     with DATA_FILE_PATH.open(encoding="utf-8-sig", newline="") as file:
         reader = csv.DictReader(file)
@@ -60,9 +74,9 @@ def _load_suffixes(country_code: str | None, language_code: str | None) -> Legal
                 raise ValueError(f"{DATA_FILE_PATH}:{line_number}: missing Country Code (ISO 3166-1)")
 
             row_language_code = csv_row["Language Code (ISO 639-1)"]
-            if country_code is not None and row_country_code.upper() != country_code:
+            if country_codes is not None and row_country_code.upper() not in country_codes:
                 continue
-            if language_code is not None and row_language_code.lower() != language_code:
+            if language_codes is not None and row_language_code.lower() not in language_codes:
                 continue
 
             row = LegalSuffix(
@@ -106,3 +120,7 @@ def _load_suffixes(country_code: str | None, language_code: str | None) -> Legal
         prefix_trie=prefix_trie,
         suffix_trie=suffix_trie,
     )
+
+
+def _filter_codes(value: str | tuple[str, ...]) -> tuple[str, ...]:
+    return value if isinstance(value, tuple) else (value,)

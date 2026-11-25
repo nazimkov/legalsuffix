@@ -2,7 +2,7 @@
 
 # legalsuffix
 
-![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-99%25-brightgreen)
 [![PyPI](https://img.shields.io/pypi/v/legalsuffix)](https://pypi.org/project/legalsuffix/)
 [![Python](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -13,7 +13,10 @@ Detect, normalize, and strip legal entity suffixes (LLC, LTD, GmbH, OOO, 株式�
 
 The package exposes these operations from `legalsuffix`. Country and language
 filters are optional; country codes use ISO 3166-1 alpha-2 and language codes use
-ISO 639-1 two-letter codes.
+ISO 639-1 two-letter codes. Each filter accepts either one code (for example,
+`"DE"`) or a sequence of codes (for example, `["DE", "FR"]`). A sequence
+matches any listed code; when both filters are provided, records must match a
+listed country and a listed language. An empty sequence matches no records.
 
 ```python
 from legalsuffix import (

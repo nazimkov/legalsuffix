@@ -1,15 +1,15 @@
 import unicodedata
 
 from .loader import load_suffixes
-from .models import LegalSuffixMatch, ParsedCompanyName
+from .models import CountryCodeFilter, LanguageCodeFilter, LegalSuffixMatch, ParsedCompanyName
 from .parser import suffix_key
 from .validation import validate_country_code, validate_language_code
 
 
 def _find_suffix(
     name: str,
-    country_code: str | None = None,
-    language_code: str | None = None,
+    country_code: CountryCodeFilter = None,
+    language_code: LanguageCodeFilter = None,
 ) -> LegalSuffixMatch | None:
     country_code = validate_country_code(country_code)
     language_code = validate_language_code(language_code)
@@ -225,15 +225,15 @@ def _is_end_boundary(name: str, position: int) -> bool:
 
 def match_legal_suffix(
     name: str,
-    country_code: str | None = None,
-    language_code: str | None = None,
+    country_code: CountryCodeFilter = None,
+    language_code: LanguageCodeFilter = None,
 ) -> LegalSuffixMatch | None:
     """Find a legal form in a company name.
 
     Args:
         name: Company name to inspect.
-        country_code: Optional ISO 3166-1 alpha-2 country code, such as ``"US"``.
-        language_code: Optional ISO 639-1 two-letter language code, such as ``"en"``.
+        country_code: Optional ISO 3166-1 alpha-2 code or sequence, such as ``"US"`` or ``["US", "CA"]``.
+        language_code: Optional ISO 639-1 two-letter code or sequence, such as ``"en"`` or ``["en", "fr"]``.
 
     Returns:
         A :class:`LegalSuffixMatch`, or ``None`` if no suffix matches. Match
@@ -250,13 +250,17 @@ def match_legal_suffix(
     return _find_suffix(name, country_code, language_code)
 
 
-def strip_legal_suffix(name: str, country_code: str | None = None, language_code: str | None = None) -> str:
+def strip_legal_suffix(
+    name: str,
+    country_code: CountryCodeFilter = None,
+    language_code: LanguageCodeFilter = None,
+) -> str:
     """Remove a recognized legal form from a company name.
 
     Args:
         name: Company name to strip.
-        country_code: Optional ISO 3166-1 alpha-2 country code, such as ``"US"``.
-        language_code: Optional ISO 639-1 two-letter language code, such as ``"en"``.
+        country_code: Optional ISO 3166-1 alpha-2 code or sequence, such as ``"US"`` or ``["US", "CA"]``.
+        language_code: Optional ISO 639-1 two-letter code or sequence, such as ``"en"`` or ``["en", "fr"]``.
 
     Returns:
         The company name without the matched legal form, or the original string
@@ -281,15 +285,15 @@ def strip_legal_suffix(name: str, country_code: str | None = None, language_code
 
 def parse_company_name(
     name: str,
-    country_code: str | None = None,
-    language_code: str | None = None,
+    country_code: CountryCodeFilter = None,
+    language_code: LanguageCodeFilter = None,
 ) -> ParsedCompanyName:
     """Split a company name around a recognized legal form.
 
     Args:
         name: Company name to parse.
-        country_code: Optional ISO 3166-1 alpha-2 country code, such as ``"DE"``.
-        language_code: Optional ISO 639-1 two-letter language code, such as ``"de"``.
+        country_code: Optional ISO 3166-1 alpha-2 code or sequence, such as ``"DE"`` or ``["DE", "AT"]``.
+        language_code: Optional ISO 639-1 two-letter code or sequence, such as ``"de"`` or ``["de", "fr"]``.
 
     Returns:
         A :class:`ParsedCompanyName`. Its ``name`` contains the name with the

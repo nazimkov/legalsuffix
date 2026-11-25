@@ -11,13 +11,15 @@ Example:
 
 from .loader import list_legal_suffixes
 from .matching import match_legal_suffix, normalize_legal_suffix, parse_company_name, strip_legal_suffix
-from .models import LegalSuffix, LegalSuffixMatch, ParsedCompanyName
+from .models import CountryCodeFilter, LanguageCodeFilter, LegalSuffix, LegalSuffixMatch, ParsedCompanyName
 
 __version__ = "0.0.1b6"
 
 __all__ = [
     "LegalSuffix",
     "LegalSuffixMatch",
+    "CountryCodeFilter",
+    "LanguageCodeFilter",
     "ParsedCompanyName",
     "list_legal_suffixes",
     "match_legal_suffix",

@@ -3,6 +3,9 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 
+CountryCodeFilter = str | Sequence[str] | None
+LanguageCodeFilter = str | Sequence[str] | None
+
 
 @dataclass(frozen=True)
 class LegalSuffix:

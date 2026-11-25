@@ -24,6 +24,15 @@ class MatchingTests(unittest.TestCase):
         self.assertTrue(match.records)
         self.assertTrue(all(record.country_code == "DE" for record in match.records))
 
+    def test_match_accepts_multiple_country_and_language_codes(self) -> None:
+        match = match_legal_suffix("Acme GmbH", country_code=["FR", "de"], language_code=("fr", "DE"))
+
+        self.assertIsNotNone(match)
+        assert match is not None
+        self.assertTrue(match.records)
+        self.assertTrue(all(record.country_code in {"FR", "DE"} for record in match.records))
+        self.assertTrue(all(record.language_code in {"fr", "de"} for record in match.records))
+
     def test_longest_matching_form_is_selected(self) -> None:
         company_name = "Acme OHG mbH"
 
@@ -99,6 +108,11 @@ class MatchingTests(unittest.TestCase):
 
         self.assertEqual(clean_name, "Acme")
 
+    def test_strip_accepts_multiple_country_codes(self) -> None:
+        clean_name = strip_legal_suffix("Acme GmbH", country_code=["FR", "DE"])
+
+        self.assertEqual(clean_name, "Acme")
+
     def test_strip_preserves_text_after_suffix(self) -> None:
         company_name = "Acme GmbH Holdings"
 
@@ -122,6 +136,12 @@ class MatchingTests(unittest.TestCase):
         self.assertIsNotNone(parsed.suffix)
         assert parsed.suffix is not None
         self.assertEqual(parsed.suffix.suffix, "GmbH")
+
+    def test_parse_accepts_multiple_language_codes(self) -> None:
+        parsed = parse_company_name("Acme GmbH", country_code="DE", language_code=["fr", "de"])
+
+        self.assertEqual(parsed.name, "Acme")
+        self.assertIsNotNone(parsed.suffix)
 
     def test_parse_returns_original_name_when_no_suffix_matches(self) -> None:
         company_name = "Acme Holdings"
