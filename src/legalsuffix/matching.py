@@ -44,7 +44,7 @@ def _find_suffix(
     # Starts are in ascending order, so the first trailing match is the
     # longest one and outranks every match ending earlier in the name.
     for start_pos in starts:
-        if not name[start_pos].isalnum() and not _is_wide_character(name[start_pos]):
+        if not name[start_pos].isalnum() and not _is_wide_character(name[start_pos]) and name[start_pos] != "(":
             continue
         candidate = name[start_pos:end_pos].strip()
         normalized = suffix_key(candidate)
