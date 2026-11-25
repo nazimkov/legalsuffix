@@ -6,6 +6,7 @@ from legalsuffix import (
     parse_company_name,
     strip_legal_suffix,
 )
+from legalsuffix.matching import _is_end_boundary
 
 
 class MatchingTests(unittest.TestCase):
@@ -41,6 +42,38 @@ class MatchingTests(unittest.TestCase):
         assert match is not None
         self.assertEqual(match.suffix, "GmbH")
         self.assertEqual(company_name[match.start_pos : match.end_pos], "GmbH")
+
+    def test_leading_suffix_is_matched_before_company_name(self) -> None:
+        match = match_legal_suffix("GmbH Acme", country_code="DE")
+
+        self.assertIsNotNone(match)
+        assert match is not None
+        self.assertEqual(match.suffix, "GmbH")
+        self.assertEqual((match.start_pos, match.end_pos), (0, 4))
+
+    def test_leading_suffix_with_repeated_spaces_is_trimmed(self) -> None:
+        match = match_legal_suffix("G.m.b.H.  Acme", country_code="DE")
+
+        self.assertIsNotNone(match)
+        assert match is not None
+        self.assertEqual(match.suffix, "G.m.b.H.")
+
+    def test_interior_suffix_with_repeated_spaces_is_trimmed(self) -> None:
+        match = match_legal_suffix("Acme G.m.b.H.  Holdings", country_code="DE")
+
+        self.assertIsNotNone(match)
+        assert match is not None
+        self.assertEqual(match.suffix, "G.m.b.H.")
+
+    def test_name_with_only_separators_has_no_suffix(self) -> None:
+        match = match_legal_suffix("  ,  ")
+
+        self.assertIsNone(match)
+
+    def test_end_boundary_recognizes_separators_and_wide_characters(self) -> None:
+        self.assertTrue(_is_end_boundary("Acme GmbH", 4))
+        self.assertFalse(_is_end_boundary("Acme,GmbH", 5))
+        self.assertTrue(_is_end_boundary("会社", 1))
 
     def test_suffix_matches_without_spaces_between_wide_characters(self) -> None:
         company_name = "アクメ有限会社"
