@@ -90,6 +90,18 @@ class LoaderTests(unittest.TestCase):
             self.assertIn("gmbh", suffixes.all)
             self.assertIn("gesellschaft mit beschrankter haftung", suffixes.all)
             self.assertEqual(len(suffixes.by_normalized_suffix["gmbh"]), 1)
+            self.assertEqual(suffixes.prefix_trie.find("gmbh"), suffixes.by_normalized_suffix["gmbh"])
+            self.assertEqual(suffixes.suffix_trie.find("gmbh"), suffixes.by_normalized_suffix["gmbh"])
+            self.assertEqual(
+                suffixes.prefix_trie.find("gesellschaft mit beschrankter haftung"),
+                suffixes.by_normalized_suffix["gesellschaft mit beschrankter haftung"],
+            )
+            self.assertEqual(
+                suffixes.suffix_trie.find("gesellschaft mit beschrankter haftung"),
+                suffixes.by_normalized_suffix["gesellschaft mit beschrankter haftung"],
+            )
+            self.assertIsNone(suffixes.prefix_trie.find("gmb"))
+            self.assertIsNone(suffixes.suffix_trie.find("gmb"))
 
     def test_load_suffixes_rejects_row_without_country_code(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

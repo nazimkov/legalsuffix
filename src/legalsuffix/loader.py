@@ -3,7 +3,7 @@ from collections.abc import Sequence
 from functools import lru_cache
 
 from .constants import DATA_FILE_PATH
-from .models import LegalSuffix, LegalSuffixes
+from .models import LegalSuffix, LegalSuffixes, SuffixTrie
 from .parser import suffix_key
 from .validation import validate_country_code, validate_language_code
 
@@ -94,4 +94,15 @@ def _load_suffixes(country_code: str | None, language_code: str | None) -> Legal
             for suffix in suffixes:
                 by_normalized_suffix.setdefault(suffix, []).append(row)
 
-    return LegalSuffixes(by_normalized_suffix=by_normalized_suffix, records=records)
+    prefix_trie = SuffixTrie()
+    suffix_trie = SuffixTrie(reversed_keys=True)
+    for normalized_suffix, matching_records in by_normalized_suffix.items():
+        prefix_trie.add(normalized_suffix, matching_records)
+        suffix_trie.add(normalized_suffix, matching_records)
+
+    return LegalSuffixes(
+        by_normalized_suffix=by_normalized_suffix,
+        records=records,
+        prefix_trie=prefix_trie,
+        suffix_trie=suffix_trie,
+    )

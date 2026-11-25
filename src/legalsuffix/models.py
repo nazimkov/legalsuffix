@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass(frozen=True)
@@ -33,10 +35,46 @@ class LegalSuffix:
     abbreviations_transliterated: Sequence[str]
 
 
+@dataclass(slots=True)
+class SuffixTrieNode:
+    children: dict[str, SuffixTrieNode] = field(default_factory=dict)
+    records: Sequence[LegalSuffix] | None = None
+
+
+@dataclass(slots=True)
+class SuffixTrie:
+    """Character trie for normalized legal suffix keys."""
+
+    reversed_keys: bool = False
+    root: SuffixTrieNode = field(default_factory=SuffixTrieNode)
+
+    def add(self, key: str, records: Sequence[LegalSuffix]) -> None:
+        node = self.root
+        characters = reversed(key) if self.reversed_keys else key
+        for character in characters:
+            child = node.children.get(character)
+            if child is None:
+                child = SuffixTrieNode()
+                node.children[character] = child
+            node = child
+        node.records = records
+
+    def find(self, key: str) -> Sequence[LegalSuffix] | None:
+        node = self.root
+        characters = reversed(key) if self.reversed_keys else key
+        for character in characters:
+            node = node.children.get(character)
+            if node is None:
+                return None
+        return node.records
+
+
 @dataclass(frozen=True)
 class LegalSuffixes:
     by_normalized_suffix: Mapping[str, Sequence[LegalSuffix]]
     records: Sequence[LegalSuffix]
+    prefix_trie: SuffixTrie = field(repr=False, compare=False)
+    suffix_trie: SuffixTrie = field(repr=False, compare=False)
 
     @property
     def all(self) -> frozenset[str]:

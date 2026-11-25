@@ -18,7 +18,9 @@ def _find_suffix(
     # Ignore whitespace and trailing separator punctuation when locating the
     # suffix. A terminal period can be part of the suffix (for example Inc.),
     # but a period before a trailing comma or semicolon is punctuation.
-    end_pos = len(name.rstrip())
+    end_pos = len(name)
+    while end_pos and name[end_pos - 1].isspace():
+        end_pos -= 1
     had_trailing_separator = False
     while end_pos and name[end_pos - 1] in ",;:-":
         had_trailing_separator = True
@@ -26,16 +28,103 @@ def _find_suffix(
     if had_trailing_separator:
         while end_pos and name[end_pos - 1] == ".":
             end_pos -= 1
-    end_pos = len(name[:end_pos].rstrip())
+    while end_pos and name[end_pos - 1].isspace():
+        end_pos -= 1
     if end_pos == 0:
         return None
 
-    first_start = len(name[:end_pos]) - len(name[:end_pos].lstrip())
+    first_start = len(name) - len(name.lstrip())
+    segment = name[first_start:end_pos]
+    # For ASCII words separated by spaces, suffix_key's normalization can be
+    # streamed one word at a time. Other input uses the full normalization
+    # below, including punctuation and Unicode compatibility characters.
+    simple_words = segment.split() if segment.isascii() and segment.replace(" ", "").isalnum() else None
+    if simple_words:
+        node = suffixes.suffix_trie.root
+        best_start = None
+        best_records = None
+        cursor = end_pos
+        previous_short = False
+        for word_index, word in enumerate(reversed(simple_words)):
+            while cursor > first_start and name[cursor - 1] == " ":
+                cursor -= 1
+            cursor -= len(word)
+            short = len(word) <= 2
+            if word_index and not (short and previous_short):
+                child = node.children.get(" ")
+                if child is None:
+                    break
+                node = child
+            for character in reversed(word.lower()):
+                child = node.children.get(character)
+                if child is None:
+                    break
+                node = child
+            else:
+                if node.records:
+                    best_start = cursor
+                    best_records = node.records
+                previous_short = short
+                continue
+            break
+        if best_start is not None and best_records is not None:
+            candidate = name[best_start:end_pos]
+            return LegalSuffixMatch(
+                suffix=candidate,
+                normalized_suffix=suffix_key(candidate),
+                start_pos=best_start,
+                end_pos=end_pos,
+                records=list(best_records),
+            )
+
+        # Prefix candidates end at a space, and the original matcher retains
+        # the last boundary in a run of spaces when selecting the longest one.
+        node = suffixes.prefix_trie.root
+        best_end = None
+        best_records = None
+        cursor = first_start
+        previous_short = False
+        for word_index, word in enumerate(simple_words):
+            short = len(word) <= 2
+            if word_index and not (short and previous_short):
+                child = node.children.get(" ")
+                if child is None:
+                    break
+                node = child
+            for character in word.lower():
+                child = node.children.get(character)
+                if child is None:
+                    break
+                node = child
+            else:
+                cursor += len(word)
+                while cursor < end_pos and name[cursor] == " ":
+                    cursor += 1
+                if cursor < end_pos and node.records:
+                    best_end = cursor - 1
+                    best_records = node.records
+                previous_short = short
+                continue
+            break
+        if best_end is not None and best_records is not None:
+            candidate = name[first_start:best_end].rstrip()
+            return LegalSuffixMatch(
+                suffix=candidate,
+                normalized_suffix=suffix_key(candidate),
+                start_pos=first_start,
+                end_pos=best_end,
+                records=list(best_records),
+            )
+
     starts = [first_start] if first_start < end_pos else []
     for index in range(first_start + 1, end_pos):
         previous = name[index - 1]
         current = name[index]
-        if previous.isspace() or previous in ",;:-" or (_is_wide_character(previous) and _is_wide_character(current)):
+        if (
+            previous.isspace()
+            or previous in ",;:-"
+            or (not previous.isascii() and _is_wide_character(previous) and _is_wide_character(current))
+        ):
             starts.append(index)
 
     # First try suffixes ending at the end of the name. Some registries include
@@ -43,46 +132,57 @@ def _find_suffix(
     # elsewhere in the name when there is no trailing match.
     # Starts are in ascending order, so the first trailing match is the
     # longest one and outranks every match ending earlier in the name.
-    for start_pos in starts:
-        if not name[start_pos].isalnum() and not _is_wide_character(name[start_pos]) and name[start_pos] != "(":
-            continue
-        candidate = name[start_pos:end_pos].strip()
-        normalized = suffix_key(candidate)
-        records = suffixes.by_normalized_suffix.get(normalized)
-        if records:
-            return LegalSuffixMatch(
-                suffix=candidate,
-                normalized_suffix=normalized,
-                start_pos=start_pos,
-                end_pos=end_pos,
-                records=list(records),
-            )
+    if simple_words is None:
+        for start_pos in starts:
+            if not name[start_pos].isalnum() and not _is_wide_character(name[start_pos]) and name[start_pos] != "(":
+                continue
+            # Starts and end_pos are already trimmed to candidate boundaries.
+            candidate = name[start_pos:end_pos]
+            normalized = suffix_key(candidate)
+            records = suffixes.by_normalized_suffix.get(normalized)
+            if records:
+                return LegalSuffixMatch(
+                    suffix=candidate,
+                    normalized_suffix=normalized,
+                    start_pos=start_pos,
+                    end_pos=end_pos,
+                    records=list(records),
+                )
 
-    # A few registries put the legal form before the company name. Keep the
-    # longest matching leading span, just as trailing candidates take the
-    # longest span first.
-    prefix_match: LegalSuffixMatch | None = None
-    for candidate_end in range(first_start + 1, end_pos):
-        if not _is_end_boundary(name, candidate_end):
-            continue
-        candidate = name[first_start:candidate_end].strip()
-        normalized = suffix_key(candidate)
-        records = suffixes.by_normalized_suffix.get(normalized)
-        if records:
-            prefix_match = LegalSuffixMatch(
-                suffix=candidate,
-                normalized_suffix=normalized,
-                start_pos=first_start,
-                end_pos=candidate_end,
-                records=list(records),
-            )
-    if prefix_match is not None:
-        return prefix_match
+    # Reuse end boundaries for leading and interior spans. ASCII characters
+    # cannot be wide, so avoid Unicode width lookups for the common case.
+    end_boundaries = []
+    for position in range(first_start + 1, end_pos):
+        previous = name[position - 1]
+        current = name[position]
+        if previous not in ",;:-" and (
+            current.isspace()
+            or current in ",;:-"
+            or (not previous.isascii() and _is_wide_character(previous) and _is_wide_character(current))
+        ):
+            end_boundaries.append(position)
+
+    # A few registries put the legal form before the company name. Try the
+    # longest leading span first, as for trailing candidates.
+    if simple_words is None:
+        for candidate_end in reversed(end_boundaries):
+            candidate = name[first_start:candidate_end]
+            if candidate[-1].isspace():
+                candidate = candidate.rstrip()
+            normalized = suffix_key(candidate)
+            records = suffixes.by_normalized_suffix.get(normalized)
+            if records:
+                return LegalSuffixMatch(
+                    suffix=candidate,
+                    normalized_suffix=normalized,
+                    start_pos=first_start,
+                    end_pos=candidate_end,
+                    records=list(records),
+                )
 
     # Interior candidates cannot start at the first non-whitespace character.
-    # Compute boundaries once, then retain the longest match, breaking ties in
-    # favor of the later start, as for the original candidate ordering.
-    end_boundaries = [position for position in range(first_start + 1, end_pos) if _is_end_boundary(name, position)]
+    # Retain the longest match, breaking ties in favor of the later start, as
+    # for the original candidate ordering.
     best: LegalSuffixMatch | None = None
     best_length = 0
     for start_pos in starts:
@@ -92,7 +192,9 @@ def _find_suffix(
             candidate_length = candidate_end - start_pos
             if candidate_length <= 0 or candidate_length < best_length:
                 break
-            candidate = name[start_pos:candidate_end].strip()
+            candidate = name[start_pos:candidate_end]
+            if candidate[-1].isspace():
+                candidate = candidate.rstrip()
             normalized = suffix_key(candidate)
             records = suffixes.by_normalized_suffix.get(normalized)
             if records:
