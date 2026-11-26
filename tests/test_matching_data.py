@@ -46,6 +46,18 @@ def _parse_test(path):
 
                 self.assertEqual(parsed.name, case.clean_entity)
                 self.assertEqual(parsed.suffix.suffix if parsed.suffix else None, case.suffix)
+                if case.suffix is not None:
+                    assert parsed.suffix is not None
+                    if path.stem.startswith("prefix-"):
+                        expected_start_pos = 0
+                    elif path.stem.startswith(("middle-", "suffix-")):
+                        expected_start_pos = case.entity_name.rindex(case.suffix)
+                    else:
+                        expected_start_pos = case.entity_name.index(case.suffix)
+                    expected_end_pos = expected_start_pos + len(case.suffix)
+
+                    self.assertEqual(parsed.suffix.start_pos, expected_start_pos)
+                    self.assertEqual(parsed.suffix.end_pos, expected_end_pos)
 
     return test
 
