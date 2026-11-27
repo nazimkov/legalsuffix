@@ -32,11 +32,13 @@ OUTPUT_COLUMNS = [
 DEFAULT_COUNTRY_COUNT = 20
 DEFAULT_CODES_PER_COUNTRY = 3
 DEFAULT_SEED = 20261109
+COMMON_SUFFIX_LIMIT = 10
+MIN_COMMON_SUFFIX_CASES = 3
 
 # Allow running the script directly from the repository without installing the package.
 sys.path.insert(0, str(ROOT / "src"))
 
-from legalsuffix import list_legal_suffixes, match_legal_suffix  # noqa: E402
+from legalsuffix import list_legal_suffixes, match_legal_suffix, normalize_legal_suffix  # noqa: E402
 
 
 def _read_used_leis(test_cases_path: Path) -> set[str]:
@@ -72,6 +74,19 @@ def _read_sampled_code_counts(test_cases_path: Path) -> Counter[str]:
                 elf_code = (row.get("elf_code") or "").strip()
                 if elf_code:
                     counts[elf_code] += 1
+    return counts
+
+
+def _read_sampled_suffix_counts(test_cases_path: Path) -> Counter[str]:
+    """Count normalized suffixes confirmed by existing test cases."""
+    paths = [test_cases_path] if test_cases_path.is_file() else sorted(test_cases_path.glob("*.csv"))
+    counts: Counter[str] = Counter()
+    for path in paths:
+        with path.open(encoding="utf-8-sig", newline="") as source:
+            for row in csv.DictReader(source):
+                suffix = normalize_legal_suffix(row.get("suffix") or "")
+                if suffix:
+                    counts[suffix] += 1
     return counts
 
 
@@ -131,15 +146,14 @@ def _country_codes_and_elf_codes(
     return country_codes
 
 
-def _select_codes(
+def _rank_codes(
     code_counts: Counter[str],
     address_country_counts: Counter[tuple[str, str]],
     country_codes: dict[str, set[str]],
     sampled_code_counts: Counter[str],
     country_count: int,
-    codes_per_country: int,
 ) -> list[tuple[str, str]]:
-    """Choose common countries, prioritizing ELF codes with less existing coverage."""
+    """Rank available ELF codes for each selected country by existing coverage."""
     country_counts = {
         country_code: sum(
             address_country_counts[(country_code, elf_code)]
@@ -170,8 +184,16 @@ def _select_codes(
                 code,
             ),
         )
-        selected.extend((country_code, code) for code in matching_codes[:codes_per_country])
+        selected.extend((country_code, code) for code in matching_codes)
     return selected
+
+
+def _contains_common_suffix(entity_name: str, common_suffixes: set[str]) -> bool:
+    for name in entity_name.split(";"):
+        match = match_legal_suffix(name.strip())
+        if match is not None and match.normalized_suffix in common_suffixes:
+            return True
+    return False
 
 
 def _sample_entity_names(
@@ -179,11 +201,12 @@ def _sample_entity_names(
     selected_pairs: list[tuple[str, str]],
     seed: int,
     excluded_leis: set[str],
+    common_suffixes: set[str],
 ) -> dict[tuple[str, str], tuple[str, str, str]]:
-    """Reservoir-sample an entity name and address country for each selected pair."""
+    """Sample an eligible entity name uniformly for each country and ELF code."""
     rng = random.Random(seed)
     samples: dict[tuple[str, str], tuple[str, str, str]] = {}
-    seen: Counter[tuple[str, str]] = Counter()
+    best_priorities: dict[tuple[str, str], float] = {}
     selected_by_code: dict[str, list[tuple[str, str]]] = {}
     for pair in selected_pairs:
         selected_by_code.setdefault(pair[1], []).append(pair)
@@ -198,14 +221,24 @@ def _sample_entity_names(
             if not entity_name or code not in selected_by_code or lei in excluded_leis:
                 continue
 
-            for country_code, _ in selected_by_code[code]:
+            contains_common_suffix = None
+            for pair in selected_by_code[code]:
+                country_code, _ = pair
                 if code in ADDRESS_COUNTRY_CODES and address_country != country_code:
                     continue
 
-                pair = (country_code, code)
-                seen[pair] += 1
-                if rng.randrange(seen[pair]) == 0:
-                    samples[pair] = (entity_name, address_country, lei)
+                # Only match names with a chance of replacing the current sample.
+                priority = rng.random()
+                if priority >= best_priorities.get(pair, 1.0):
+                    continue
+                if contains_common_suffix is None:
+                    contains_common_suffix = bool(common_suffixes) and _contains_common_suffix(
+                        entity_name, common_suffixes
+                    )
+                if contains_common_suffix:
+                    break
+                best_priorities[pair] = priority
+                samples[pair] = (entity_name, address_country, lei)
     return samples
 
 
@@ -250,20 +283,30 @@ def sample_test_cases(
     excluded_leis = _read_used_leis(used_cases_path) | _read_used_leis(uncertain_cases_path)
     sampled_code_counts = _read_sampled_code_counts(used_cases_path)
     sampled_code_counts.update(_read_sampled_code_counts(uncertain_cases_path))
+    sampled_suffix_counts = _read_sampled_suffix_counts(used_cases_path)
+    common_suffixes = {
+        suffix
+        for suffix, count in sorted(sampled_suffix_counts.items(), key=lambda item: (-item[1], item[0]))[
+            :COMMON_SUFFIX_LIMIT
+        ]
+        if count >= MIN_COMMON_SUFFIX_CASES
+    }
     code_counts = _read_counts(input_path, excluded_leis)
     address_country_counts = _read_address_country_counts(input_path, excluded_leis)
-    selected_pairs = _select_codes(
+    ranked_pairs = _rank_codes(
         code_counts,
         address_country_counts,
         _country_codes_and_elf_codes(address_country_counts),
         sampled_code_counts,
         country_count,
-        codes_per_country,
     )
-    entity_samples = _sample_entity_names(input_path, selected_pairs, seed, excluded_leis)
+    entity_samples = _sample_entity_names(input_path, ranked_pairs, seed, excluded_leis, common_suffixes)
 
     cases: list[dict[str, str | None]] = []
-    for country_code, elf_code in selected_pairs:
+    sampled_country_counts: Counter[str] = Counter()
+    for country_code, elf_code in ranked_pairs:
+        if sampled_country_counts[country_code] >= codes_per_country:
+            continue
         sample = entity_samples.get((country_code, elf_code))
         if sample is None:
             continue
@@ -284,6 +327,7 @@ def sample_test_cases(
                     "lei": lei,
                 }
             )
+        sampled_country_counts[country_code] += 1
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8", newline="") as output:
