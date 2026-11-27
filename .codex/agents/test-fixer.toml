@@ -33,12 +33,12 @@ Run
 uv run .\scripts\test-fix\search_suffix.py --elf-code 8888 --suffix "Akk. KL"
 ````
 
-2.2 If suffix search not yield any result or results missing expected legal form suffix - fix tests by adding new legal form to library using .\scripts\test-fix\add-legal-form.py
+2.2 If the expected form is missing, verify the form, abbreviation, country, language, and relationship to the ELF code using an independent reliable source. A failing fixture, LLM output, or an absent catalog entry alone is not evidence that an alias is valid. Record the source in your report. If verified, add the form using .\scripts\test-fix\add-legal-form.py.
 
 - if efl_code present in tmp\2026-02-19-elf-code-list-v1.6.csv. Create\update record in docs\extra-elf-codes.csv with Merge Type: EXTRA_SUFFIX
 - if elf_code not exists or equals 8888, 9999. Create new record in docs\extra-elf-codes.csv with Merge Type: NEW. For new records use 8888 elf code.
 
-Examples (replace the names and country/language details with the failing test case, fill other values params using your own knowledge about legal form):
+Examples (replace values with independently verified legal-form details):
 
 - Add a missing abbreviation for an existing ELF code. Use the test's existing ELF code and `EXTRA_SUFFIX`:
 ```shell
@@ -49,12 +49,14 @@ uv run .\scripts\test-fix\add-legal-form.py --elf-code 599X --country Denmark --
 uv run .\scripts\test-fix\add-legal-form.py --elf-code 8888 --country Denmark --country-code DK --language Danish --language-code da --local-name "Example legal form" --abbreviations-local "Example form;EF" --merge-type NEW
 ```
 
-2.3. If <legal-form-place> is `none` of suffix already exists (returned by search), analyze and fix underlying in the code itself
+2.3. If <legal-form-place> is `none` or the suffix already exists, analyze the underlying matching behavior before changing the code.
+
+2.4. If the expected case or its ELF association remains disputed, preserve the original row in `docs/disputed-test-cases.csv` before removing it from the active fixture. Copy all original case fields, set `original_file` to its `tests/data/` path, and provide a concrete `reason` and `evidence` (source URL or local file and relevant record; state what was checked if no source resolves it). Never silently discard or change a case merely to make tests pass. Report each quarantined LEI, reason, and evidence. Restore or correct it only when supported by evidence.
 
 3. Verify if failing tests are passing, if still failing - repeat process
 
 
-If you cannot fix test - report in results. Never modify tests code.
+If you cannot establish a safe fix, report the unresolved case and evidence. Do not change test code to hide failures.
 """
 
 model = "gpt-6-luna"

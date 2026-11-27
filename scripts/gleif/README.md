@@ -16,7 +16,9 @@ Reads a GLEIF CSV and writes LEI, entity name, legal form code, and country for 
 uv run python scripts/gleif/sample-test-cases.py tmp/legal-forms.csv tmp/test-data/sampled-test-cases.csv --countries 20 --codes-per-country 3 --seed 42
 ```
 
-Selects a reproducible sample from common country and ELF-code combinations, prioritizing codes with fewer existing cases in `tests/data/` and the uncertain-cases file. It skips LEIs already in those locations. Defaults to 20 countries and 3 codes per country; the input and output paths also have defaults.
+Selects a reproducible sample from common country and ELF-code combinations, prioritizing codes with fewer existing cases in `tests/data/` and the uncertain-cases file. It skips LEIs already in those locations or in `docs/disputed-test-cases.csv`, and filters frequently covered suffixes. Defaults to 20 countries and 3 codes per country; the input and output paths also have defaults.
+
+Disputed cases are kept in the tracked `docs/disputed-test-cases.csv`, with their original fixture path, reason, and supporting evidence. Review and restore or correct them when the dispute is resolved.
 
 ## Extract suffixes with the LLM
 

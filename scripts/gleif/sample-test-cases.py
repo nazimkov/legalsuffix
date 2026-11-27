@@ -15,6 +15,7 @@ DEFAULT_INPUT = ROOT / "tmp" / "20261109-0800-gleif-legal-forms.csv"
 DEFAULT_OUTPUT = ROOT / "tmp" / "test-data" / "sampled-test-cases.csv"
 DEFAULT_USED_CASES = ROOT / "tests" / "data"
 DEFAULT_UNCERTAIN_CASES = ROOT / "tmp" / "test-data" / "uncertain-cases.csv"
+DEFAULT_DISPUTED_CASES = ROOT / "docs" / "disputed-test-cases.csv"
 LEI_COLUMN = "LEI"
 NAME_COLUMN = "Entity.LegalName"
 CODE_COLUMN = "Entity.LegalForm.EntityLegalFormCode"
@@ -273,6 +274,7 @@ def sample_test_cases(
     seed: int = DEFAULT_SEED,
     used_cases_path: Path = DEFAULT_USED_CASES,
     uncertain_cases_path: Path = DEFAULT_UNCERTAIN_CASES,
+    disputed_cases_path: Path = DEFAULT_DISPUTED_CASES,
 ) -> list[dict[str, str | None]]:
     """Write reproducible CSV test cases and return the generated records."""
     if country_count < 1:
@@ -280,7 +282,9 @@ def sample_test_cases(
     if codes_per_country < 1:
         raise ValueError("codes_per_country must be at least 1")
 
-    excluded_leis = _read_used_leis(used_cases_path) | _read_used_leis(uncertain_cases_path)
+    excluded_leis = (
+        _read_used_leis(used_cases_path) | _read_used_leis(uncertain_cases_path) | _read_used_leis(disputed_cases_path)
+    )
     sampled_code_counts = _read_sampled_code_counts(used_cases_path)
     sampled_code_counts.update(_read_sampled_code_counts(uncertain_cases_path))
     sampled_suffix_counts = _read_sampled_suffix_counts(used_cases_path)
@@ -347,6 +351,7 @@ def main() -> None:
     parser.add_argument("output", nargs="?", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--used-cases", type=Path, default=DEFAULT_USED_CASES)
     parser.add_argument("--uncertain-cases", type=Path, default=DEFAULT_UNCERTAIN_CASES)
+    parser.add_argument("--disputed-cases", type=Path, default=DEFAULT_DISPUTED_CASES)
     parser.add_argument("--countries", type=int, default=DEFAULT_COUNTRY_COUNT)
     parser.add_argument("--codes-per-country", type=int, default=DEFAULT_CODES_PER_COUNTRY)
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
@@ -360,6 +365,7 @@ def main() -> None:
         args.seed,
         args.used_cases,
         args.uncertain_cases,
+        args.disputed_cases,
     )
     print(f"wrote {len(cases)} test cases to {args.output}", file=sys.stderr)
 
